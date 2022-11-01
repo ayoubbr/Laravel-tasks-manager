@@ -1,9 +1,11 @@
 @extends('home')
 
 @section('content')
-    <div style="padding: 30px 80px">
+<div class="card">
+
+    <div class="p-20">
         <header class="text-center">
-            <h2 class="text-2xl font-bold uppercase mb-1">Create a Task</h2>
+            <h2 class="text-2xl font-bold uppercase  mb-4">Create a Task</h2>
         </header>
         <form method="POST" action="/tasks" enctype="multipart/form-data">
             @csrf
@@ -71,4 +73,5 @@
                 </div>
         </form>
     </div>
+</div>
 @endsection

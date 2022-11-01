@@ -418,20 +418,24 @@
             <h3 class="p-relative txt-c mt-0">Task MNG</h3>
             <ul>
                 <li>
-                    <a class="active d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks">
+                    <a class="d-flex align-center fs-14 c-black rad-6 p-10 
+                    {{ 'tasks' == request()->path() ? 'active' : '' }}"
+                        href="/tasks">
                         <i class="fa-regular fa-chart-bar fa-fw"></i>
                         <span>Tasks</span>
                     </a>
                 </li>
                 @auth
                     <li>
-                        <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks/manage">
+                        <a class="d-flex align-center fs-14 c-black rad-6 p-10
+                        {{ 'tasks/manage' == request()->path() ? 'active' : '' }}" href="/tasks/manage">
                             <i class="fa-solid fa-gear fa-fw"></i>
                             <span>Manage Tasks</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks/create">
+                        <a class="d-flex align-center fs-14 c-black rad-6 p-10
+                        {{ 'tasks/create' == request()->path() ? 'active' : '' }}" href="/tasks/create">
                             {{-- <i class="fa-regular fa-user fa-fw"></i> --}}
                             <i class="fa-solid fa-folder-plus"></i>
                             <span>Add Task</span>

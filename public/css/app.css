@@ -1151,6 +1151,16 @@ ul {
 }
 
 /* End Plans Page */
+
+/* start Card */
+.card {
+    padding: 10px 15px;
+    background-color: #eee;
+    margin: 20px auto;
+    border-radius: 6px;
+    max-width: 850px;
+}
+/* end Card */
 /* Start Animation */
 @keyframes change-color {
     from {
