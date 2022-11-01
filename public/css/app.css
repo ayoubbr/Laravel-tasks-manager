@@ -61,7 +61,7 @@ ul {
     bottom: -20px;
 }
 .sidebar > h3::after {
-    bottom: -29px;
+    bottom: -25.3px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -104,7 +104,7 @@ ul {
 .head .search-icon {
     font-weight: 900;
     position: absolute;
-    left: 15px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 15px;
