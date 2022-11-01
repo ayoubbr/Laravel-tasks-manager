@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="projects p-20 bg-white rad-10 m-20">
-        <h2 class="mt-0 mb-20">Table</h2>
+    <div class="projects p-20 bg-white rad-10 m-10">
+        <h2 class="mt-0 mb-5">Table</h2>
         <div class="responsive-table">
             <table class="fs-15 w-full">
                 <thead>
@@ -12,7 +12,6 @@
                         <td>Type</td>
                         <td>Comments</td>
                         <td>Uploads</td>
-                        {{-- <td>Team</td> --}}
                         <td>Status</td>
                     </tr>
                 </thead>
@@ -42,6 +41,7 @@
                                         </span>
                                     </a>
                                 </td>
+
                             </tr>
                         @endforeach
                     @else
@@ -51,6 +51,10 @@
 
                 </tbody>
             </table>
+        </div>
+
+        <div class="mt-5">
+            {{ $tasks->links() }}
         </div>
     </div>
 @endsection

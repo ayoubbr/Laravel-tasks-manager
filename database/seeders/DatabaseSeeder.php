@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Task;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,8 +16,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        Task::factory(25)->create();
+        $user = User::factory()->create(
+            [
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'password' => 'admin',
+            ]
+        );
+        Task::factory(10)->create(
+            [
+                'user_id' => $user->id
+            ]
+        );
     }
 }

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'logo'
     ];
 
     /**
@@ -41,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // relationship with Tasks
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'user_id');
+    }
 }
+    

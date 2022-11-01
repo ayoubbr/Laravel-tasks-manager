@@ -13,6 +13,7 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="//unpkg.com/alpinejs" defer></script>
     <!-- Styles -->
     <style>
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -417,24 +418,27 @@
             <h3 class="p-relative txt-c mt-0">Task MNG</h3>
             <ul>
                 <li>
-                    <a class="active d-flex align-center fs-14 c-black rad-6 p-10" href="/">
+                    <a class="active d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks">
                         <i class="fa-regular fa-chart-bar fa-fw"></i>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks">
-                        <i class="fa-solid fa-gear fa-fw"></i>
                         <span>Tasks</span>
                     </a>
                 </li>
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks/create">
-                        {{-- <i class="fa-regular fa-user fa-fw"></i> --}}
-                        <i class="fa-solid fa-folder-plus"></i>
-                        <span>Add Task</span>
-                    </a>
-                </li>
+                @auth
+                    <li>
+                        <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks/manage">
+                            <i class="fa-solid fa-gear fa-fw"></i>
+                            <span>Manage Tasks</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="/tasks/create">
+                            {{-- <i class="fa-regular fa-user fa-fw"></i> --}}
+                            <i class="fa-solid fa-folder-plus"></i>
+                            <span>Add Task</span>
+                        </a>
+                    </li>
+                @endauth
+
                 {{-- <li>
                     <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="projects.html">
                         <i class="fa-solid fa-diagram-project fa-fw"></i>
@@ -484,15 +488,29 @@
 
                 </div>
                 <div class="icons d-flex align-center">
-                    {{-- <span class="notification p-relative">
-                        <i class="fa-regular fa-bell fa-lg"></i>
-                    </span>
-                    <img src="imgs/avatar.png" alt="" /> --}}
+                    @auth
+                        <img class="mr-2"
+                            src="{{ auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}"
+                            alt="" />
+                        <form action="/" method="post">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    @else
+                        <a href="/register">
+                            <span class=" p-relative mr-5">
+                                Register
+                            </span>
+                        </a>
+                        <a href="/login">
+                            <span class=" p-relative">
+                                Login
+                            </span>
+                        </a>
+                    @endauth
                 </div>
             </div>
             <!-- End Head -->
-            <h1 class="p-relative">Dashboard</h1>
-
             <!-- Start Tasks Table -->
             @yield('content')
             <!-- End Tasks Table -->
@@ -501,7 +519,7 @@
 
     </div>
 
-
+    <x-flash-message />
 
 </body>
 
