@@ -29,17 +29,18 @@ class Task extends Model
     }
 
     // relationship with user
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
-     // relationship with comments
-    //  public function comments()
-    //  {
-    //      return $this->hasMany(Comment::class, 'task_id');
-    //  }
+    // relationship with comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'task_id');
+    }
 
-     public function images()
-     {
-         return $this->hasMany(Image::class);
-     }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

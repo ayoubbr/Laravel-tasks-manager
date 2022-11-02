@@ -9,8 +9,5 @@ class Comment extends Model
 {
     use HasFactory;
 
-     // relationship with task
-    //  public function task(){
-    //     return $this->belongsTo(Task::class, 'task_id');
-    // }
+    protected $guarded = [];
 }

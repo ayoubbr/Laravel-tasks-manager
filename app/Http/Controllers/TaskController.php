@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -36,8 +37,9 @@ class TaskController extends Controller
         if (!$task) abort(404);
 
         $images = $task->images;
+        $comments = $task->comments;
         // dd($images);
-        return view('tasks.images', compact('task', 'images'));
+        return view('tasks.images', compact('task', 'images', 'comments'));
     }
 
     public function create()
@@ -71,6 +73,12 @@ class TaskController extends Controller
                     'image' => $imageName
                 ]);
             }
+        }
+        if ($new_task->type == 'Normal') {
+            Comment::create([
+                'task_id' => $new_task->id,
+                'description' => 'This is a Normal Task!'
+            ]);
         }
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
@@ -114,11 +122,11 @@ class TaskController extends Controller
         return view(
             'tasks.manage',
             [
-                
+
                 'tasks' => auth()->user()->tasks()->latest()
-                ->filter(request(['type', 'search']))
-                ->filter(request(['status']))
-                ->paginate(3)
+                    ->filter(request(['type', 'search']))
+                    ->filter(request(['status']))
+                    ->paginate(3)
             ]
         );
     }
