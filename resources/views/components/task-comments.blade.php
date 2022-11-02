@@ -1,4 +1,4 @@
-@props(['commentsCsv'])
+{{-- @props(['commentsCsv'])
 @php
     $comments = explode(',', $commentsCsv);
 @endphp
@@ -7,4 +7,4 @@
     @foreach ($comments as $comment)
     <li>-{{ $comment }}</li>
     @endforeach
-</ul>
+</ul> --}}

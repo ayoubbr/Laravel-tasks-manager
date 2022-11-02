@@ -23,7 +23,6 @@ class Task extends Model
 
         if ($filters['search'] ?? false) {
             $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('comments', 'like', '%' . request('search') . '%')
                 ->orWhere('type', 'like', '%' . request('search') . '%')
                 ->orWhere('status', 'like', '%' . request('search') . '%');
         }
@@ -33,4 +32,14 @@ class Task extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
+     // relationship with comments
+    //  public function comments()
+    //  {
+    //      return $this->hasMany(Comment::class, 'task_id');
+    //  }
+
+     public function images()
+     {
+         return $this->hasMany(Image::class);
+     }
 }

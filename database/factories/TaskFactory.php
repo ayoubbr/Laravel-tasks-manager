@@ -20,9 +20,7 @@ class TaskFactory extends Factory
             'title' => $this->faker->word(),
             'type' => $this->faker->randomElement(['Matser', 'Normal']),
             'status' => $this->faker->randomElement(['to dispatch', 'to validate', 'open', 'completed']),
-            'comments' => 'hnjnsbdjbs dasdsa asdasd, knmknmkns bnas bnbsa, hjjnjs nbjnbnws',
             'uploads' => $this->faker->randomDigit(),
-            // 'user' => $this->faker->word(),
         ];
     }
 }

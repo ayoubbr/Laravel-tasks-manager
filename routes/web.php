@@ -21,6 +21,8 @@ Route::get('/', function () {
 });
 Route::get('/tasks', [TaskController::class, 'index']);
 
+Route::get('/tasks/task-images/{id}', [TaskController::class, 'images'])->name('task.images');
+
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 
 Route::get('/tasks/manage', [TaskController::class, 'manage'])->middleware('auth');
@@ -43,4 +45,4 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 
 Route::post('/users/authenticate', [UserController::class, 'authenticate'])->middleware('guest');
 
-Route::get('/tasks/{task}', [TaskController::class, 'show']);
+// Route::get('/tasks/{task}', [TaskController::class, 'show']);

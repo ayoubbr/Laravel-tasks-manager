@@ -1154,13 +1154,20 @@ ul {
 
 /* start Card */
 .card {
-    padding: 10px 15px;
+    padding: 45px 15px;
     background-color: #eee;
-    margin: 20px auto;
+    margin: 30px auto;
     border-radius: 6px;
-    max-width: 850px;
+    max-width: 950px;
 }
-/* end Card */
+
+.flex-center {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+} /* end Card */
 /* Start Animation */
 @keyframes change-color {
     from {

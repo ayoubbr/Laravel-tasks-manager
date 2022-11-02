@@ -1,7 +1,8 @@
-@extends('home')
+ @extends('home')
 
 @section('content')
-    <div class="card">
+<h2>Edit Page</h2>
+{{--    <div class="card">
 
         <div style="padding: 30px 80px">
             <header class="text-center">
@@ -52,17 +53,7 @@
                         @enderror
                     </div>
 
-                    <div class="mb-6">
-                        <label for="comments" class="inline-block text-lg mb-2">
-                            Comments
-                        </label>
-                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="comments"
-                            value="{{ $task->comments }}" />
-
-                        @error('comments')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    
                 </div>
                 <div class="grid grid grid-cols-2 gap-4">
                     <div class="mb-6">
@@ -75,4 +66,5 @@
             </form>
         </div>
     </div>
-@endsection
+    --}}
+@endsection 

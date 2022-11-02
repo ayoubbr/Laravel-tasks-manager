@@ -10,10 +10,10 @@
                     <tr>
                         <td>Title</td>
                         <td>Type</td>
-                        <td>Comments</td>
+                        {{-- <td>Comments</td> --}}
                         <td>Uploads</td>
-                        {{-- <td>Team</td> --}}
                         <td>Status</td>
+                        <td>Images</td>
                         <td>Actions</td>
                     </tr>
                 </thead>
@@ -22,25 +22,39 @@
                     @unless($tasks->isEmpty())
                         @foreach ($tasks as $task)
                             <tr>
-                                <td> <a href="/tasks/{{ $task['id'] }}">
-                                        {{ $task['title'] }}
-                                    </a></td>
+                                <td>
+                                    {{ $task['title'] }}
+                                </td>
 
                                 <td>
                                     <a href="/tasks/?type={{ $task->type }}">
                                         {{ $task['type'] }}</a>
 
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <x-task-comments :commentsCsv="$task->comments" />
 
-                                </td>
+                                </td> --}}
                                 <td>{{ $task['uploads'] }}</td>
                                 <td>
                                     <a href="/tasks/?status={{ $task->status }}">
-                                        <span class="label btn-shape bg-orange c-white">
+                                        <span @class([
+                                            'label',
+                                            'btn-shape',
+                                            ' c-white',
+                                            'bg-orange' => $task->status == 'To Validate',
+                                            'bg-green' => $task->status == 'Open',
+                                            'bg-red' => $task->status == 'To Dispatch',
+                                            'bg-blue' => $task->status == 'Completed',
+                                        ])>
                                             {{ $task['status'] }}
                                         </span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('task.images', $task->id) }}"
+                                        class="bg-sky-400 py-2 px-4 rounded-md hover:bg-sky-500">
+                                        View Images
                                     </a>
                                 </td>
                                 <td>
@@ -65,9 +79,7 @@
                             </tr>
                         @endforeach
                     @else
-                        
-                            <p class="text-zinc-900 bg-zinc-200 p-10 mb-5 rounded-md">No tasks found</p>
-                        
+                        <p class="text-zinc-900 bg-zinc-200 p-10 mb-5 rounded-md">No tasks found</p>
                     @endunless
 
 
