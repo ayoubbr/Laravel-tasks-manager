@@ -63,7 +63,6 @@ class TaskController extends Controller
                 'type' => 'required',
                 'status' => 'required ',
                 'uploads' => 'required',
-                'userAffectedTo' => 'required'
             ]
         );
 
@@ -89,6 +88,7 @@ class TaskController extends Controller
                 'description' => 'This is a Normal Task!'
             ]);
             if ($new_task->status == 'To Dispatch') {
+                $formFields['userAffectedTo'] = $new_task->userAffectedTo;
                 Comment::create([
                     'task_id' => $new_task->id,
                     'description' => 'This is a Normal task has a status of To Dispatch!'
