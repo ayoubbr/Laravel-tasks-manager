@@ -114,8 +114,11 @@ class TaskController extends Controller
         return view(
             'tasks.manage',
             [
-                'tasks' =>
-                auth()->user()->tasks()->paginate(6)
+                
+                'tasks' => auth()->user()->tasks()->latest()
+                ->filter(request(['type', 'search']))
+                ->filter(request(['status']))
+                ->paginate(3)
             ]
         );
     }

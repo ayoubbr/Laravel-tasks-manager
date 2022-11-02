@@ -481,7 +481,7 @@
             <!-- Start Head -->
             <div class="head bg-white p-15 between-flex">
                 <div class="search p-relative">
-                    <form action="/tasks">
+                    <form action="">
                         <input class="p-10" type="text" name="search" placeholder="Type A Keyword" />
 
 
