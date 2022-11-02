@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
@@ -44,26 +45,34 @@ class TaskController extends Controller
 
     public function create()
     {
-        return view('tasks.create');
+
+        return view(
+            'tasks.create',
+            [
+                'users' => User::get()
+            ]
+        );
     }
 
     public function store(Request $request)
     {
-        $formFields = $request->validate([
-            'title' => ['required',],
-            'type' => 'required',
-            'status' => 'required ',
-            'uploads' => 'required',
-        ]);
+        $formFields = $request->validate(
+            [
+
+                'title' => ['required',],
+                'type' => 'required',
+                'status' => 'required ',
+                'uploads' => 'required',
+                'userAffectedTo' => 'required'
+            ]
+        );
 
         // if ($request->hasFile('image')) {
         //     $formFields['image'] = $request->file('image')->store('images/task-images', 'public');
         // }
-
         $formFields['user_id'] = auth()->id();
-
-
         $new_task = Task::create($formFields);
+
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
                 $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
@@ -79,7 +88,14 @@ class TaskController extends Controller
                 'task_id' => $new_task->id,
                 'description' => 'This is a Normal Task!'
             ]);
+            if ($new_task->status == 'To Dispatch') {
+                Comment::create([
+                    'task_id' => $new_task->id,
+                    'description' => 'This is a Normal task has a status of To Dispatch!'
+                ]);
+            }
         }
+
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
     }
@@ -122,7 +138,6 @@ class TaskController extends Controller
         return view(
             'tasks.manage',
             [
-
                 'tasks' => auth()->user()->tasks()->latest()
                     ->filter(request(['type', 'search']))
                     ->filter(request(['status']))

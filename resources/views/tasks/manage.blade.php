@@ -42,6 +42,7 @@
                                             'label',
                                             'btn-shape',
                                             ' c-white',
+                                            'py-2',
                                             'bg-orange' => $task->status == 'To Validate',
                                             'bg-green' => $task->status == 'Open',
                                             'bg-red' => $task->status == 'To Dispatch',
@@ -59,7 +60,7 @@
                                 </td>
                                 <td>
                                     <a href="/tasks/{{ $task->id }}/edit">
-                                        <span class="label btn-shape bg-blue c-white">
+                                        <span class="label btn-shape py-2 bg-blue c-white">
                                             <i class="fa-solid fa-pencil"></i>
                                             Edit
                                         </span>
@@ -67,7 +68,7 @@
                                     <form action="/tasks/{{ $task->id }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <span class="label btn-shape bg-red c-white">
+                                        <span class="label btn-shape py-2 bg-red c-white">
                                             <button type="submit">
                                                 <i class="fa-solid fa-trash"></i>
                                                 Delete

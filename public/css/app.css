@@ -497,6 +497,11 @@ ul {
     border-left: 1px solid #eee;
     transition: 0.3s;
 }
+.projects tbody td:last-child {
+    display: flex;
+    gap: 20px;
+}
+
 .projects table tbody tr td:last-child {
     border-right: 1px solid #eee;
 }

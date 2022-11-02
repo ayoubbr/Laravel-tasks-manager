@@ -40,7 +40,8 @@
                                         <span @class([
                                             'label',
                                             'btn-shape',
-                                            ' c-white',
+                                            'c-white',
+                                            'py-2',
                                             'bg-orange' => $task->status == 'To Validate',
                                             'bg-green' => $task->status == 'Open',
                                             'bg-red' => $task->status == 'To Dispatch',
