@@ -9,8 +9,6 @@ class Task extends Model
 {
     use HasFactory;
 
-    // protected $fillable = ['title', 'type', 'status', 'uploads', 'comments'];
-
     public function scopeFilter($query, array $filters)
     {
         if ($filters['type'] ?? false) {
@@ -27,7 +25,6 @@ class Task extends Model
                 ->orWhere('status', 'like', '%' . request('search') . '%');
         }
     }
-
     // relationship with user
     public function user()
     {

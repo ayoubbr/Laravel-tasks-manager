@@ -44,5 +44,3 @@ Route::post('/', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
 Route::post('/users/authenticate', [UserController::class, 'authenticate'])->middleware('guest');
-
-// Route::get('/tasks/{task}', [TaskController::class, 'show']);

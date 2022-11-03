@@ -13,7 +13,6 @@ class UserController extends Controller
         return view('users.register');
     }
     public function store(Request $request)
-
     {
         $formFields = $request->validate([
             'name' => ['required', 'min:4'],
@@ -36,7 +35,6 @@ class UserController extends Controller
 
         return redirect('/')->with('message', 'User created and logged in');
     }
-
     // Logout User
     public function logout(Request $request)
     {
@@ -47,13 +45,11 @@ class UserController extends Controller
 
         return redirect('/')->with('message', 'You have been logged out!');
     }
-
     // Show Login Form
     public function login()
     {
         return view('users.login');
     }
-
     // Authenticate User
     public function authenticate(Request $request)
     {

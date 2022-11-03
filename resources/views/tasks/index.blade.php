@@ -8,10 +8,9 @@
             <table class="fs-15 w-full">
                 <thead>
                     <tr>
+                        <td>id</td>
                         <td>Title</td>
                         <td>Type</td>
-                        {{-- <td>Comments</td> --}}
-                        {{-- <td>Uploads</td> --}}
                         <td>Status</td>
                         <td>Images</td>
                     </tr>
@@ -22,6 +21,9 @@
                         @foreach ($tasks as $task)
                             <tr>
                                 <td>
+                                    {{ $task['id'] }}
+                                </td>
+                                <td>
                                     {{ $task['title'] }}
                                 </td>
 
@@ -30,11 +32,6 @@
                                         {{ $task['type'] }}</a>
 
                                 </td>
-                                {{-- <td>
-                                    <x-task-comments :commentsCsv="$task->comments" />
-
-                                </td> --}}
-                                {{-- <td>{{ $task['uploads'] }}</td> --}}
                                 <td>
                                     <a href="/tasks/?status={{ $task->status }}">
                                         <span @class([

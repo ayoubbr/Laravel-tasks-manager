@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
-use App\Models\Image;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Image;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
+use Symfony\Component\Console\Input\Input;
 
 class TaskController extends Controller
 {
@@ -19,7 +20,7 @@ class TaskController extends Controller
             'tasks' => Task::latest()
                 ->filter(request(['type', 'search']))
                 ->filter(request(['status']))
-                ->paginate(3)
+                ->paginate(8)
         ]);
     }
 
@@ -27,29 +28,24 @@ class TaskController extends Controller
     {
         return view('tasks.show', [
             'task' => $task
-            // auth()->user()->tasks()->paginate(6)
         ]);
     }
 
     public function images($id)
     {
-
         $task = Task::find($id);
         if (!$task) abort(404);
-
         $images = $task->images;
         $comments = $task->comments;
-        // dd($images);
         return view('tasks.images', compact('task', 'images', 'comments'));
     }
 
     public function create()
     {
-
         return view(
             'tasks.create',
             [
-                'users' => User::get()
+                'users' => User::get(),
             ]
         );
     }
@@ -58,17 +54,11 @@ class TaskController extends Controller
     {
         $formFields = $request->validate(
             [
-
                 'title' => ['required',],
                 'type' => 'required',
                 'status' => 'required ',
-                // 'uploads' => 'required',
             ]
         );
-
-        // if ($request->hasFile('image')) {
-        //     $formFields['image'] = $request->file('image')->store('images/task-images', 'public');
-        // }
         $formFields['user_id'] = auth()->id();
         $new_task = Task::create($formFields);
 
@@ -88,14 +78,12 @@ class TaskController extends Controller
                 'description' => 'This is a Normal Task!'
             ]);
             if ($new_task->status == 'To Dispatch') {
-                $formFields['userAffectedTo'] = $new_task->userAffectedTo;
                 Comment::create([
                     'task_id' => $new_task->id,
-                    'description' => 'This is a Normal task has a status of To Dispatch!'
+                    'description' => 'This is a task that has a status of To Dispatch!'
                 ]);
             }
         }
-
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
     }
@@ -115,8 +103,6 @@ class TaskController extends Controller
             'title' => 'required',
             'type' => 'required',
             'status' => 'required',
-            // 'uploads' => 'required',
-
         ]);
         $task->update($formFields);
         return back()->with('message', 'Task updated succefully!');
@@ -141,7 +127,7 @@ class TaskController extends Controller
                 'tasks' => auth()->user()->tasks()->latest()
                     ->filter(request(['type', 'search']))
                     ->filter(request(['status']))
-                    ->paginate(3)
+                    ->paginate(6)
             ]
         );
     }

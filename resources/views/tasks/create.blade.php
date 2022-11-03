@@ -1,7 +1,3 @@
-@php
-    
-@endphp
-
 @extends('home')
 
 @section('content')
@@ -24,14 +20,10 @@
                     </div>
                     <div class="mb-6">
                         <label for="type" class="inline-block text-lg mb-2">Type</label>
-                        <select id="type" name="type" value="{{ old('type') }}"
-                            class="border border-gray-200 rounded p-2 w-full">
+                        <select id="type" name="type" class="border border-gray-200 rounded p-2 w-full">
                             <option value="">Select Type</option>
                             <option value="Master">Master</option>
                             <option value="Normal">Normal</option>
-
-                            {{-- <input type="text" class="border border-gray-200 rounded p-2 w-full" name="type"
-                                placeholder="Example: Senior Laravel Developer" value="{{ old('type') }}" /> --}}
                         </select>
 
                         @error('type')
@@ -40,34 +32,37 @@
                     </div>
                     <div class="mb-6">
                         <label for="status" class="inline-block text-lg mb-2">Status</label>
-                        <select name="status" value="{{ old('status') }}"
-                            class="border border-gray-200 rounded p-2 w-full">
+                        <select name="status" class="select-type border border-gray-200 rounded p-2 w-full">
                             <option value="">Select Status</option>
                             <option value="Open">Open</option>
                             <option value="To Dispatch">To Dispatch</option>
                             <option value="To Validate">To Validate</option>
                             <option value="Completed">Completed</option>
                         </select>
-                        {{-- <input type="text" class="border border-gray-200 rounded p-2 w-full" name="status"
-                            placeholder="Example: Remote, Boston MA, etc" value="{{ old('status') }}" /> --}}
-
                         @error('status')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
                 <div class="grid grid grid-cols-3 gap-4">
-                    {{-- <div class="mb-6">
-                        <label for="uploads" class="inline-block text-lg mb-2">
-                            uploads
+                    {{-- ####################### STILL NOT WORKING ############################# --}}
+                    <div class="mb-6 user hidden">
+                        <label for="userAffectedTo" class="inline-block text-lg mb-2">
+                            User
                         </label>
-                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="uploads"
-                            value="{{ old('uploads') }}" />
-
-                        @error('uploads')
+                        <select id="userAffectedTo" name=""
+                            class="select-user border border-gray-200 rounded p-2 w-full">
+                            <option value="">Select User</option>
+                            @foreach ($users as $user)
+                                <option value={{ $user->name }}>{{ $user->name }} </option>
+                            @endforeach
+                        </select>
+                        @error('user')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
-                    </div> --}}
+                    </div>
+                    {{-- ####################### STILL NOT WORKING ############################# --}}
+
                     <div class="mb-6">
                         <label for="image" class="inline-block text-lg mb-2">
                             Upload Images
@@ -83,26 +78,6 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    {{-- ############################################################################ --}}
-                    <div class="mb-6">
-                        <label for="userAffectedTo" class="inline-block text-lg mb-2">
-                            User
-                        </label>
-                        <select id="userAffectedTo" name="userAffectedTo" value="{{ old('userAffectedTo') }}"
-                            class="border border-gray-200 rounded p-2 w-full">
-                            <option value="">Select User</option>
-
-                            @foreach ($users as $user)
-                                <option value="{{ $user->name }}">{{ $user->name }} </option>
-                            @endforeach
-
-                        </select>
-                        @error('user')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    {{-- ############################################################################ --}}
-
                 </div>
                 <div class="grid grid grid-cols-2 gap-4">
                     <div class="mb-6">
@@ -121,4 +96,19 @@
             </form>
         </div>
     </div>
+    <div class="c">
+
+    </div>
+    <script>
+        let user = document.querySelector(".user");
+        let selectType = document.querySelector(".select-type");
+        selectType.parentElement.addEventListener('change', (event) => {
+            console.log(event.target.value);
+            if (event.target.value == 'To Dispatch') {
+                user.classList.remove('hidden');
+            } else {
+                user.classList.add('hidden');
+            }
+        });
+    </script>
 @endsection
