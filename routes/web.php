@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 Route::get('/tasks', [TaskController::class, 'index']);
 
-Route::get('/tasks/task-images/{id}', [TaskController::class, 'images'])->name('task.images');
+Route::get('/tasks/task-details/{id}', [TaskController::class, 'show'])->name('task.details');
 
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 

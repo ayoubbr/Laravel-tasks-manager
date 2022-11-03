@@ -22,20 +22,13 @@ class TaskController extends Controller
         ]);
     }
 
-    public function show(Task $task)
-    {
-        return view('tasks.show', [
-            'task' => $task
-        ]);
-    }
-
-    public function images($id)
+    public function show($id)
     {
         $task = Task::find($id);
         if (!$task) abort(404);
         $images = $task->images;
         $comments = $task->comments;
-        return view('tasks.images', compact('task', 'images', 'comments'));
+        return view('tasks.details', compact('task', 'images', 'comments'));
     }
 
     public function create()
