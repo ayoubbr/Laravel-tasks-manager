@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="projects p-20 bg-white rad-10 m-10">
+    <div class="projects p-20 bg-white rad-10 m-5">
         <h2 class="mt-0 mb-5">Table</h2>
         <div class="responsive-table">
             <table class="fs-15 w-full">
@@ -13,6 +13,7 @@
                         <td>Type</td>
                         <td>Status</td>
                         <td>Images</td>
+                        <td>Affected user</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,9 @@
                                 <td>
                                     <a href="{{ route('task.images', $task->id) }}"
                                         class="bg-sky-400 py-2 px-4 rounded-md hover:bg-sky-500">View Images</a>
+                                </td>
+                                <td>
+                                   {{$task ->userAffectedTo}}
                                 </td>
 
 

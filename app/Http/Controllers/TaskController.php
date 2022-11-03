@@ -8,8 +8,6 @@ use App\Models\Image;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\File;
-use Symfony\Component\Console\Input\Input;
 
 class TaskController extends Controller
 {
@@ -20,7 +18,7 @@ class TaskController extends Controller
             'tasks' => Task::latest()
                 ->filter(request(['type', 'search']))
                 ->filter(request(['status']))
-                ->paginate(8)
+                ->paginate(6)
         ]);
     }
 
@@ -56,22 +54,14 @@ class TaskController extends Controller
             [
                 'title' => ['required',],
                 'type' => 'required',
-                'status' => 'required ',
+                'status' => 'required',
+                'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
             ]
         );
+
         $formFields['user_id'] = auth()->id();
         $new_task = Task::create($formFields);
 
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-                $image->move(public_path('task_imgs'), $imageName);
-                Image::create([
-                    'task_id' => $new_task->id,
-                    'image' => $imageName
-                ]);
-            }
-        }
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
@@ -84,6 +74,18 @@ class TaskController extends Controller
                 ]);
             }
         }
+
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
+                $image->move(public_path('task_imgs'), $imageName);
+                Image::create([
+                    'task_id' => $new_task->id,
+                    'image' => $imageName
+                ]);
+            }
+        }
+
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
     }

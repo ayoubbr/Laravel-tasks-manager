@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="projects p-20 bg-white rad-10 m-10">
+    <div class="projects p-20 bg-white rad-10 m-5">
         <h2 class="mt-0 mb-5">Table</h2>
         <div class="responsive-table">
             <table class="fs-15 w-full">
@@ -12,6 +12,7 @@
                         <td>Type</td>
                         <td>Status</td>
                         <td>Images</td>
+                        <td>Affected user</td>
                         <td>Actions</td>
                     </tr>
                 </thead>
@@ -52,10 +53,13 @@
                                     </a>
                                 </td>
                                 <td>
+                                    {{ $task->userAffectedTo }}
+                                </td>
+                                <td>
                                     <a href="/tasks/{{ $task->id }}/edit">
                                         <span class="label btn-shape py-2 bg-blue c-white">
                                             <i class="fa-solid fa-pencil"></i>
-                                            Edit
+
                                         </span>
                                     </a>
                                     <form action="/tasks/{{ $task->id }}" method="POST">
@@ -64,7 +68,7 @@
                                         <span class="label btn-shape py-2 bg-red c-white">
                                             <button type="submit">
                                                 <i class="fa-solid fa-trash"></i>
-                                                Delete
+
                                             </button>
                                         </span>
                                     </form>
@@ -81,7 +85,7 @@
                 </tbody>
             </table>
         </div>
-
+        {{-- Pagination --}}
         <div class="mt-5">
             {{ $tasks->links() }}
         </div>

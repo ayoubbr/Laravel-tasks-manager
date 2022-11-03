@@ -496,6 +496,7 @@ ul {
     border-bottom: 1px solid #eee;
     border-left: 1px solid #eee;
     transition: 0.3s;
+    min-height: 72px;
 }
 .projects tbody td:last-child {
     display: flex;

@@ -25,12 +25,7 @@ class Task extends Model
                 ->orWhere('status', 'like', '%' . request('search') . '%');
         }
     }
-    // relationship with user
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-    // relationship with comments
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'task_id');

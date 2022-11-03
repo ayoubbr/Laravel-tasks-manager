@@ -45,23 +45,23 @@
                     </div>
                 </div>
                 <div class="grid grid grid-cols-3 gap-4">
-                    {{-- ####################### STILL NOT WORKING ############################# --}}
-                    <div class="mb-6 user hidden">
+                    <div class="mb-6 user">
                         <label for="userAffectedTo" class="inline-block text-lg mb-2">
                             User
                         </label>
-                        <select id="userAffectedTo" name=""
-                            class="select-user border border-gray-200 rounded p-2 w-full">
+                        <select id="userAffectedTo" name="userAffectedTo" class="border border-gray-200 rounded p-2 w-full">
                             <option value="">Select User</option>
+
                             @foreach ($users as $user)
-                                <option value={{ $user->name }}>{{ $user->name }} </option>
+                                <option class="option" value="{{ $user->name }}">{{ $user->name }} </option>
                             @endforeach
+
                         </select>
-                        @error('user')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @error('userAffectedTo')
+                            <p class="text-red-500 text-xs mt-1">
+                                {{ $message }}</p>
                         @enderror
                     </div>
-                    {{-- ####################### STILL NOT WORKING ############################# --}}
 
                     <div class="mb-6">
                         <label for="image" class="inline-block text-lg mb-2">
@@ -96,18 +96,19 @@
             </form>
         </div>
     </div>
-    <div class="c">
-
-    </div>
     <script>
         let user = document.querySelector(".user");
         let selectType = document.querySelector(".select-type");
+        let option = document.querySelector(".option");
         selectType.parentElement.addEventListener('change', (event) => {
-            console.log(event.target.value);
+            console.log(option);
             if (event.target.value == 'To Dispatch') {
                 user.classList.remove('hidden');
+                option.classList.remove('hidden');
             } else {
                 user.classList.add('hidden');
+                option.classList.add('hidden');
+                option.setAttribute('value', '');
             }
         });
     </script>
