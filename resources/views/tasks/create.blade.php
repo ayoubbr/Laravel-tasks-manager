@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="grid grid grid-cols-3 gap-4">
-                    <div class="mb-6">
+                    {{-- <div class="mb-6">
                         <label for="uploads" class="inline-block text-lg mb-2">
                             uploads
                         </label>
@@ -67,7 +67,7 @@
                         @error('uploads')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="mb-6">
                         <label for="image" class="inline-block text-lg mb-2">
                             Upload Images

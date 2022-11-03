@@ -62,7 +62,7 @@ class TaskController extends Controller
                 'title' => ['required',],
                 'type' => 'required',
                 'status' => 'required ',
-                'uploads' => 'required',
+                // 'uploads' => 'required',
             ]
         );
 
@@ -115,7 +115,7 @@ class TaskController extends Controller
             'title' => 'required',
             'type' => 'required',
             'status' => 'required',
-            'uploads' => 'required',
+            // 'uploads' => 'required',
 
         ]);
         $task->update($formFields);

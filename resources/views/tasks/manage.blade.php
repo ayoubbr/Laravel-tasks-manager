@@ -11,7 +11,7 @@
                         <td>Title</td>
                         <td>Type</td>
                         {{-- <td>Comments</td> --}}
-                        <td>Uploads</td>
+                        {{-- <td>Uploads</td> --}}
                         <td>Status</td>
                         <td>Images</td>
                         <td>Actions</td>
@@ -35,7 +35,7 @@
                                     <x-task-comments :commentsCsv="$task->comments" />
 
                                 </td> --}}
-                                <td>{{ $task['uploads'] }}</td>
+                                {{-- <td>{{ $task['uploads'] }}</td> --}}
                                 <td>
                                     <a href="/tasks/?status={{ $task->status }}">
                                         <span @class([

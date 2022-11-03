@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('status');
             $table->string('userAffectedTo')->nullable();
-            $table->integer('uploads');
+            // $table->integer('uploads');
             $table->timestamps();
         });
     }
