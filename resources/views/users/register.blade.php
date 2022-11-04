@@ -58,25 +58,31 @@
                     <label for="logo" class="inline-block text-base mb-1">
                         Profile picture
                     </label>
-                    <input type="file" class="border border-gray-200 rounded p-2 w-full" name="logo" />
-                    @error('logo')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <input type="file"
+                        class="border border-gray-200 rounded p-2
+                     w-full border border-gray-200 rounded p-2  
+                            block w-full text-sm text-slate-500 
+                            file:mr-4 file:py-2 file:px-4 file:rounded-full 
+                            file:border-0 file:text-sm file:font-semibold  
+                            file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 w-full" " name="logo" />
+                        @error('logo')
+        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+    @enderror
+                    </div>
 
-                <div class="mb-4">
-                    <button type="submit" class="bg-cyan-600 text-white rounded py-2 px-4 hover:bg-cyan-700">
-                        Sign Up
-                    </button>
-                </div>
+                    <div class="mb-4">
+                        <button type="submit" class="bg-cyan-600 text-white rounded py-2 px-4 hover:bg-cyan-700">
+                            Sign Up
+                        </button>
+                    </div>
 
-                <div class="mt-5">
-                    <p>
-                        Already have an account?
-                        <a href="/login" class="text-black">Login</a>
-                    </p>
-                </div>
-            </form>
+                    <div class="mt-5">
+                        <p>
+                            Already have an account?
+                            <a href="/login" class="text-black">Login</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 @endsection

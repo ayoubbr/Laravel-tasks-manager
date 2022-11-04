@@ -3,10 +3,11 @@
 @section('content')
     <div class="page d-flex">
         <div class="content w-full">
-            <h1 class="p-relative fs-25">{{ $task->title }}</h1>
+            <h1 class="p-relative fs-25">{{ $task->title }} : details</h1>
             <div class="grid gap-4 grid-cols-2">
-                <div class="tasks m-10 p-20 bg-white rad-10">
-                    <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="tasks m-5 p-20 bg-white rad-10">
+                    <div style="display:flex;justify-content:space-between;
+                    align-items:center">
                         <h2 class="mb-5">
                             Comments
                         </h2>
@@ -76,9 +77,9 @@
                                     </form>
                                 </div>
 
-                                <div>
+                                <div class="targetClass">
                                     @if (count($comment_images) != 0)
-                                        <div class="grid gap-4 grid-cols-3 bg-white rad-6 p-relative">
+                                        <div class=" hidden grid gap-4 grid-cols-3 bg-white rad-6 p-relative">
 
                                             @foreach ($comment_images as $commentImage)
                                                 @if ($comment->id == $commentImage->comment_id)
@@ -97,34 +98,44 @@
                         <p>no comments</p>
                     @endunless
                 </div>
-                <div class="courses-page d-grid m-10 gap-10">
-                    @foreach ($images as $image)
-                        <div class="course bg-white rad-6 p-relative">
-                            <img class="cover" src="/task_imgs/{{ $image->image }}" alt="" />
-                            <div class="p-20">
-                                <h4 class="m-0">{{ $image->image }}</h4>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
 
+
+                <div class="tasks m-5  p-20  bg-white rad-10">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <h2 class="mb-5">
+                            Images
+                        </h2>
+
+                    </div>
+                    <div class="courses-page d-grid m-5 gap-10">
+                        @foreach ($images as $image)
+                            <div class="course bg-eee rad-6 p-relative">
+                                <img class="cover" src="/task_imgs/{{ $image->image }}" alt="" />
+                                <div class="p-20">
+                                    <h4 class="m-0">{{ $image->image }}</h4>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <script>
-        // let hidden = document.querySelector('.hidden');
+        let hidden = document.querySelectorAll('.hidden');
         let hided = document.querySelector('.hided');
         let imageIcon = document.querySelectorAll('.fa-images');
         let plusIcon = document.querySelector('.fa-circle-plus');
 
-        // if (imageIcon) {
-        //     imageIcon.forEach(element => {
-        //         element.addEventListener('click', (event) => {
-        //             hidden.classList.toggle('hidden')
-        //         });
-        //     });
+        if (imageIcon) {
+            imageIcon.forEach(element => {
+                element.addEventListener('click', (event) => {
+                    event.target.parentElement.nextSibling.nextElementSibling.firstElementChild.classList
+                        .toggle('hidden');
 
-        // }
+                });
+            });
+        }
         if (plusIcon) {
             plusIcon.addEventListener('click', (event) => {
                 hided.classList.toggle('hided')

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="projects p-20 bg-white rad-10 m-5">
-        <h2 class="mt-0 mb-5">Table</h2>
+        <h2 class="mt-0 mb-5">Tasks</h2>
         <div class="responsive-table">
             <table class="fs-15 w-full">
                 <thead>
@@ -12,7 +12,7 @@
                         <td>Title</td>
                         <td>Type</td>
                         <td>Status</td>
-                        <td>Images</td>
+                        <td>Details</td>
                         <td>Affected user</td>
                     </tr>
                 </thead>
@@ -51,17 +51,17 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('task.details', $task->id) }}"
-                                        class="bg-sky-400 py-2 px-4 rounded-md hover:bg-sky-500">View Images</a>
+                                        class="bg-sky-400 py-2 px-4 rounded-md hover:bg-sky-500">View Details</a>
                                 </td>
                                 <td>
-                                   {{$task ->userAffectedTo}}
+                                    {{ $task->userAffectedTo }}
                                 </td>
 
 
                             </tr>
                         @endforeach
                     @else
-                        <p>no tasks found</p>
+                        <p class="text-zinc-900 bg-zinc-200 p-10 mb-5 rounded-md">No tasks found</p>
                     @endunless
 
 
