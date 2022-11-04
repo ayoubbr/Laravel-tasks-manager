@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="mb-6">
-                        <label for="image" class="inline-block text-lg mb-2">
+                        <label for="images" class="inline-block text-lg mb-2">
                             Upload Images
                         </label>
                         <input type="file"
@@ -74,7 +74,7 @@
                             file:border-0 file:text-sm file:font-semibold  
                             file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 w-full"
                             name="images[]" accept="image/*" multiple />
-                        @error('image')
+                        @error('images')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>

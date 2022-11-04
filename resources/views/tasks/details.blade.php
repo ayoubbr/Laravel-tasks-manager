@@ -6,7 +6,53 @@
             <h1 class="p-relative fs-25">{{ $task->title }}</h1>
             <div style="display: flex">
                 <div class="tasks m-10 p-20 bg-white rad-10" style="min-width: 500px">
-                    <h2 class="mt-0 mb-20">Comments</h2>
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <h2 class="mb-5">
+                            Comments
+                        </h2>
+                        <i class="fa-solid fa-circle-plus mb-5 "></i>
+                    </div>
+
+                    <div class="hided">
+                        <form method="POST" action="/tasks/task-details/{{ $task->id }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-6">
+                                <label for="description" class="inline-block text-lg mb-2">Description</label>
+                                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="description"
+                                    value="{{ old('description') }}" />
+
+                                @error('description')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="mb-6">
+
+                                <label for="images" class="inline-block text-lg mb-2">
+                                    Upload Images
+                                </label>
+                                <input type="file"
+                                    class="border border-gray-200 rounded p-2  
+                                    block w-full text-sm text-slate-500 
+                                    file:mr-4 file:py-2 file:px-4 file:rounded-full 
+                                    file:border-0 file:text-sm file:font-semibold  
+                                    file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 w-full"
+                                    name="images[]" accept="image/*" multiple />
+                                @error('images')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+
+                            </div>
+
+                            <div class="mb-6">
+                                <button type="submit" class="bg-cyan-500 text-white rounded py-2 px-4 hover:bg-cyan-600">
+                                    Create Comment
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
                     @unless(count($comments) == 0)
                         @foreach ($comments as $comment)
                             <div style="display:flex; flex-direction:column">
@@ -21,9 +67,17 @@
 
                                 </div>
                                 <div class="hidden">
-                                    <img class="cover" src="{{ asset('/images/no-image.png') }}" alt="image" />
-                                    <h4 class="m-0">text</h4>
+                                    <div class="courses-page d-grid m-10 gap-10">
+                                        <div class="course grid gap-4 grid-cols-2 bg-white rad-6 p-relative">
+                                            {{-- @foreach ($commentImages as $commentImage)
+                                                <img class="cover" src="/comment_imgs/{{ $commentImage->image }}"
+                                                    alt="" />   
+                                            @endforeach --}}
+                                        </div>
+                                    </div>
+
                                 </div>
+
 
                             </div>
                         @endforeach
@@ -41,14 +95,25 @@
                         </div>
                     @endforeach
                 </div>
+
             </div>
         </div>
     </div>
     <script>
         let hidden = document.querySelector('.hidden');
+        let hided = document.querySelector('.hided');
         let imageIcon = document.querySelector('.fa-images');
-        imageIcon.addEventListener('click', (event) => {
-            hidden.classList.toggle('hidden')
-        });
+        let plusIcon = document.querySelector('.fa-circle-plus');
+        if (imageIcon) {
+
+            imageIcon.addEventListener('click', (event) => {
+                hidden.classList.toggle('hidden')
+            });
+        }
+        if (plusIcon) {
+            plusIcon.addEventListener('click', (event) => {
+                hided.classList.toggle('hided')
+            });
+        }
     </script>
 @endsection

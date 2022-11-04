@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="//unpkg.com/alpinejs" defer></script>
     <!-- Styles -->
-  
+
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -43,14 +43,16 @@
                 @auth
                     <li>
                         <a class="d-flex align-center fs-14 c-black rad-6 p-10
-                        {{ 'tasks/manage' == request()->path() ? 'active' : '' }}" href="/tasks/manage">
+                        {{ 'tasks/manage' == request()->path() ? 'active' : '' }}"
+                            href="/tasks/manage">
                             <i class="fa-solid fa-gear fa-fw"></i>
                             <span>Manage Tasks</span>
                         </a>
                     </li>
                     <li>
                         <a class="d-flex align-center fs-14 c-black rad-6 p-10
-                        {{ 'tasks/create' == request()->path() ? 'active' : '' }}" href="/tasks/create">
+                        {{ 'tasks/create' == request()->path() ? 'active' : '' }}"
+                            href="/tasks/create">
                             <i class="fa-solid fa-folder-plus"></i>
                             <span>Add Task</span>
                         </a>
@@ -110,5 +112,7 @@
     <x-flash-message />
 
 </body>
+
+
 
 </html>

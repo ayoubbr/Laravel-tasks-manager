@@ -10,4 +10,9 @@ class Comment extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function images()
+    {
+        return $this->hasMany(CommentImage::class);
+    }
 }
