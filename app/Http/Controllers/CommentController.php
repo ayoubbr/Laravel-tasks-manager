@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
 
-
     public function store(Request $request, $id)
     {
         $formFields = $request->validate(
@@ -37,57 +36,9 @@ class CommentController extends Controller
         return back()->with('message', 'Comment created succefully!');
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // $new_comment = 
-
-    // if ($new_task->type == 'Normal') {
-    //     Comment::create([
-    //         'task_id' => $new_task->id,
-    //         'description' => 'This is a Normal Task!'
-    //     ]);
-    //     if ($new_task->status == 'To Dispatch') {
-    //         Comment::create([
-    //             'task_id' => $new_task->id,
-    //             'description' => 'This is a task that has a status of To Dispatch!'
-    //         ]);
-    //     }
-    // }
-
-    // if ($request->has('images')) {
-    //     foreach ($request->file('images') as $image) {
-    //         $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-    //         $image->move(public_path('task_imgs'), $imageName);
-    //         Image::create([
-    //             'task_id' => $new_task->id,
-    //             'image' => $imageName
-    //         ]);
-    //     }
-    // }
-    // }
+    public function destroy($id, Comment $comment)
+    {
+        $comment->delete();
+        return redirect('/tasks')->with('message', 'Comment deleted succefully!');
+    }
 }

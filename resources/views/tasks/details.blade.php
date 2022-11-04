@@ -4,13 +4,15 @@
     <div class="page d-flex">
         <div class="content w-full">
             <h1 class="p-relative fs-25">{{ $task->title }}</h1>
-            <div style="display: flex">
-                <div class="tasks m-10 p-20 bg-white rad-10" style="min-width: 500px">
+            <div class="grid gap-4 grid-cols-2">
+                <div class="tasks m-10 p-20 bg-white rad-10">
                     <div style="display:flex;justify-content:space-between;align-items:center">
                         <h2 class="mb-5">
                             Comments
                         </h2>
-                        <i class="fa-solid fa-circle-plus mb-5 "></i>
+                        <p> Add comment
+                            <i class="fa-solid fa-circle-plus mb-5 cursor-pointer"></i>
+                        </p>
                     </div>
 
                     <div class="hided">
@@ -55,30 +57,40 @@
                     </div>
                     @unless(count($comments) == 0)
                         @foreach ($comments as $comment)
-                            <div style="display:flex; flex-direction:column">
+                            <div class="comment-row">
                                 <div class="task-row between-flex">
                                     <div class="info">
-                                        <h3 class="mt-0 mb-5 fs-15"> {{ $comment->id }}</h3>
+                                        <h3 class="mt-0 mb-5 fs-15">ID : {{ $comment->id }}</h3>
                                         <p class="m-0 c-grey"> {{ $comment->description }}</p>
                                     </div>
 
                                     <i class="fa-regular fa-images mr-2 delete"></i>
-                                    <i class="fa-regular fa-trash-can delete"></i>
-
+                                    <form action="/tasks/task-details/{{ $task->id }}/{{ $comment->id }}/" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <span class="label  py-2 ">
+                                            <button type="submit">
+                                                <i class="fa-regular fa-trash-can delete"></i>
+                                            </button>
+                                        </span>
+                                    </form>
                                 </div>
-                                <div class="hidden">
-                                    <div class="courses-page d-grid m-10 gap-10">
-                                        <div class="course grid gap-4 grid-cols-2 bg-white rad-6 p-relative">
-                                            {{-- @foreach ($commentImages as $commentImage)
-                                                <img class="cover" src="/comment_imgs/{{ $commentImage->image }}"
-                                                    alt="" />   
-                                            @endforeach --}}
+
+                                <div>
+                                    @if (count($comment_images) != 0)
+                                        <div class="grid gap-4 grid-cols-3 bg-white rad-6 p-relative">
+
+                                            @foreach ($comment_images as $commentImage)
+                                                @if ($comment->id == $commentImage->comment_id)
+                                                    <img class="cover" src="/comment_imgs/{{ $commentImage->image }}"
+                                                        alt="" />
+                                                @endif
+                                            @endforeach
                                         </div>
-                                    </div>
-
+                                    @else
+                                        <p>nothing found</p>
+                                    @endif
                                 </div>
-
-
                             </div>
                         @endforeach
                     @else
@@ -100,16 +112,19 @@
         </div>
     </div>
     <script>
-        let hidden = document.querySelector('.hidden');
+        // let hidden = document.querySelector('.hidden');
         let hided = document.querySelector('.hided');
-        let imageIcon = document.querySelector('.fa-images');
+        let imageIcon = document.querySelectorAll('.fa-images');
         let plusIcon = document.querySelector('.fa-circle-plus');
-        if (imageIcon) {
 
-            imageIcon.addEventListener('click', (event) => {
-                hidden.classList.toggle('hidden')
-            });
-        }
+        // if (imageIcon) {
+        //     imageIcon.forEach(element => {
+        //         element.addEventListener('click', (event) => {
+        //             hidden.classList.toggle('hidden')
+        //         });
+        //     });
+
+        // }
         if (plusIcon) {
             plusIcon.addEventListener('click', (event) => {
                 hided.classList.toggle('hided')

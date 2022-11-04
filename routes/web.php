@@ -26,6 +26,8 @@ Route::get('/tasks/task-details/{id}', [TaskController::class, 'show'])->name('t
 
 Route::put('/tasks/task-details/{id}', [CommentController::class, 'store']);
 
+Route::delete('/tasks/task-details/{id}/{comment}', [CommentController::class, 'destroy']);
+
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 
 Route::get('/tasks/manage', [TaskController::class, 'manage'])->middleware('auth');

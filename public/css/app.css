@@ -337,6 +337,12 @@ ul {
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
 }
+
+.comment-row {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #777;
+}
 .tasks .info {
     flex-grow: 1;
 }
@@ -1454,7 +1460,7 @@ ul {
     margin-left: 10px;
 }
 
-.hided{
+.hided {
     display: none;
 }
 /* end box compo */

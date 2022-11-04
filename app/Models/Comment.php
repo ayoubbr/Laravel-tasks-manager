@@ -15,4 +15,9 @@ class Comment extends Model
     {
         return $this->hasMany(CommentImage::class);
     }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'task_id');
+    }
 }

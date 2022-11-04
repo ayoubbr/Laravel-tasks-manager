@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Comment;
+use App\Models\CommentImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -28,7 +29,9 @@ class TaskController extends Controller
         if (!$task) abort(404);
         $images = $task->images;
         $comments = $task->comments;
-        return view('tasks.details', compact('task', 'images', 'comments'));
+        $comment_images = CommentImage::with('comment.task')->whereRelation('comment', 'task_id', $id)->get();
+        // dd($comment_images);
+        return view('tasks.details', compact('task', 'images', 'comments', 'comment_images'));
     }
 
     public function create()
