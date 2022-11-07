@@ -20,7 +20,7 @@ class TaskFactory extends Factory
             'title' => $this->faker->word(),
             'type' => $this->faker->randomElement(['Matser', 'Normal']),
             'status' => $this->faker->randomElement(['to dispatch', 'to validate', 'open', 'completed']),
-            'uploads' => $this->faker->randomDigit(),
+            'parent_id' => $this->faker->randomDigit(),
         ];
     }
 }

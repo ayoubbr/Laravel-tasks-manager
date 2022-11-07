@@ -24,10 +24,7 @@
 </head>
 
 <body>
-
     <div class="page d-flex">
-
-
         {{-- Start Sidebar  --}}
         <div class="sidebar bg-white p-20  p-relative">
             <h3 class="p-relative txt-c mt-0">Task MNG</h3>
@@ -101,18 +98,11 @@
                 </div>
             </div>
             <!-- End Head -->
-            <!-- Start Tasks Table -->
             @yield('content')
-            <!-- End Tasks Table -->
         </div>
         {{-- End Content --}}
-
     </div>
-
     <x-flash-message />
-
 </body>
-
-
 
 </html>

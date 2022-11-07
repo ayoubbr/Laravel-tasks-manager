@@ -17,9 +17,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
 Route::get('/tasks', [TaskController::class, 'index']);
 
 Route::get('/tasks/task-details/{id}', [TaskController::class, 'show'])->name('task.details');

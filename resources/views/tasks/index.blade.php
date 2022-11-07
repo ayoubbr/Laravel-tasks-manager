@@ -14,6 +14,7 @@
                         <td>Status</td>
                         <td>Details</td>
                         <td>Affected user</td>
+                        <td>Parent Task</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +56,9 @@
                                 </td>
                                 <td>
                                     {{ $task->userAffectedTo }}
+                                </td>
+                                <td>
+                                   id :  {{ $task->parent_id }}
                                 </td>
 
 

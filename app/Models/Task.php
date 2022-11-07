@@ -40,4 +40,38 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    ///////////////////////////////////////////
+    public function children()
+    {
+        return $this->hasMany(Task::class, 'parent_id')->with('children');
+    }
+
+    public static function tree()
+    {
+        $allTasks = Task::get();
+
+        $rootTasks= $allTasks->whereNull('parent_id');
+
+        self::formatTree($rootTasks, $allTasks);
+
+        return $rootTasks;
+    }
+
+    private static function formatTree($tasks, $allTasks)
+    {
+        foreach ($tasks as $task) {
+            $task->children = $allTasks->where('parent_id', $task->id)->values();
+
+            if ($task->children->isNotEmpty()) {
+                self::formatTree($task->children, $allTasks);
+            }
+        }
+    }
+
+    public function isChild(): bool
+    {
+        return $this->parent_id !== null;
+    }
+    /////////////////////////////////////////////////
 }

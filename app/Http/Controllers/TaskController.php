@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
-
+    
     public function index()
     {
         return view('tasks.index', [
