@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ImageController;
 use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
@@ -25,7 +26,10 @@ Route::get('/tasks/task-details/{id}', [TaskController::class, 'show'])->name('t
 
 Route::put('/tasks/task-details/{id}', [CommentController::class, 'store']);
 
-Route::delete('/tasks/task-details/{id}/{comment}', [CommentController::class, 'destroy']);
+Route::delete('/tasks/task-details/{id}/{image}', [ImageController::class, 'destroy']);
+
+Route::delete('/tasks/task-details/{id}/comments/{comment}', [CommentController::class, 'destroy']);
+
 
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 

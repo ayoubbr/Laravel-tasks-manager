@@ -81,14 +81,14 @@
                 </div>
                 <div class="grid grid grid-cols-2 gap-4">
                     <div class="mb-6">
-                        <button class="bg-sky-400 text-black rounded py-2 px-4 
-                        hover:bg-sky-500">
+                        <button class="bg-stone-900 text-white rounded py-2 px-4 
+                        hover:bg-slate-500  ">
                             Create Task
                         </button>
 
                         <a href="/tasks"
-                            class="text-black bg-sky-300
-                         ml-4 py-2 px-4 rounded-md hover:bg-sky-400">
+                            class="text-black 
+                         ml-4 py-2   px-4 rounded-md hover:bg-slate-500">
                             Go Back
                             <i class="fa-regular fa-circle-right"></i>
                         </a>

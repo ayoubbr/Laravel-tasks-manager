@@ -12,8 +12,8 @@
                         <td>Title</td>
                         <td>Type</td>
                         <td>Status</td>
-                        <td>Details</td>
                         <td>Affected user</td>
+                        {{-- <td>Details</td> --}}
                         <td>Actions</td>
                     </tr>
                 </thead>
@@ -40,37 +40,41 @@
                                             'btn-shape',
                                             ' c-white',
                                             'py-2',
-                                            'bg-orange' => $task->status == 'To Validate',
-                                            'bg-green' => $task->status == 'Open',
-                                            'bg-red' => $task->status == 'To Dispatch',
-                                            'bg-blue' => $task->status == 'Completed',
+                                            'bg-orange-500' => $task->status == 'To Validate',
+                                            'bg-red-500' => $task->status == 'Open',
+                                            'bg-sky-500' => $task->status == 'To Dispatch',
+                                            'bg-green-500' => $task->status == 'Completed',
                                         ])>
                                             {{ $task['status'] }}
                                         </span>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="{{ route('task.details', $task->id) }}"
-                                        class="bg-sky-400 py-2 px-4 rounded-md hover:bg-sky-500">
-                                        View Details
-                                    </a>
-                                </td>
+                                
                                 <td>
                                     {{ $task->userAffectedTo }}
                                 </td>
-                                <td>
+                                {{-- <td> --}}
+                                   
+                                {{-- </td> --}}
+                                <td class="d-flex align-center">
+                                    <a href="{{ route('task.details', $task->id) }}"
+                                        class="bg-stone-900 text-white py-2 px-4 rounded-md hover:bg-slate-500">
+                                        View Details
+                                    </a>
                                     <a href="/tasks/{{ $task->id }}/edit">
-                                        <span class="label btn-shape py-2 bg-blue c-white">
-                                            <i class="fa-solid fa-pencil"></i>
+                                        <span
+                                            class="label btn-shape bg-stone-900 text-white py-2 px-4 rounded-md hover:bg-slate-500">
+                                            Edit <i class="ml-1 fa-solid fa-pencil"></i>
 
                                         </span>
                                     </a>
                                     <form action="/tasks/{{ $task->id }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <span class="label btn-shape py-2 bg-red c-white">
+                                        <span
+                                            class="label btn-shape bg-stone-900 text-white py-2 px-4 rounded-md hover:bg-slate-500">
                                             <button type="submit">
-                                                <i class="fa-solid fa-trash"></i>
+                                                Delete <i class=" ml-1 fa-solid fa-trash"></i>
 
                                             </button>
                                         </span>

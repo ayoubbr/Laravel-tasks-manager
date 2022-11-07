@@ -39,6 +39,6 @@ class CommentController extends Controller
     public function destroy($id, Comment $comment)
     {
         $comment->delete();
-        return redirect('/tasks')->with('message', 'Comment deleted succefully!');
+        return back()->with('message', 'Comment deleted succefully!');
     }
 }

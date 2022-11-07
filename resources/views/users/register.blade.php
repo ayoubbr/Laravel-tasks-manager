@@ -71,7 +71,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <button type="submit" class="bg-cyan-600 text-white rounded py-2 px-4 hover:bg-cyan-700">
+                        <button type="submit" class="bg-stone-900
+                         text-white rounded py-2 px-4 hover:bg-slate-500">
                             Sign Up
                         </button>
                     </div>

@@ -6,7 +6,9 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Comment;
+use Illuminate\Support\Str;
 use App\Models\CommentImage;
+use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -56,6 +58,7 @@ class TaskController extends Controller
         );
 
         $formFields['user_id'] = auth()->id();
+        $formFields['title'] = Str::title($formFields['title']);
         $new_task = Task::create($formFields);
 
         if ($new_task->type == 'Normal') {
@@ -88,7 +91,10 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        return view('tasks.edit', ['task' => $task]);
+        return view('tasks.edit', [
+            'task' => $task,
+            'users' => User::get(),
+        ]);
     }
 
     public function update(Request $request, Task $task)
@@ -101,9 +107,38 @@ class TaskController extends Controller
             'title' => 'required',
             'type' => 'required',
             'status' => 'required',
+            'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
         ]);
+
+        $formFields['user_id'] = auth()->id();
+        $formFields['title'] = Str::title($formFields['title']);
+
+        if ($task->type == 'Normal') {
+            Comment::create([
+                'task_id' => $task->id,
+                'description' => 'This is a Normal Task!'
+            ]);
+            if ($task->status == 'To Dispatch') {
+                Comment::create([
+                    'task_id' => $task->id,
+                    'description' => 'This is a task that has a status of To Dispatch!'
+                ]);
+            }
+        }
+
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
+                $image->move(public_path('task_imgs'), $imageName);
+                Image::create([
+                    'task_id' => $task->id,
+                    'image' => $imageName
+                ]);
+            }
+        }
+
         $task->update($formFields);
-        return back()->with('message', 'Task updated succefully!');
+        return redirect('/tasks/manage')->with('message', 'Task updated succefully!');
     }
 
     public function destroy(Task $task)
@@ -137,5 +172,4 @@ class TaskController extends Controller
             'tasks' => $tasks
         ]);
     }
-
 }

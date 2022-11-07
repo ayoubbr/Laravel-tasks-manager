@@ -27,7 +27,7 @@
     <div class="page d-flex">
         {{-- Start Sidebar  --}}
         <div class="sidebar bg-white p-20  p-relative">
-            <h3 class="p-relative txt-c mt-0">Task MNG</h3>
+            <h3 class="p-relative txt-c mt-0">Tasks Manager</h3>
             <ul>
                 <li>
                     <a class="d-flex align-center fs-14 c-black rad-6 p-10 

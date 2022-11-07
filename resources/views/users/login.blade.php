@@ -34,8 +34,8 @@
             </div>
 
             <div class="mb-6">
-                <button type="submit" class="bg-cyan-500 
-                text-white rounded py-2 px-4 hover:bg-cyan-600">
+                <button type="submit" class="bg-stone-900 
+                text-white rounded py-2 px-4 hover:bg-slate-500">
                     Sign In
                 </button>
             </div>

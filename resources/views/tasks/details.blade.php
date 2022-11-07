@@ -3,7 +3,16 @@
 @section('content')
     <div class="page d-flex">
         <div class="content w-full">
-            <h1 class="p-relative fs-25">{{ $task->title }} : details</h1>
+            <div class="d-flex justify-around align-center my-10">
+                <h1 class="p-relative fs-25 " style="margin: 0">Task : {{ $task->title }}</h1>
+                <a href="/tasks/{{ $task->id }}/edit">
+                    <span class="label btn-shape py-2 bg-stone-900 c-white hover:bg-slate-500">
+                        <i class="fa-solid fa-pencil"></i> Edit Task
+
+                    </span>
+                </a>
+            </div>
+
             <div class="grid gap-4 grid-cols-2">
                 <div class="tasks m-5 p-20 bg-white rad-10">
                     <div style="display:flex;justify-content:space-between;
@@ -66,7 +75,8 @@
                                     </div>
 
                                     <i class="fa-regular fa-images mr-2 delete"></i>
-                                    <form action="/tasks/task-details/{{ $task->id }}/{{ $comment->id }}/" method="POST">
+                                    <form action="/tasks/task-details/{{ $task->id }}/comments/{{ $comment->id }}/"
+                                        method="POST">
                                         @csrf
                                         @method('delete')
                                         <span class="label  py-2 ">
@@ -106,14 +116,26 @@
                             Images
                         </h2>
 
+
                     </div>
                     <div class="courses-page d-grid m-5 gap-10">
                         @foreach ($images as $image)
                             <div class="course bg-eee rad-6 p-relative">
                                 <img class="cover" src="/task_imgs/{{ $image->image }}" alt="" />
-                                <div class="p-20">
-                                    <h4 class="m-0">{{ $image->image }}</h4>
+                                <div class="p-20 d-flex justify-between">
+                                    <h4 class="m-0">Id: {{ $image->id }}</h4>
+                                    <form action="/tasks/task-details/{{ $task->id }}/{{ $image->id }}/"
+                                        method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <span class="label  py-2 ">
+                                            <button type="submit">
+                                                <i class="fa-regular fa-trash-can delete"></i>
+                                            </button>
+                                        </span>
+                                    </form>
                                 </div>
+
                             </div>
                         @endforeach
                     </div>
