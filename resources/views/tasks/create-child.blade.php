@@ -1,0 +1,116 @@
+@extends('home')
+
+@section('content')
+    <div class="card">
+        <div class="px-20">
+            <header class="text-center">
+                <h2 class="text-2xl font-bold uppercase  mb-10">Create a Child Task for Task {{$task->title}}</h2>
+            </header>
+            <form method="POST" action="/tasks/child-task/{{ $task->id }}" enctype="multipart/form-data">
+                @csrf
+                <div class="grid grid grid-cols-3 gap-4">
+                    <div class="mb-6">
+                        <label for="title" class="inline-block text-lg mb-2">Title</label>
+                        <input type="text" placeholder='task title' class="border border-gray-200 rounded p-2 w-full" name="title"
+                            value="{{ old('title') }}" />
+
+                        @error('title')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-6">
+                        <label for="type" class="inline-block text-lg mb-2">Type</label>
+                        <select id="type" name="type" class="border border-gray-200 rounded p-2 w-full">
+                            <option value="">Select Type</option>
+                            <option value="Master">Master</option>
+                            <option value="Normal">Normal</option>
+                        </select>
+
+                        @error('type')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-6">
+                        <label for="status" class="inline-block text-lg mb-2">Status</label>
+                        <select name="status" class="select-type border border-gray-200 rounded p-2 w-full">
+                            <option value="">Select Status</option>
+                            <option value="Open">Open</option>
+                            <option value="To Dispatch">To Dispatch</option>
+                            <option value="To Validate">To Validate</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        @error('status')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="grid grid grid-cols-3 gap-4">
+                    <div class="mb-6 user">
+                        <label for="userAffectedTo" class="inline-block text-lg mb-2">
+                            User
+                        </label>
+                        <select id="userAffectedTo" name="userAffectedTo" class="border border-gray-200 rounded p-2 w-full">
+                            <option value="">Select User</option>
+
+                            @foreach ($users as $user)
+                                <option class="option" value="{{ $user->name }}">{{ $user->name }} </option>
+                            @endforeach
+
+                        </select>
+                        @error('userAffectedTo')
+                            <p class="text-red-500 text-xs mt-1">
+                                {{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="images" class="inline-block text-lg mb-2">
+                            Upload Images
+                        </label>
+                        <input type="file"
+                            class="border border-gray-200 rounded p-2  
+                            block w-full text-sm text-slate-500 
+                            file:mr-4 file:py-2 file:px-4 file:rounded-full 
+                            file:border-0 file:text-sm file:font-semibold  
+                            file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 w-full"
+                            name="images[]" accept="image/*" multiple />
+                        @error('images')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="grid grid grid-cols-2 gap-4">
+                    <div class="mb-6">
+                        <button
+                            class="bg-stone-900 text-white rounded py-2 px-4 
+                        hover:bg-slate-500  ">
+                            Create Child Task
+                        </button>
+
+                        <a href="/tasks"
+                            class="text-black 
+                         ml-4 py-2   px-4 rounded-md hover:bg-slate-500">
+                            Go Back
+                            <i class="fa-regular fa-circle-right"></i>
+                        </a>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        let user = document.querySelector(".user");
+        let selectType = document.querySelector(".select-type");
+        let option = document.querySelector(".option");
+        selectType.parentElement.addEventListener('change', (event) => {
+            console.log(option);
+            if (event.target.value == 'To Dispatch') {
+                user.classList.remove('hidden');
+                option.classList.remove('hidden');
+            } else {
+                user.classList.add('hidden');
+                option.classList.add('hidden');
+                option.setAttribute('value', '');
+            }
+        });
+    </script>
+@endsection

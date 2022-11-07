@@ -12,8 +12,8 @@
                         <td>Title</td>
                         <td>Type</td>
                         <td>Status</td>
+                        <td>Prent Task</td>
                         <td>Affected user</td>
-                        {{-- <td>Details</td> --}}
                         <td>Actions</td>
                     </tr>
                 </thead>
@@ -49,13 +49,17 @@
                                         </span>
                                     </a>
                                 </td>
-                                
+
                                 <td>
-                                    {{ $task->userAffectedTo }}
+                                    {{ $task->parent_id }}
                                 </td>
-                                {{-- <td> --}}
-                                   
-                                {{-- </td> --}}
+                                <td style="text-transform: uppercase">
+                                    @if ($task->userAffectedTo)
+                                        {{ $task->userAffectedTo }}
+                                    @else
+                                        <p>no user affected</p>
+                                    @endif
+                                </td>
                                 <td class="d-flex align-center">
                                     <a href="{{ route('task.details', $task->id) }}"
                                         class="bg-stone-900 text-white py-2 px-4 rounded-md hover:bg-slate-500">
@@ -79,6 +83,15 @@
                                             </button>
                                         </span>
                                     </form>
+                                    @if ($task->type == 'Master')
+                                        <a href="/tasks/{{ $task->id }}/task-child/create">
+                                            <span
+                                                class="label btn-shape bg-stone-900 text-white py-2 px-4 rounded-md hover:bg-slate-500">
+                                                Create Child Task <i class="ml-1 fa-solid fa-plus"></i>
+
+                                            </span>
+                                        </a>
+                                    @endif
 
                                 </td>
                             </tr>

@@ -24,12 +24,11 @@ Route::get('/tasks', [TaskController::class, 'index']);
 
 Route::get('/tasks/task-details/{id}', [TaskController::class, 'show'])->name('task.details');
 
-Route::put('/tasks/task-details/{id}', [CommentController::class, 'store']);
+Route::put('/tasks/task-details/{id}', [CommentController::class, 'store'])->middleware('auth');;
 
-Route::delete('/tasks/task-details/{id}/{image}', [ImageController::class, 'destroy']);
+Route::delete('/tasks/task-details/{id}/{image}', [ImageController::class, 'destroy'])->middleware('auth');;
 
-Route::delete('/tasks/task-details/{id}/comments/{comment}', [CommentController::class, 'destroy']);
-
+Route::delete('/tasks/task-details/{id}/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth');;
 
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 
@@ -40,6 +39,10 @@ Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth');
 Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->middleware('auth');
 
 Route::put('/tasks/{task}', [TaskController::class, 'update'])->middleware('auth');
+
+Route::get('/tasks/{task}/task-child/create', [TaskController::class, 'createChild'])->middleware('auth');;
+
+Route::post('/tasks/child-task/{task}', [TaskController::class, 'storeChild'])->middleware('auth');;
 
 Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->middleware('auth');
 

@@ -54,6 +54,7 @@ class TaskController extends Controller
                 'type' => 'required',
                 'status' => 'required',
                 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+                'parent_id' => 'required'
             ]
         );
 
@@ -72,6 +73,8 @@ class TaskController extends Controller
                     'description' => 'This is a task that has a status of To Dispatch!'
                 ]);
             }
+        } else if ($new_task == 'Master') {
+            $new_task->parent_id = null;
         }
 
         if ($request->has('images')) {
@@ -84,7 +87,6 @@ class TaskController extends Controller
                 ]);
             }
         }
-
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
     }
@@ -171,5 +173,69 @@ class TaskController extends Controller
         return view('home', [
             'tasks' => $tasks
         ]);
+    }
+
+    public function createChild(Task $task)
+    {
+        return view('tasks.create-child', [
+            'task' => $task,
+            'users' => User::get(),
+        ]);
+    }
+
+    public function storeChild(Request $request, Task $task)
+    {
+        if ($task->user_id != auth()->id()) {
+            abort(403, 'Unauthorized action');
+        }
+        if ($task->type == 'Normal') {
+            abort(403, 'Unauthorized action');
+        }
+
+        $formFields = $request->validate([
+            'title' => 'required',
+            'type' => 'required',
+            'status' => 'required',
+            'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+        ]);
+
+        $formFields['user_id'] = auth()->id();
+        $formFields['title'] = Str::title($formFields['title']);
+        $formFields['parent_id'] = $task->id;
+
+        $new_task = Task::create($formFields);
+
+
+        if ($new_task->type == 'Master') {
+            $new_task->parent_id = null;
+        }
+        if ($task->type == 'Normal') {
+            Comment::create([
+                'task_id' => $task->id,
+                'description' => 'This is a Normal Task!'
+            ]);
+            if ($task->status == 'To Dispatch') {
+                Comment::create([
+                    'task_id' => $task->id,
+                    'description' => 'This is a task that has a status of To Dispatch!'
+                ]);
+            }
+        } else if ($new_task->type == 'Master') {
+            $new_task->parent_id = null;
+        }
+
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
+                $image->move(public_path('task_imgs'), $imageName);
+                Image::create([
+                    'task_id' => $task->id,
+                    'image' => $imageName
+                ]);
+            }
+        }
+
+
+        return redirect('/tasks/manage')->with('message', 'Child Task updated succefully!');
     }
 }
