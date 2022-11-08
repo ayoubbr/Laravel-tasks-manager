@@ -17,11 +17,11 @@ class TaskController extends Controller
 
     public function index()
     {
+
+        $tasks = Task::tree();
         return view('tasks.index', [
-            'tasks' => Task::latest()
-                ->filter(request(['type', 'search']))
-                ->filter(request(['status']))
-                ->paginate(6)
+            'tasks' => $tasks
+
         ]);
     }
 
@@ -54,7 +54,6 @@ class TaskController extends Controller
                 'type' => 'required',
                 'status' => 'required',
                 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
-                'parent_id' => 'required'
             ]
         );
 

@@ -34,7 +34,7 @@
                     {{ 'tasks' == request()->path() ? 'active' : '' }}"
                         href="/tasks">
                         <i class="fa-regular fa-chart-bar fa-fw"></i>
-                        <span>Tasks</span>
+                        <span class="sidebarspan">Tasks</span>
                     </a>
                 </li>
                 @auth
@@ -43,7 +43,7 @@
                         {{ 'tasks/manage' == request()->path() ? 'active' : '' }}"
                             href="/tasks/manage">
                             <i class="fa-solid fa-gear fa-fw"></i>
-                            <span>Manage Tasks</span>
+                            <span class="sidebarspan">Manage Tasks</span>
                         </a>
                     </li>
                     <li>
@@ -51,7 +51,7 @@
                         {{ 'tasks/create' == request()->path() ? 'active' : '' }}"
                             href="/tasks/create">
                             <i class="fa-solid fa-folder-plus"></i>
-                            <span>Add Task</span>
+                            <span class="sidebarspan">Add Task</span>
                         </a>
                     </li>
                 @endauth
@@ -103,6 +103,28 @@
         {{-- End Content --}}
     </div>
     <x-flash-message />
+
+    <script>
+        let btns = document.querySelectorAll('.btn');
+        let lists = document.querySelectorAll('.list');
+
+        btns.forEach(el => {
+            window.addEventListener('click', (event) => {
+                if (event.target !== el) {
+                    el.nextElementSibling.classList.add('hidden');
+                }
+            });
+        });
+
+        btns.forEach(element => {
+            element.addEventListener('click', (event) => {
+                event.target.nextElementSibling.classList
+                    .toggle('hidden');
+            })
+        });
+    </script>
+
+
 </body>
 
 </html>
