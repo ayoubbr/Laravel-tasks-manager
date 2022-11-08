@@ -15,6 +15,8 @@ class CommentController extends Controller
     {
         $formFields = $request->validate(
             [
+                'title' => 'required',
+                'duration' => 'required',
                 'description' => 'required',
             ]
         );

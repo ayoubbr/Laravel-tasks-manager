@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('type');
             $table->string('status');
+            $table->double('duration')->default('0');
             $table->string('userAffectedTo')->nullable();
             $table->foreignId('parent_id')->nullable();
             $table->timestamps();

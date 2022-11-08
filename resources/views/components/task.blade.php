@@ -24,7 +24,7 @@
                     @if ($task->type == 'Master')
                         <a class="text-gray-700 block px-4 py-2 text-sm"
                             href="/tasks/{{ $task->id }}/task-child/create">
-                           <i class="ml-1 mr-3 fa-solid fa-plus"></i> Create Child Task 
+                            <i class="ml-1 mr-3 fa-solid fa-plus"></i> Create Child Task
                         </a>
                     @endif
                     <a href="{{ route('task.details', $task->id) }}" class="text-gray-700 block px-4 py-2 text-sm">
@@ -53,9 +53,9 @@
         {{ $task->title }}
 
         <div style="display: flex; margin-left: auto; gap: 15px;">
-            <p>{{ $task->userAffectedTo }}</p>
-            <p>{{ $task->status }}</p>
-            <p>{{ $task->type }}</p>
+            <p class="w-24">{{ $task->duration }}</p>
+            <p class="w-36">{{ $task->status }} / {{ $task->userAffectedTo }}</p>
+            <p class="w-24">{{ $task->type }}</p>
         </div>
     </span>
     <x-tasks :tasks="$task->children" />

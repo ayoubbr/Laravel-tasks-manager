@@ -64,7 +64,9 @@ class TaskController extends Controller
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
-                'description' => 'This is a Normal Task!'
+                'title' => 'This is an Automatic Comment!',
+                'description' => 'A user created a task',
+                'duration' => 0.2,
             ]);
             if ($new_task->status == 'To Dispatch') {
                 Comment::create([
@@ -117,7 +119,9 @@ class TaskController extends Controller
         if ($task->type == 'Normal') {
             Comment::create([
                 'task_id' => $task->id,
-                'description' => 'This is a Normal Task!'
+                'title' => 'This is an Automatic Comment!',
+                'description' => 'A user created a task',
+                'duration' => 0.2,
             ]);
             if ($task->status == 'To Dispatch') {
                 Comment::create([
@@ -139,7 +143,7 @@ class TaskController extends Controller
         }
 
         $task->update($formFields);
-        return redirect('/tasks/manage')->with('message', 'Task updated succefully!');
+        return redirect('/tasks')->with('message', 'Task updated succefully!');
     }
 
     public function destroy(Task $task)
@@ -150,7 +154,7 @@ class TaskController extends Controller
         }
 
         $task->delete();
-        return redirect('/tasks/manage')->with('message', 'Task deleted succefully!');
+        return redirect('/tasks')->with('message', 'Task deleted succefully!');
     }
 
     public function manage()
@@ -235,6 +239,6 @@ class TaskController extends Controller
         }
 
 
-        return redirect('/tasks/manage')->with('message', 'Child Task updated succefully!');
+        return redirect('/tasks')->with('message', 'Child Task updated succefully!');
     }
 }

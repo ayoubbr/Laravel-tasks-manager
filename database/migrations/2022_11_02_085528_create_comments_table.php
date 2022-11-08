@@ -17,7 +17,9 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Task::class)->constrained()->onDelete('cascade');
+            $table->string('title');
             $table->string('description');
+            $table->double('duration')->default('0');
             $table->timestamps();
         });
     }

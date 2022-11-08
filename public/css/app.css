@@ -36,7 +36,7 @@ ul {
     background-color: var(--blue-alt-color);
 }
 .page {
-    background-color: #f1f5f9;
+    background-color: #111827;
     min-height: 100vh;
 }
 /* Tree */
@@ -467,16 +467,26 @@ label {
 }
 /* End Latest News */
 /* Start Tasks */
-.tasks .task-row:not(:last-of-type) {
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
+
+.comment-create {
+    border: 1.5px solid black;
+    padding: 15px;
+    border-radius: 6px;
+}
+.comment-head {
+    border-radius: 6px 6px 0 0;
+}
+.comment-row {
+    /* padding: 10px; */
+    /* border: 1px solid #777; */
+    border: 1.5px solid black;
+    border-radius: 6px;
 }
 
-.comment-row {
-    padding-bottom: 10px;
-    padding-top: 10px;
-    border-bottom: 1px solid #777;
+.tasks{
+    border: 1.5px solid rgb(156, 149, 149);
+    box-shadow: 0 0 2px rgb(14, 13, 13);
+
 }
 .tasks .info {
     flex-grow: 1;
@@ -1301,11 +1311,11 @@ label {
 
 /* start Card */
 .card {
-    padding: 35px 15px;
-    background-color: #eee;
     margin: 30px auto;
-    border-radius: 6px;
-    max-width: 950px;
+    background: white;
+    /* border: 1px solid black; */
+    border-radius: 1px;
+    max-width: 1050px;
 }
 
 .flex-center {
@@ -1604,3 +1614,9 @@ label {
     background-color: transparent !important;
 }
 /* ////////////////////////// */
+
+.create-form {
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+}
