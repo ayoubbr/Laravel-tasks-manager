@@ -12,7 +12,7 @@
                     <h1 class="p-relative fs-25 " style="margin: 0">Task : {{ $task->title }}</h1>
                     <a href="/tasks/{{ $task->id }}/edit">
                         <span class="label btn-shape py-2 bg-stone-900 c-white hover:bg-slate-500">
-                            <i class="fa-solid fa-pencil"></i> Edit Task
+                            <i class="fa-solid fa-pencil mr-2"></i> Edit Task
                         </span>
                     </a>
                 </div>
@@ -98,10 +98,13 @@
                                 <div class="comment-row mb-10">
                                     <div class="task-row between-flex">
                                         <div class="info">
-                                            <div class="d-flex comment-head justify-between align-center bg-slate-200 p-10">
-                                                <h3 class=" fs-15">{{ $comment->title }}</h3>
+                                            <div class="text-lg d-flex comment-head justify-between align-center bg-slate-200 p-10">
+                                                <span>{{ $comment->task->user->name }}</span>
+                                                <span>{{ $comment->created_at }}</span>
+                                                <h3>{{ $comment->title }}</h3>
+                                                <span>{{ $comment->duration }} (hours)</span>
                                                 <div class="d-flex gap-3 align-center">
-                                                    <i class="fa-regular fa-images delete"></i>
+                                                    <i class="cursor-pointer fa-regular  fa-images image"></i>
                                                     <form
                                                         action="/tasks/task-details/{{ $task->id }}/comments/{{ $comment->id }}/"
                                                         method="POST">
@@ -121,7 +124,7 @@
 
                                     <div class="targetClass">
                                         @if (count($comment_images) != 0)
-                                            <div class=" hidden grid gap-4 grid-cols-3 bg-white rad-6 p-relative">
+                                            <div class="hidden grid gap-4 grid-cols-3 bg-white rad-6 p-relative">
 
                                                 @foreach ($comment_images as $commentImage)
                                                     @if ($comment->id == $commentImage->comment_id)
@@ -131,7 +134,7 @@
                                                 @endforeach
                                             </div>
                                         @else
-                                            <p>nothing found</p>
+                                            <p class="p-10">No Images Found!</p>
                                         @endif
                                     </div>
                                 </div>
@@ -178,7 +181,7 @@
         </div>
 
     </div>
-    
+
     <script>
         let hidden = document.querySelectorAll('.hidden');
         let hided = document.querySelector('.hided');
@@ -188,9 +191,9 @@
         if (imageIcon) {
             imageIcon.forEach(element => {
                 element.addEventListener('click', (event) => {
-                    event.target.parentElement.nextSibling.nextElementSibling.firstElementChild.classList
-                        .toggle('hidden');
-
+                    let target = event.target.parentElement.parentElement.parentElement.parentElement
+                        .nextElementSibling.firstElementChild.classList;
+                    target.toggle('hidden');
                 });
             });
         }

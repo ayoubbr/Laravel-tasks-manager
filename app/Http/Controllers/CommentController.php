@@ -16,11 +16,10 @@ class CommentController extends Controller
         $formFields = $request->validate(
             [
                 'title' => 'required',
-                'duration' => 'required',
                 'description' => 'required',
+                'duration' => 'required',
             ]
         );
-
         $formFields['task_id'] = $id;
         $new_comment = Comment::create($formFields);
 
@@ -34,7 +33,9 @@ class CommentController extends Controller
                 ]);
             }
         }
-
+        $task = Task::find($id);
+        $task->duration += $new_comment->duration;
+        $task->update();
         return back()->with('message', 'Comment created succefully!');
     }
 

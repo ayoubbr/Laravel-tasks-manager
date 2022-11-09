@@ -19,9 +19,10 @@ class TaskController extends Controller
     {
 
         $tasks = Task::tree();
+        $users = User::get();
         return view('tasks.index', [
-            'tasks' => $tasks
-
+            'tasks' => $tasks,
+            'users' => $users
         ]);
     }
 
@@ -32,7 +33,6 @@ class TaskController extends Controller
         $images = $task->images;
         $comments = $task->comments;
         $comment_images = CommentImage::with('comment.task')->whereRelation('comment', 'task_id', $id)->get();
-        // dd($comment_images);
         return view('tasks.details', compact('task', 'images', 'comments', 'comment_images'));
     }
 
@@ -54,28 +54,31 @@ class TaskController extends Controller
                 'type' => 'required',
                 'status' => 'required',
                 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+                'duration' => ''
             ]
         );
 
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
+        $formFields['duration'] = 0;
         $new_task = Task::create($formFields);
 
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
-                'title' => 'This is an Automatic Comment!',
-                'description' => 'A user created a task',
+                'title' => 'Automatic Comment',
+                'description' => 'This Comment generated automatically!',
                 'duration' => 0.2,
             ]);
+
             if ($new_task->status == 'To Dispatch') {
                 Comment::create([
                     'task_id' => $new_task->id,
-                    'description' => 'This is a task that has a status of To Dispatch!'
+                    'title' => 'Automatic Comment',
+                    'description' => 'This Comment generated automatically!',
+                    'duration' => 0.2,
                 ]);
             }
-        } else if ($new_task == 'Master') {
-            $new_task->parent_id = null;
         }
 
         if ($request->has('images')) {
@@ -88,6 +91,8 @@ class TaskController extends Controller
                 ]);
             }
         }
+
+        $new_task->update();
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
     }
@@ -102,9 +107,9 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        if ($task->user_id != auth()->id()) {
-            abort(403, 'Unauthorized action');
-        }
+        // if ($task->user_id != auth()->id()) {
+        //     abort(403, 'Unauthorized action');
+        // }
 
         $formFields = $request->validate([
             'title' => 'required',
@@ -126,7 +131,9 @@ class TaskController extends Controller
             if ($task->status == 'To Dispatch') {
                 Comment::create([
                     'task_id' => $task->id,
-                    'description' => 'This is a task that has a status of To Dispatch!'
+                    'title' => 'This is an Automatic Comment!',
+                    'description' => 'A user created a task',
+                    'duration' => 0.2,
                 ]);
             }
         }
@@ -188,9 +195,9 @@ class TaskController extends Controller
 
     public function storeChild(Request $request, Task $task)
     {
-        if ($task->user_id != auth()->id()) {
-            abort(403, 'Unauthorized action');
-        }
+        // if ($task->user_id != auth()->id()) {
+        //     abort(403, 'Unauthorized action');
+        // }
         if ($task->type == 'Normal') {
             abort(403, 'Unauthorized action');
         }
@@ -200,31 +207,38 @@ class TaskController extends Controller
             'type' => 'required',
             'status' => 'required',
             'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+            'duration' => ''
         ]);
 
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['parent_id'] = $task->id;
-
+        $formFields['duration'] = 0.2;
+        // dd($task->duration);
+        $task->duration += $formFields['duration'];
+        $task->update();
+        // dd($task->duration);
         $new_task = Task::create($formFields);
 
 
         if ($new_task->type == 'Master') {
             $new_task->parent_id = null;
         }
-        if ($task->type == 'Normal') {
+        if ($new_task->type == 'Normal') {
             Comment::create([
-                'task_id' => $task->id,
-                'description' => 'This is a Normal Task!'
+                'task_id' => $new_task->id,
+                'title' => 'Automatic Comment',
+                'description' => 'This Comment generated automatically!',
+                'duration' => 0.2,
             ]);
-            if ($task->status == 'To Dispatch') {
+            if ($new_task->status == 'To Dispatch') {
                 Comment::create([
-                    'task_id' => $task->id,
-                    'description' => 'This is a task that has a status of To Dispatch!'
+                    'task_id' => $new_task->id,
+                    'title' => 'Automatic Comment',
+                    'description' => 'This Comment generated automatically!',
+                    'duration' => 0.2,
                 ]);
             }
-        } else if ($new_task->type == 'Master') {
-            $new_task->parent_id = null;
         }
 
         if ($request->has('images')) {
@@ -241,4 +255,14 @@ class TaskController extends Controller
 
         return redirect('/tasks')->with('message', 'Child Task updated succefully!');
     }
+
+    // public function updateStatusAndUserAffected(Request $request, Task $task)
+    // {
+    //     $formFields = $request->validate([
+    //         'status' => '',
+    //         'userAffectedTo' => '',
+    //     ]);
+    //     $task->update($formFields);
+    //     return back();
+    // }
 }

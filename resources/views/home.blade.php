@@ -26,11 +26,11 @@
 <body>
     <div class="page d-flex">
         {{-- Start Sidebar  --}}
-        <div class="sidebar bg-white p-20  p-relative">
+        <div class="sidebar bg-white p-10  p-relative">
             <h3 class="p-relative txt-c mt-0">Tasks Manager</h3>
             <ul>
                 <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10 
+                    <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10 
                     {{ 'tasks' == request()->path() ? 'active' : '' }}"
                         href="/tasks">
                         <i class="fa-regular fa-chart-bar fa-fw"></i>
@@ -39,18 +39,18 @@
                 </li>
                 @auth
                     <li>
-                        <a class="d-flex align-center fs-14 c-black rad-6 p-10
+                        <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
                         {{ 'tasks/manage' == request()->path() ? 'active' : '' }}"
                             href="/tasks/manage">
-                            <i class="fa-solid fa-gear fa-fw"></i>
+                            <i class=" fa-solid fa-gear fa-fw"></i>
                             <span class="sidebarspan">Manage Tasks</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-center fs-14 c-black rad-6 p-10
+                        <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
                         {{ 'tasks/create' == request()->path() ? 'active' : '' }}"
                             href="/tasks/create">
-                            <i class="fa-solid fa-folder-plus"></i>
+                            <i class=" fa-solid fa-folder-plus"></i>
                             <span class="sidebarspan">Add Task</span>
                         </a>
                     </li>
@@ -79,7 +79,8 @@
                         <img class="mr-2"
                             src="{{ auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}"
                             alt="" />
-                        <form action="/" method="post">
+                           {{ auth()->user()->name}}
+                        <form action="/" method="post" class="ml-2">
                             @csrf
                             <button type="submit">Logout</button>
                         </form>
@@ -106,6 +107,7 @@
 
     <script>
         let btns = document.querySelectorAll('.btn');
+        let btns2 = document.querySelectorAll('.btn2');
         let lists = document.querySelectorAll('.list');
 
         btns.forEach(el => {
@@ -122,6 +124,25 @@
                     .toggle('hidden');
             })
         });
+
+
+        // btns2.forEach(el => {
+        //     window.addEventListener('click', (event) => {
+        //         if (event.target !== el) {
+        //             el.parentElement.nextElementSibling.classList.add('hidden');
+        //         }
+        //     });
+        // });
+
+        // btns2.forEach(element => {
+        //     element.addEventListener('click', (event) => {
+        //         // console.log(event.target.parentElement.nextElementSibling);
+        //         event.target.parentElement.nextElementSibling.classList
+        //             .toggle('hidden');
+        //     })
+        // });
+
+
     </script>
 
 

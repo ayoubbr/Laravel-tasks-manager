@@ -36,7 +36,7 @@ ul {
     background-color: var(--blue-alt-color);
 }
 .page {
-    background-color: #111827;
+    background-color: #f4f4f4;
     min-height: 100vh;
 }
 /* Tree */
@@ -129,22 +129,24 @@ ol {
 li span {
     background-color: #0ea5e9 !important;
 }
-li span div {
-    color: #000000 !important;
-}
-li li span div {
-    color: #000000 !important;
-}
-li li li span div {
-    color: #000000 !important;
-}
 
 li li span {
-    background-color: #06b6d4 !important;
+    background-color: #2dd4bf !important;
 }
 
 li li li span {
-    background-color: #14b8a6 !important;
+    background-color: #facc15 !important;
+}
+
+li li li li span {
+    background-color: #f97316 !important;
+}
+li span div {
+    color: #000000 !important;
+}
+
+li li li li span {
+    background-color: #ef4444 !important;
 }
 
 .display {
@@ -483,10 +485,9 @@ label {
     border-radius: 6px;
 }
 
-.tasks{
+.tasks {
     border: 1.5px solid rgb(156, 149, 149);
     box-shadow: 0 0 2px rgb(14, 13, 13);
-
 }
 .tasks .info {
     flex-grow: 1;
@@ -504,6 +505,10 @@ label {
 }
 .tasks .delete:hover {
     color: var(--red-color);
+}
+
+.tasks .image:hover {
+    color: var(--orange-color);
 }
 /* End Tasks */
 /* Start Latest Uploads */
@@ -1619,4 +1624,14 @@ label {
     gap: 30px;
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 767px) {
+    .fa-folder-plus {
+        margin: auto;
+    }
+}
+
+.w-36 {
+    width: 10rem !important;
 }

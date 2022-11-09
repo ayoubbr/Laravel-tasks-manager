@@ -12,8 +12,8 @@
                  <div class="grid grid grid-cols-3 gap-4">
                      <div>
                          <label for="title" class="inline-block text-lg mb-2">Title</label>
-                         <input type="text" class="border border-gray-200 rounded p-2 w-full"  placeholder="Title" name="title"
-                             value="{{ $task->title }}" />
+                         <input type="text" class="border border-gray-200 rounded p-2 w-full" placeholder="Title"
+                             name="title" value="{{ $task->title }}" />
 
                          @error('title')
                              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -34,7 +34,8 @@
                      </div>
                      <div>
                          <label for="status" class="inline-block text-lg mb-2">Status</label>
-                         <select name="status" class="cursor-pointer select-type border border-gray-200 rounded p-2 w-full">
+                         <select name="status"
+                             class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
                              <option value="">Select Status</option>
                              <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
                              <option value="To Dispatch" {{ $task->status == 'To Dispatch' ? 'selected' : '' }}>To Dispatch
@@ -75,19 +76,19 @@
                              Upload Images
                          </label>
                          <input type="file"
-                         class="cursor-pointer border border-gray-500 rounded p-1
+                             class="cursor-pointer border border-gray-500 rounded p-1
                          block w-full text-sm text-slate-500 
                          file:mr-7 file:cursor-pointer file:px-5 file:py-2 file:rounded-full 
                          file:border-0 file:text-sm file:font-semibold  
                          file:bg-orange-500 file:text-white-700 hover:file:bg-orange-600 w-full"
-                          name="images[]" accept="image/*" multiple />
+                             name="images[]" accept="image/*" multiple />
                          @error('images')
                              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                          @enderror
                      </div>
                  </div>
                  <div class="grid grid grid-cols-1">
-                     <div >
+                     <div>
                          <button
                              class="bg-stone-900 text-white rounded py-2 px-4 
                          hover:bg-slate-500">
@@ -104,18 +105,32 @@
      </div>
      <script>
          let user = document.querySelector(".user");
-         let selectType = document.querySelector(".select-type");
-         let option = document.querySelector(".option");
-         selectType.parentElement.addEventListener('change', (event) => {
-             console.log(option);
+         let selectSts = document.querySelector(".select-status");
+         let options = document.querySelectorAll(".option");
+         //   user.classList.add('hidden');
+
+
+         selectSts.parentElement.addEventListener('change', (event) => {
              if (event.target.value == 'To Dispatch') {
                  user.classList.remove('hidden');
-                 option.classList.remove('hidden');
+                 options.forEach(element => {
+                     element.setAttribute('value', element.innerHTML);
+                 });
              } else {
                  user.classList.add('hidden');
-                 option.classList.add('hidden');
-                 option.setAttribute('value', '');
+                 options.forEach(element => {
+                     //  console.log(element);
+                     element.setAttribute('value', '');
+                 });
              }
          });
+
+         if (selectSts.value !== 'To Dispatch') {
+             console.log(selectSts.value);
+             user.classList.add('hidden');
+             options.forEach(element => {
+                 element.setAttribute('value', '');
+             });
+         }
      </script>
  @endsection
