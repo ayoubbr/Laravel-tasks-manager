@@ -29,6 +29,8 @@ Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->middleware('a
 
 Route::put('/tasks/{task}', [TaskController::class, 'update'])->middleware('auth');
 
+Route::put('/tasks/{task}/updateStatus', [TaskController::class, 'updateStatus']);
+
 Route::get('/tasks/{task}/task-child/create', [TaskController::class, 'createChild'])->middleware('auth');;
 
 Route::post('/tasks/child-task/{task}', [TaskController::class, 'storeChild'])->middleware('auth');;

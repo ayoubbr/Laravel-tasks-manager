@@ -118,6 +118,14 @@
                     .toggle('hidden');
             })
         });
+
+        let selects = document.querySelectorAll('.select');
+
+        selects.forEach(element => {
+            element.onchange = function(e) {
+                element.nextElementSibling.click();
+            }
+        });
     </script>
 </body>
 

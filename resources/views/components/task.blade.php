@@ -44,19 +44,41 @@
             </div>
         </div>
         {{ $task->title }}
-        <div class="d-flex ml-auto gap-2.5">
-            <p class="w-24">{{ $task->duration }}</p>
-            <p class="w-24">{{ $task->user->name }}</p>
-            <p class="w-36 cursor-pointer relative ">
-                @if ($task->status == 'To Dispatch')
-                    {{ $task->userAffectedTo }}
-                @else
-                    {{ $task->status }}
-                @endif
-            </p>           
-        <p class="w-36">{{ $task->created_at }}</p>
-        <p class="w-24">{{ $task->type }}</p>
+        <div class="d-flex ml-auto gap-1.5 text-sm">
+            <p class="w-24 text-center">{{ $task->duration }}</p>
+            <p class="w-24 text-center">{{ $task->user->name }}</p>
+            <div class="w-36 text-center cursor-pointer">
+                <form class="status-form text-gray-700 block " action="/tasks/{{ $task->id }}/updateStatus"
+                    method="POST">
+                    @csrf
+                    @method('put')
+                    <select class="select" name="status"
+                        class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
+                        <option value="">Select Status</option>
+                        <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
+                        <option value="To Validate" {{ $task->status == 'To Validate' ? 'selected' : '' }}>To
+                            Validate
+                        </option>
+                        <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
+                        </option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->name }}" {{ $task->status == $user->name ? 'selected' : '' }}>
+                                {{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="hidden apply bg-gray-200 rounded-sm p-1"
+                        style="position: relative;left: 370px;top: -23px;">
+                        <i class="fa-solid fa-circle-check "></i> Apply
+                    </button>
+                </form>
+            </div>
+            <p class="w-36 text-center">{{ $task->created_at }}</p>
+            <p class="w-24 text-center mr-5">{{ $task->type }}</p>
         </div>
     </span>
     <x-tasks :tasks="$task->children" :users="$users" />
+
+    <script>
+       
+    </script>
 </li>

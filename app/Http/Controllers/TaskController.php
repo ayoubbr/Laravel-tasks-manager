@@ -250,4 +250,23 @@ class TaskController extends Controller
 
         return redirect('/tasks')->with('message', 'Child Task updated succefully!');
     }
+
+
+    public function updateStatus(Request $request, Task $task)
+    {
+
+        $formFields = $request->validate([
+            'status' => 'required',
+            'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+        ]);
+
+        $task->update($formFields);
+        if ($task->status != 'Open' && $task->status != 'Completed' && $task->status != 'To Validate') {
+            $task->userAffectedTo = $task->status;
+        } else {
+            $task->userAffectedTo = null;
+        }
+        $task->update($formFields);
+        return back();
+    }
 }
