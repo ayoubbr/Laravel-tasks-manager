@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 body {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     margin: 0;
 }
 *:focus {
@@ -1634,4 +1634,30 @@ label {
 
 .w-36 {
     width: 10rem !important;
+}
+
+.list {
+    right: -219px;
+    top: 15px;
+}
+
+.list a:hover,
+.list form:hover {
+    background-color: rgb(166, 247, 220);
+}
+
+.status-list {
+    right: -28px;
+    top: 32px;
+}
+
+.status-form {
+    max-height: 24px !important;
+}
+
+.select {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }

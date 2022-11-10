@@ -107,9 +107,6 @@
          let user = document.querySelector(".user");
          let selectSts = document.querySelector(".select-status");
          let options = document.querySelectorAll(".option");
-         //   user.classList.add('hidden');
-
-
          selectSts.parentElement.addEventListener('change', (event) => {
              if (event.target.value == 'To Dispatch') {
                  user.classList.remove('hidden');
@@ -119,7 +116,6 @@
              } else {
                  user.classList.add('hidden');
                  options.forEach(element => {
-                     //  console.log(element);
                      element.setAttribute('value', '');
                  });
              }

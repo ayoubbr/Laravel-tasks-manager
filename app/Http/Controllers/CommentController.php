@@ -13,6 +13,12 @@ class CommentController extends Controller
 
     public function store(Request $request, $id)
     {
+        
+        $task = Task::find($id);
+        if ($task->type == 'Master') {
+            abort(403, 'Unauthorized action');
+        }
+
         $formFields = $request->validate(
             [
                 'title' => 'required',
@@ -33,13 +39,12 @@ class CommentController extends Controller
                 ]);
             }
         }
-        $task = Task::find($id);
         $task->duration += $new_comment->duration;
         $task->update();
         return back()->with('message', 'Comment created succefully!');
     }
 
-    public function destroy($id, Comment $comment)
+    public function destroy(Comment $comment)
     {
         $comment->delete();
         return back()->with('message', 'Comment deleted succefully!');

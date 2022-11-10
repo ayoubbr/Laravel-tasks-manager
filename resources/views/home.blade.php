@@ -15,12 +15,6 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="//unpkg.com/alpinejs" defer></script>
     <!-- Styles -->
-
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
 </head>
 
 <body>
@@ -79,7 +73,7 @@
                         <img class="mr-2"
                             src="{{ auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}"
                             alt="" />
-                           {{ auth()->user()->name}}
+                        {{ auth()->user()->name }}
                         <form action="/" method="post" class="ml-2">
                             @csrf
                             <button type="submit">Logout</button>
@@ -124,28 +118,7 @@
                     .toggle('hidden');
             })
         });
-
-
-        // btns2.forEach(el => {
-        //     window.addEventListener('click', (event) => {
-        //         if (event.target !== el) {
-        //             el.parentElement.nextElementSibling.classList.add('hidden');
-        //         }
-        //     });
-        // });
-
-        // btns2.forEach(element => {
-        //     element.addEventListener('click', (event) => {
-        //         // console.log(event.target.parentElement.nextElementSibling);
-        //         event.target.parentElement.nextElementSibling.classList
-        //             .toggle('hidden');
-        //     })
-        // });
-
-
     </script>
-
-
 </body>
 
 </html>

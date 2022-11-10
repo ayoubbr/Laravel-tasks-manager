@@ -92,6 +92,10 @@ class TaskController extends Controller
             }
         }
 
+        if ($new_task->status !== 'To Dispatch') {
+            $new_task->userAffectedTo = null;
+        }
+
         $new_task->update();
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
@@ -107,10 +111,6 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        // if ($task->user_id != auth()->id()) {
-        //     abort(403, 'Unauthorized action');
-        // }
-
         $formFields = $request->validate([
             'title' => 'required',
             'type' => 'required',
@@ -195,9 +195,6 @@ class TaskController extends Controller
 
     public function storeChild(Request $request, Task $task)
     {
-        // if ($task->user_id != auth()->id()) {
-        //     abort(403, 'Unauthorized action');
-        // }
         if ($task->type == 'Normal') {
             abort(403, 'Unauthorized action');
         }
@@ -214,10 +211,8 @@ class TaskController extends Controller
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['parent_id'] = $task->id;
         $formFields['duration'] = 0.2;
-        // dd($task->duration);
         $task->duration += $formFields['duration'];
         $task->update();
-        // dd($task->duration);
         $new_task = Task::create($formFields);
 
 
@@ -255,14 +250,4 @@ class TaskController extends Controller
 
         return redirect('/tasks')->with('message', 'Child Task updated succefully!');
     }
-
-    // public function updateStatusAndUserAffected(Request $request, Task $task)
-    // {
-    //     $formFields = $request->validate([
-    //         'status' => '',
-    //         'userAffectedTo' => '',
-    //     ]);
-    //     $task->update($formFields);
-    //     return back();
-    // }
 }

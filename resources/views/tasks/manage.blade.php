@@ -1,7 +1,6 @@
 @extends('home')
 
 @section('content')
-
     <div class="projects p-20 bg-white rad-10 m-5">
         <h2 class="mt-0 mb-5">Tasks</h2>
         <div class="responsive-table">
@@ -99,9 +98,6 @@
                     @else
                         <p class="text-zinc-900 bg-zinc-200 p-10 mb-5 rounded-md">No tasks found</p>
                     @endunless
-
-
-
                 </tbody>
             </table>
         </div>

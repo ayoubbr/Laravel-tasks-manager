@@ -4,7 +4,7 @@
     <div class="card">
         <div>
             <header class="text-center d-flex align-center justify-center p-7 bg-emerald-500">
-                <h2 class="text-2xl">Create a Master Task</h2>
+                <h2 class="text-2xl">Create a Task</h2>
             </header>
             <form method="POST" action="/tasks" enctype="multipart/form-data" class="p-7 create-form">
                 @csrf
@@ -55,7 +55,7 @@
                             <option value="">Select User</option>
 
                             @foreach ($users as $user)
-                                <option class="option" value="{{ $user->name }}">{{ $user->name }} </option>
+                                <option class="useroption" value="{{ $user->name }}">{{ $user->name }} </option>
                             @endforeach
 
                         </select>
@@ -102,16 +102,14 @@
     <script>
         let user = document.querySelector(".user");
         let selectType = document.querySelector(".select-type");
-        let option = document.querySelector(".option");
+        let option = document.querySelector(".useroption");
         selectType.parentElement.addEventListener('change', (event) => {
-            console.log(option);
             if (event.target.value == 'To Dispatch') {
                 user.classList.remove('hidden');
                 option.classList.remove('hidden');
-            } else {
+            } else if (event.target.value != 'To Dispatch') {
                 user.classList.add('hidden');
                 option.classList.add('hidden');
-                option.setAttribute('value', '');
             }
         });
     </script>
