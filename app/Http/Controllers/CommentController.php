@@ -44,7 +44,7 @@ class CommentController extends Controller
         return back()->with('message', 'Comment created succefully!');
     }
 
-    public function destroy(Comment $comment)
+    public function destroy($id, Comment $comment)
     {
         $comment->delete();
         return back()->with('message', 'Comment deleted succefully!');
