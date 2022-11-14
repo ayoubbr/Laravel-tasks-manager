@@ -105,6 +105,7 @@
                                                     <div
                                                         class="text-lg d-flex comment-head justify-between align-center bg-slate-200 p-10">
                                                         <span>{{ $comment->task->user->name }}</span>
+                                                        <span>{{ $comment->task->userAffectedTo }}</span>
                                                         <span>{{ $comment->created_at }}</span>
                                                         <h3>{{ $comment->title }}</h3>
                                                         <span>{{ $comment->duration }} (hours)</span>

@@ -58,28 +58,36 @@ class TaskController extends Controller
             ]
         );
 
+
+
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['duration'] = 0;
         $new_task = Task::create($formFields);
 
+
+        $commentFields = $request->validate(
+            [
+                'description' => 'required',
+            ]
+        );
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
-                'title' => 'Automatic Comment',
-                'description' => 'This Comment generated automatically!',
+                'title' => 'task from normal task created',
+                'description' => $commentFields['description'],
                 'duration' => 0.2,
             ]);
-
-            if ($new_task->status == 'To Dispatch') {
-                Comment::create([
-                    'task_id' => $new_task->id,
-                    'title' => 'Automatic Comment',
-                    'description' => 'This Comment generated automatically!',
-                    'duration' => 0.2,
-                ]);
-            }
         }
+
+        // if ($new_task->status == 'To Dispatch') {
+        //     Comment::create([
+        //         'task_id' => $new_task->id,
+        //         'title' => 'Automatic Comment',
+        //         'description' => 'This Comment generated automatically!',
+        //         'duration' => 0.2,
+        //     ]);
+        // }
 
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
@@ -99,6 +107,61 @@ class TaskController extends Controller
         $new_task->update();
 
         return redirect('/tasks')->with('message', 'Task created succefully!');
+    }
+
+    public function storeChild(Request $request, Task $task)
+    {
+        if ($task->type == 'Normal') {
+            abort(403, 'Unauthorized action');
+        }
+
+        $formFields = $request->validate([
+            'title' => 'required',
+            'type' => 'required',
+            'status' => 'required',
+            'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+            'duration' => ''
+        ]);
+
+        $formFields['user_id'] = auth()->id();
+        $formFields['title'] = Str::title($formFields['title']);
+        $formFields['parent_id'] = $task->id;
+        $formFields['duration'] = 0.2;
+        $task->duration += $formFields['duration'];
+        $task->update();
+        $new_task = Task::create($formFields);
+
+        $commentFields = $request->validate(
+            [
+                'description' => 'required',
+            ]
+        );
+        if ($new_task->type == 'Normal') {
+            Comment::create([
+                'task_id' => $new_task->id,
+                'title' => 'task from normal task created',
+                'description' => $commentFields['description'],
+                'duration' => 0.2,
+            ]);
+        }
+
+        if ($new_task->type == 'Master') {
+            $new_task->parent_id = null;
+        }
+
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
+                $image->move(public_path('task_imgs'), $imageName);
+                Image::create([
+                    'task_id' => $task->id,
+                    'image' => $imageName
+                ]);
+            }
+        }
+
+
+        return redirect('/tasks')->with('message', 'Child Task updated succefully!');
     }
 
     public function edit(Task $task)
@@ -121,22 +184,22 @@ class TaskController extends Controller
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
 
-        if ($task->type == 'Normal') {
-            Comment::create([
-                'task_id' => $task->id,
-                'title' => 'This is an Automatic Comment!',
-                'description' => 'A user created a task',
-                'duration' => 0.2,
-            ]);
-            if ($task->status == 'To Dispatch') {
-                Comment::create([
-                    'task_id' => $task->id,
-                    'title' => 'This is an Automatic Comment!',
-                    'description' => 'A user created a task',
-                    'duration' => 0.2,
-                ]);
-            }
-        }
+        // if ($task->type == 'Normal') {
+        //     Comment::create([
+        //         'task_id' => $task->id,
+        //         'title' => 'Updated task!',
+        //         'description' => 'This is an Updated task! ',
+        //         'duration' => 0.2,
+        //     ]);
+        // if ($task->status == 'To Dispatch') {
+        //     Comment::create([
+        //         'task_id' => $task->id,
+        //         'title' => 'This is an Automatic Comment!',
+        //         'description' => 'A user created a task',
+        //         'duration' => 0.2,
+        //     ]);
+        // }
+        // }
 
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
@@ -148,6 +211,8 @@ class TaskController extends Controller
                 ]);
             }
         }
+
+
 
         $task->update($formFields);
         return redirect('/tasks')->with('message', 'Task updated succefully!');
@@ -192,65 +257,6 @@ class TaskController extends Controller
             'users' => User::get(),
         ]);
     }
-
-    public function storeChild(Request $request, Task $task)
-    {
-        if ($task->type == 'Normal') {
-            abort(403, 'Unauthorized action');
-        }
-
-        $formFields = $request->validate([
-            'title' => 'required',
-            'type' => 'required',
-            'status' => 'required',
-            'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
-            'duration' => ''
-        ]);
-
-        $formFields['user_id'] = auth()->id();
-        $formFields['title'] = Str::title($formFields['title']);
-        $formFields['parent_id'] = $task->id;
-        $formFields['duration'] = 0.2;
-        $task->duration += $formFields['duration'];
-        $task->update();
-        $new_task = Task::create($formFields);
-
-
-        if ($new_task->type == 'Master') {
-            $new_task->parent_id = null;
-        }
-        if ($new_task->type == 'Normal') {
-            Comment::create([
-                'task_id' => $new_task->id,
-                'title' => 'Automatic Comment',
-                'description' => 'This Comment generated automatically!',
-                'duration' => 0.2,
-            ]);
-            if ($new_task->status == 'To Dispatch') {
-                Comment::create([
-                    'task_id' => $new_task->id,
-                    'title' => 'Automatic Comment',
-                    'description' => 'This Comment generated automatically!',
-                    'duration' => 0.2,
-                ]);
-            }
-        }
-
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-                $image->move(public_path('task_imgs'), $imageName);
-                Image::create([
-                    'task_id' => $task->id,
-                    'image' => $imageName
-                ]);
-            }
-        }
-
-
-        return redirect('/tasks')->with('message', 'Child Task updated succefully!');
-    }
-
 
     public function updateStatus(Request $request, Task $task)
     {

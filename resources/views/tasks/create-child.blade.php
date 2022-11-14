@@ -19,20 +19,8 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="">
-                        <label for="type" class="inline-block text-lg mb-2">Type</label>
-                        <select id="type" name="type"
-                            class="cursor-pointer border border-gray-500 rounded p-2 w-full">
-                            <option value="">Select Type</option>
-                            <option value="Master">Master</option>
-                            <option value="Normal">Normal</option>
-                        </select>
 
-                        @error('type')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="">
+                    <div>
                         <label for="status" class="inline-block text-lg mb-2">Status</label>
                         <select name="status"
                             class="select-status cursor-pointer border border-gray-500 rounded p-2 w-full">
@@ -46,8 +34,6 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
-                <div class="grid grid grid-cols-3 gap-4">
                     <div class="user">
                         <label for="userAffectedTo" class="inline-block text-lg mb-2">
                             User
@@ -64,6 +50,36 @@
                         @error('userAffectedTo')
                             <p class="text-red-500 text-xs mt-1">
                                 {{ $message }}</p>
+                        @enderror
+                    </div>
+
+                </div>
+                <div class="grid grid grid-cols-1 gap-4">
+                    <div>
+                        <label for="description" class="inline-block text-lg mb-2">Comment</label>
+
+
+                        <textarea class="comment-text border border-gray-500 rounded p-2 w-full" name="description" id="description"
+                            rows="4"></textarea>
+
+                        @error('description')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="grid grid grid-cols-3 gap-4">
+
+                    <div class="">
+                        <label for="type" class="inline-block text-lg mb-2">Type</label>
+                        <select id="type" name="type"
+                            class="cursor-pointer type-select border border-gray-500 rounded p-2 w-full">
+                            <option value="">Select Type</option>
+                            <option value="Master">Master</option>
+                            <option value="Normal">Normal</option>
+                        </select>
+
+                        @error('type')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -105,6 +121,8 @@
         let user = document.querySelector(".user");
         let selectSts = document.querySelector(".select-status");
         let options = document.querySelectorAll(".useroption");
+        let typeSelect = document.querySelector(".type-select");
+        let comment = document.querySelector(".comment-text");
 
         selectSts.parentElement.addEventListener('change', (event) => {
             if (event.target.value == 'To Dispatch') {
@@ -126,5 +144,13 @@
                 element.setAttribute('value', '');
             });
         }
+
+        typeSelect.addEventListener('change', (e) => {
+            if (e.target.value == 'Master') {
+                comment.innerHTML = 'TM'
+            } else {
+                comment.innerHTML = ''
+            }
+        });
     </script>
 @endsection

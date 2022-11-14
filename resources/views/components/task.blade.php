@@ -85,7 +85,7 @@
                 @if ($task->userAffectedTo)
                     {{ $task->userAffectedTo }}
                 @else
-                    NO USER AFFECTED
+                    NO USER
                 @endif
 
             </p>
