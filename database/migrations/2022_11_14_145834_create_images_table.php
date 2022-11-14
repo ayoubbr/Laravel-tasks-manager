@@ -17,7 +17,6 @@ return new class extends Migration
         Schema::dropIfExists('images');
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Task::class)->constrained()->onDelete('cascade');
             $table->string('image');
             $table->timestamps();
         });

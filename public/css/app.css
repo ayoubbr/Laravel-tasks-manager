@@ -109,23 +109,6 @@ ol {
     content: counters(item, ".") " ";
 }
 
-/* .wtree li span:hover,
-    .wtree li span:focus {
-    color: #000; 
-    border: 1px solid rgb(71, 71, 71); 
- } 
- .wtree li span:hover + ol li span, 
- .wtree li span:focus + ol li span { 
-     color: #000; 
-     border: 1px solid rgb(71, 71, 71); 
- }
-  .wtree li span:hover + ol li:after,
-.wtree li span:hover + ol li:before,
-.wtree li span:focus + ol li:after,
-.wtree li span:focus + ol li:before {
-    border-color: rgb(71, 71, 71);
-} */
-
 li span {
     background-color: #0ea5e9 !important;
 }
@@ -479,16 +462,11 @@ label {
     border-radius: 6px 6px 0 0;
 }
 .comment-row {
-    /* padding: 10px; */
-    /* border: 1px solid #777; */
+    
     border: 1.5px solid black;
     border-radius: 6px;
 }
 
-.tasks {
-    border: 1.5px solid rgb(156, 149, 149);
-    box-shadow: 0 0 2px rgb(14, 13, 13);
-}
 .tasks .info {
     flex-grow: 1;
 }
@@ -1318,7 +1296,6 @@ label {
 .card {
     margin: 30px auto;
     background: white;
-    /* border: 1px solid black; */
     border-radius: 1px;
     max-width: 1050px;
 }
