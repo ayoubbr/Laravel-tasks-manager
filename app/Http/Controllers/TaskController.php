@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
-use App\Models\Image;
+use App\Models\Upload;
 use App\Models\Comment;
 use Illuminate\Support\Str;
 use App\Models\CommentImage;
@@ -30,10 +30,10 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
         if (!$task) abort(404);
-        $images = $task->images;
+        $uploads = $task->uploads;
         $comments = $task->comments;
         $comment_images = CommentImage::with('comment.task')->whereRelation('comment', 'task_id', $id)->get();
-        return view('tasks.details', compact('task', 'images', 'comments', 'comment_images'));
+        return view('tasks.details', compact('task', 'uploads', 'comments', 'comment_images'));
     }
 
     public function create()
@@ -89,13 +89,13 @@ class TaskController extends Controller
         //     ]);
         // }
 
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-                $image->move(public_path('task_imgs'), $imageName);
-                Image::create([
+        if ($request->has('uploads')) {
+            foreach ($request->file('uploads') as $upload) {
+                $uploadName = $formFields['title'] . 'upload-' . time() . rand(1, 1000) . '.' . $upload->extension();
+                $upload->move(public_path('task_imgs'), $uploadName);
+                Upload::create([
                     'task_id' => $new_task->id,
-                    'image' => $imageName
+                    'upload' => $uploadName
                 ]);
             }
         }
@@ -149,16 +149,28 @@ class TaskController extends Controller
             $new_task->parent_id = null;
         }
 
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-                $image->move(public_path('task_imgs'), $imageName);
-                Image::create([
-                    'task_id' => $task->id,
-                    'image' => $imageName
+        // if ($request->has('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
+        //         $image->move(public_path('task_imgs'), $imageName);
+        //         Image::create([
+        //             'task_id' => $task->id,
+        //             'image' => $imageName
+        //         ]);
+        //     }
+        // }
+
+        if ($request->has('uploads')) {
+            foreach ($request->file('uploads') as $upload) {
+                $uploadName = $formFields['title'] . 'upload-' . time() . rand(1, 1000) . '.' . $upload->extension();
+                $upload->move(public_path('task_imgs'), $uploadName);
+                Upload::create([
+                    'task_id' => $new_task->id,
+                    'upload' => $uploadName
                 ]);
             }
         }
+
 
 
         return redirect('/tasks')->with('message', 'Child Task updated succefully!');
@@ -201,13 +213,24 @@ class TaskController extends Controller
         // }
         // }
 
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-                $image->move(public_path('task_imgs'), $imageName);
-                Image::create([
+        // if ($request->has('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
+        //         $image->move(public_path('task_imgs'), $imageName);
+        //         Image::create([
+        //             'task_id' => $task->id,
+        //             'image' => $imageName
+        //         ]);
+        //     }
+        // }
+
+        if ($request->has('uploads')) {
+            foreach ($request->file('uploads') as $upload) {
+                $uploadName = $formFields['title'] . 'upload-' . time() . rand(1, 1000) . '.' . $upload->extension();
+                $upload->move(public_path('task_imgs'), $uploadName);
+                Upload::create([
                     'task_id' => $task->id,
-                    'image' => $imageName
+                    'upload' => $uploadName
                 ]);
             }
         }

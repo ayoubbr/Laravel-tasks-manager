@@ -1,4 +1,4 @@
-@extends('home')
+{{-- @extends('home')
 
 @section('content')
     <div class="projects p-20 bg-white rad-10 m-5">
@@ -101,9 +101,9 @@
                 </tbody>
             </table>
         </div>
-        {{-- Pagination --}}
+        
         <div class="mt-5">
             {{ $tasks->links() }}
         </div>
     </div>
-@endsection
+@endsection --}}

@@ -22,11 +22,12 @@
                                 <h2 class=" text-2xl">
                                     Comments
                                 </h2>
-                                <button class="bg-sky-400 hover:bg-sky-600 btn-plus hover:text-white p-10 rounded-md d-flex align-center">
+                                <button
+                                    class="bg-sky-400 hover:bg-sky-600 btn-plus hover:text-white p-10 rounded-md d-flex align-center">
                                     Add comment
                                     <i class="fa-solid fa-circle-plus ml-2 cursor-pointer"></i>
                                 </button>
-                                
+
                             </div>
 
                             <div class="hided mb-10 comment-create">
@@ -156,18 +157,18 @@
                     <div class="tasks m-5  p-20  bg-white rad-10">
                         <div style="display:flex;justify-content:space-between;align-items:center">
                             <h2 class="mb-5 text-2xl">
-                                Images
+                                Uploads
                             </h2>
-
-
                         </div>
                         <div class="courses-page d-grid m-5 gap-10">
-                            @foreach ($images as $image)
+                            @foreach ($uploads as $upload)
                                 <div class="course bg-eee rad-6 p-relative">
-                                    <img class="cover" src="/task_imgs/{{ $image->image }}" alt="" />
+                                    <img class="cover" src="/task_imgs/{{ $upload->upload }}" alt="" />
+                                    {{-- <embed src="/task_imgs/{{ $upload->upload }}"> --}}
+                                    <p class="p-4">{{ $upload->upload }}</p>
                                     <div class="p-20 d-flex justify-between">
-                                        <h4 class="m-0">Id: {{ $image->id }}</h4>
-                                        <form action="/tasks/task-details/{{ $task->id }}/{{ $image->id }}/"
+                                        <h4 class="m-0">Id: {{ $upload->id }}</h4>
+                                        <form action="/tasks/task-details/{{ $task->id }}/{{ $upload->id }}/"
                                             method="POST">
                                             @csrf
                                             @method('delete')

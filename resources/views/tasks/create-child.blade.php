@@ -84,8 +84,8 @@
                     </div>
 
                     <div class="col-span-2">
-                        <label for="images" class="inline-block text-lg mb-2">
-                            Upload Images
+                        <label for="uploads" class="inline-block text-lg mb-2">
+                            Uploads
                         </label>
                         <input type="file"
                             class="cursor-pointer border border-gray-500 rounded p-1
@@ -93,8 +93,8 @@
                         file:mr-7 file:cursor-pointer file:px-5 file:py-2 file:rounded-full 
                         file:border-0 file:text-sm file:font-semibold  
                         file:bg-sky-500 file:text-white-700 hover:file:bg-sky-600 w-full"
-                            name="images[]" accept="image/*" multiple />
-                        @error('images')
+                            name="uploads[]" multiple />
+                        @error('uploads')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>

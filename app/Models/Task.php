@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Upload;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
@@ -31,9 +32,9 @@ class Task extends Model
         return $this->hasMany(Comment::class, 'task_id');
     }
 
-    public function images()
+    public function uploads()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Upload::class);
     }
 
     public function user()
