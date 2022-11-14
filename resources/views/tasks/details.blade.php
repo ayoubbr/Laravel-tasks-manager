@@ -18,13 +18,15 @@
                 <div class="grid gap-4 grid-cols-1">
                     @unless($task->type == 'Master')
                         <div class="tasks m-5 p-20 bg-white rad-10">
-                            <div class="d-flex justify-between align-center">
-                                <h2 class="mb-5 text-2xl">
+                            <div class="d-flex justify-between align-center mb-3">
+                                <h2 class=" text-2xl">
                                     Comments
                                 </h2>
-                                <p> Add comment
-                                    <i class="fa-solid fa-circle-plus mb-5 cursor-pointer"></i>
-                                </p>
+                                <button class="bg-sky-400 hover:bg-sky-600 btn-plus hover:text-white p-10 rounded-md d-flex align-center">
+                                    Add comment
+                                    <i class="fa-solid fa-circle-plus ml-2 cursor-pointer"></i>
+                                </button>
+                                
                             </div>
 
                             <div class="hided mb-10 comment-create">
@@ -190,7 +192,7 @@
         let hidden = document.querySelectorAll('.hidden');
         let hided = document.querySelector('.hided');
         let imageIcon = document.querySelectorAll('.fa-images');
-        let plusIcon = document.querySelector('.fa-circle-plus');
+        let plusIcon = document.querySelector('.btn-plus');
         if (imageIcon) {
             imageIcon.forEach(element => {
                 element.addEventListener('click', (event) => {
@@ -202,7 +204,7 @@
         }
         if (plusIcon) {
             plusIcon.addEventListener('click', (event) => {
-                hided.classList.toggle('hided')
+                hided.classList.toggle('hided');
             });
         }
     </script>

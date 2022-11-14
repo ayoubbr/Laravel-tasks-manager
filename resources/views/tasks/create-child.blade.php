@@ -4,7 +4,7 @@
     <div class="card">
         <div>
             <header class="text-center d-flex align-center justify-center p-7 bg-sky-500">
-                <h2 class="text-2xl">Create a Child Task for Task {{ $task->title }}</h2>
+                <h2 class="text-2xl">Create a Child for Task "{{ $task->title }}"</h2>
             </header>
             <form method="POST" action="/tasks/child-task/{{ $task->id }}" enctype="multipart/form-data"
                 class="p-7 create-form">
@@ -34,7 +34,8 @@
                     </div>
                     <div class="">
                         <label for="status" class="inline-block text-lg mb-2">Status</label>
-                        <select name="status" class="cursor-pointer select-type border border-gray-500 rounded p-2 w-full">
+                        <select name="status"
+                            class="select-status cursor-pointer border border-gray-500 rounded p-2 w-full">
                             <option value="">Select Status</option>
                             <option value="Open">Open</option>
                             <option value="To Dispatch">To Dispatch</option>
@@ -47,7 +48,7 @@
                     </div>
                 </div>
                 <div class="grid grid grid-cols-3 gap-4">
-                    <div class=" user">
+                    <div class="user">
                         <label for="userAffectedTo" class="inline-block text-lg mb-2">
                             User
                         </label>
@@ -56,7 +57,7 @@
                             <option value="">Select User</option>
 
                             @foreach ($users as $user)
-                                <option class="option" value="{{ $user->name }}">{{ $user->name }} </option>
+                                <option class="useroption" value="{{ $user->name }}">{{ $user->name }} </option>
                             @endforeach
 
                         </select>
@@ -102,18 +103,28 @@
     </div>
     <script>
         let user = document.querySelector(".user");
-        let selectType = document.querySelector(".select-type");
-        let option = document.querySelector(".option");
-        selectType.parentElement.addEventListener('change', (event) => {
-            console.log(option);
+        let selectSts = document.querySelector(".select-status");
+        let options = document.querySelectorAll(".useroption");
+
+        selectSts.parentElement.addEventListener('change', (event) => {
             if (event.target.value == 'To Dispatch') {
                 user.classList.remove('hidden');
-                option.classList.remove('hidden');
+                options.forEach(element => {
+                    element.setAttribute('value', element.innerHTML);
+                });
             } else {
                 user.classList.add('hidden');
-                option.classList.add('hidden');
-                option.setAttribute('value', '');
+                options.forEach(element => {
+                    element.setAttribute('value', '');
+                });
             }
         });
+
+        if (selectSts.value !== 'To Dispatch') {
+            user.classList.add('hidden');
+            options.forEach(element => {
+                element.setAttribute('value', '');
+            });
+        }
     </script>
 @endsection

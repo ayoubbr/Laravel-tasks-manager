@@ -32,14 +32,14 @@
                     </a>
                 </li>
                 @auth
-                    <li>
+                    {{-- <li>
                         <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
                         {{ 'tasks/manage' == request()->path() ? 'active' : '' }}"
                             href="/tasks/manage">
                             <i class=" fa-solid fa-gear fa-fw"></i>
                             <span class="sidebarspan">Manage Tasks</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
                         {{ 'tasks/create' == request()->path() ? 'active' : '' }}"
@@ -99,34 +99,6 @@
     </div>
     <x-flash-message />
 
-    <script>
-        let btns = document.querySelectorAll('.btn');
-        let btns2 = document.querySelectorAll('.btn2');
-        let lists = document.querySelectorAll('.list');
-
-        btns.forEach(el => {
-            window.addEventListener('click', (event) => {
-                if (event.target !== el) {
-                    el.nextElementSibling.classList.add('hidden');
-                }
-            });
-        });
-
-        btns.forEach(element => {
-            element.addEventListener('click', (event) => {
-                event.target.nextElementSibling.classList
-                    .toggle('hidden');
-            })
-        });
-
-        let selects = document.querySelectorAll('.select');
-
-        selects.forEach(element => {
-            element.onchange = function(e) {
-                element.nextElementSibling.click();
-            }
-        });
-    </script>
 </body>
 
 </html>

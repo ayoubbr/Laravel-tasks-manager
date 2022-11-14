@@ -4,7 +4,8 @@
 
             <i class="btn fa-solid fa-bars-staggered"></i>
 
-            <div class="list hidden absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg 
+            <div class="list hidden absolute z-10 mt-2 w-56 
+            origin-top-right rounded-md bg-white shadow-lg 
             ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <div class="py-1" role="none">
@@ -43,6 +44,7 @@
                 </div>
             </div>
         </div>
+
         {{ $task->title }}
         <div class="d-flex ml-auto gap-1.5 text-sm">
             <p class="w-24 text-center">{{ $task->duration }}</p>
@@ -61,10 +63,17 @@
                         </option>
                         <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
                         </option>
+
+
                         @foreach ($users as $user)
+                            @if ($task->status == 'To Dispatch')
+                                <option class="hidden" selected>
+                                    {{ $user->name }}</option>
+                            @endif
                             <option value="{{ $user->name }}" {{ $task->status == $user->name ? 'selected' : '' }}>
                                 {{ $user->name }}</option>
                         @endforeach
+
                     </select>
                     <button type="submit" class="hidden apply bg-gray-200 rounded-sm p-1"
                         style="position: relative;left: 370px;top: -23px;">
@@ -72,13 +81,17 @@
                     </button>
                 </form>
             </div>
+            <p class="w-24 text-center">
+                @if ($task->userAffectedTo)
+                    {{ $task->userAffectedTo }}
+                @else
+                    NO USER AFFECTED
+                @endif
+
+            </p>
             <p class="w-36 text-center">{{ $task->created_at }}</p>
             <p class="w-24 text-center mr-5">{{ $task->type }}</p>
         </div>
     </span>
     <x-tasks :tasks="$task->children" :users="$users" />
-
-    <script>
-       
-    </script>
 </li>

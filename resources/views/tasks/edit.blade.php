@@ -59,7 +59,7 @@
                              class="cursor-pointer border border-gray-200 rounded p-2 w-full">
                              <option value="">Select User</option>
                              @foreach ($users as $user)
-                                 <option class="option" value="{{ $user->name }}"
+                                 <option class="useroption" value="{{ $user->name }}"
                                      {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
                                      {{ $user->name }} </option>
                              @endforeach
@@ -103,30 +103,35 @@
              </form>
          </div>
      </div>
+
      <script>
          let user = document.querySelector(".user");
          let selectSts = document.querySelector(".select-status");
-         let options = document.querySelectorAll(".option");
-         selectSts.parentElement.addEventListener('change', (event) => {
-             if (event.target.value == 'To Dispatch') {
-                 user.classList.remove('hidden');
-                 options.forEach(element => {
-                     element.setAttribute('value', element.innerHTML);
-                 });
-             } else {
+         let options = document.querySelectorAll(".useroption");
+
+
+         if (selectSts.parentElement) {
+             selectSts.parentElement.addEventListener('change', (event) => {
+                 if (event.target.value == 'To Dispatch') {
+                     user.classList.remove('hidden');
+                     options.forEach(element => {
+                         element.setAttribute('value', element.innerHTML);
+                     });
+                 } else {
+                     user.classList.add('hidden');
+                     options.forEach(element => {
+                         element.setAttribute('value', '');
+                     });
+                 }
+             });
+
+             if (selectSts.value !== 'To Dispatch') {
                  user.classList.add('hidden');
                  options.forEach(element => {
                      element.setAttribute('value', '');
                  });
              }
-         });
 
-         if (selectSts.value !== 'To Dispatch') {
-             console.log(selectSts.value);
-             user.classList.add('hidden');
-             options.forEach(element => {
-                 element.setAttribute('value', '');
-             });
          }
      </script>
  @endsection

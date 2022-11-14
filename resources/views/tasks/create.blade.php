@@ -33,7 +33,8 @@
                     </div>
                     <div>
                         <label for="status" class="inline-block text-lg mb-2">Status</label>
-                        <select name="status" class="cursor-pointer select-type border border-gray-500 rounded p-2 w-full">
+                        <select name="status"
+                            class="cursor-pointer select-status border border-gray-500 rounded p-2 w-full">
                             <option value="">Select Status</option>
                             <option value="Open">Open</option>
                             <option value="To Dispatch">To Dispatch</option>
@@ -101,16 +102,29 @@
     </div>
     <script>
         let user = document.querySelector(".user");
-        let selectType = document.querySelector(".select-type");
-        let option = document.querySelector(".useroption");
-        selectType.parentElement.addEventListener('change', (event) => {
+        let selectSts = document.querySelector(".select-status");
+        let options = document.querySelectorAll(".useroption");
+
+        selectSts.parentElement.addEventListener('change', (event) => {
             if (event.target.value == 'To Dispatch') {
                 user.classList.remove('hidden');
-                option.classList.remove('hidden');
-            } else if (event.target.value != 'To Dispatch') {
+                options.forEach(element => {
+                    element.setAttribute('value', element.innerHTML);
+                });
+            } else {
                 user.classList.add('hidden');
-                option.classList.add('hidden');
+                options.forEach(element => {
+                    element.setAttribute('value', '');
+                });
             }
+            console.log(event.target.value);
         });
+
+        if (selectSts.value !== 'To Dispatch') {
+            user.classList.add('hidden');
+            options.forEach(element => {
+                element.setAttribute('value', '');
+            });
+        }
     </script>
 @endsection

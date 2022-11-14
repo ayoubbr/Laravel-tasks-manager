@@ -8,12 +8,41 @@
                 <p class="w-24 text-center">Duration</p>
                 <p class="w-24 text-center">Created By</p>
                 <p class="w-36 text-center">Status</p>
+                <p class="w-24 text-center">User affected</p>
                 <p class="w-36 text-center">Created at</p>
                 <p class="w-24 text-center  mr-5">Type</p>
             </div>
 
         </span>
         <x-tasks :tasks="$tasks" :users="$users" />
-        
+
     </div>
+
+    <script>
+        let btns = document.querySelectorAll('.btn');
+        let lists = document.querySelectorAll('.list');
+        btns.forEach(el => {
+            window.addEventListener('click', (event) => {
+                if (event.target !== el) {
+                    el.nextElementSibling.classList.add('hidden');
+                }
+            });
+        });
+
+        btns.forEach(element => {
+            element.addEventListener('click', (event) => {
+                event.target.nextElementSibling.classList
+                    .toggle('hidden');
+            })
+        });
+
+        let selects = document.querySelectorAll('.select');
+        console.log(selects);
+
+        selects.forEach(element => {
+            element.onchange = function(e) {
+                element.nextElementSibling.click();
+            }
+        });
+    </script>
 @endsection

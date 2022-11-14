@@ -263,10 +263,11 @@ class TaskController extends Controller
         $task->update($formFields);
         if ($task->status != 'Open' && $task->status != 'Completed' && $task->status != 'To Validate') {
             $task->userAffectedTo = $task->status;
+            $task->status = 'To Dispatch';
         } else {
             $task->userAffectedTo = null;
         }
-        $task->update($formFields);
+        $task->update();
         return back();
     }
 }
