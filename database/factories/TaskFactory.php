@@ -21,6 +21,7 @@ class TaskFactory extends Factory
             'type' => $this->faker->randomElement(['Matser', 'Normal']),
             'status' => $this->faker->randomElement(['to dispatch', 'to validate', 'open', 'completed']),
             'parent_id' => $this->faker->randomDigit(),
+            'duration' => $this->faker->randomDigit(),
         ];
     }
 }

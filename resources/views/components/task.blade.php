@@ -63,11 +63,9 @@
                         </option>
                         <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
                         </option>
-
-
                         @foreach ($users as $user)
                             @if ($task->status == 'To Dispatch')
-                                <option class="hidden" selected>
+                                <option class="hidden" {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
                                     {{ $user->name }}</option>
                             @endif
                             <option value="{{ $user->name }}" {{ $task->status == $user->name ? 'selected' : '' }}>

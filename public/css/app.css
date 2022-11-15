@@ -46,6 +46,8 @@ ul {
 ol {
     margin-left: 30px;
     counter-reset: item;
+    background-color: #aaa;
+    padding: 1px 1px  0 !important;
 }
 
 .wtree li {
@@ -102,37 +104,41 @@ ol {
 }
 .wtree li span {
     display: block;
-    border: 1px solid #ddd;
+    border: 2px solid;
     padding: 10px;
     color: black;
     text-decoration: none;
+    background-color: white;
+    border-radius: 6px;
 }
 .wtree li span:before {
     content: counters(item, ".") " ";
 }
 
 li span {
-    background-color: #0ea5e9 !important;
+    border-color: #0ea5e9 !important;
 }
 
 li li span {
-    background-color: #2dd4bf !important;
+    border-color: #2dd4bf !important;
 }
 
 li li li span {
-    background-color: #facc15 !important;
+    border-color: #facc15 !important;
 }
 
 li li li li span {
-    background-color: #f97316 !important;
+    border-color: #f97316 !important;
 }
+
+li li li li span {
+    border-color: #ef4444 !important;
+}
+
 li span div {
-    color: #000000 !important;
+    border-color: #000000 !important;
 }
 
-li li li li span {
-    background-color: #ef4444 !important;
-}
 
 .display {
     margin-right: 12px;

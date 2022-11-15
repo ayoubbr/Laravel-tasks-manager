@@ -173,7 +173,7 @@ class TaskController extends Controller
 
 
 
-        return redirect('/tasks')->with('message', 'Child Task updated succefully!');
+        return redirect('/tasks')->with('message', 'Child Task created succefully!');
     }
 
     public function edit(Task $task)
@@ -248,6 +248,13 @@ class TaskController extends Controller
             abort(403, 'Unauthorized action');
         }
 
+        $childrenId = self::getChildren($task);
+        foreach ($childrenId as $childId) {
+            $tasks = Task::get()->where('id', $childId);
+            foreach ($tasks as $task1) {
+                $task1->delete();
+            }
+        }
         $task->delete();
         return redirect('/tasks')->with('message', 'Task deleted succefully!');
     }
@@ -298,5 +305,16 @@ class TaskController extends Controller
         }
         $task->update();
         return back();
+    }
+
+    private function getChildren($task)
+    {
+        $ids = [];
+        $children = Task::with('children')->where('parent_id', $task->id)->get();
+        foreach ($children as $task) {
+            $ids[] = $task->id;
+            $ids = array_merge($ids, $this->getChildren($task));
+        }
+        return $ids;
     }
 }
