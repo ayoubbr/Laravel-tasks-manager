@@ -149,17 +149,6 @@ class TaskController extends Controller
             $new_task->parent_id = null;
         }
 
-        // if ($request->has('images')) {
-        //     foreach ($request->file('images') as $image) {
-        //         $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-        //         $image->move(public_path('task_imgs'), $imageName);
-        //         Image::create([
-        //             'task_id' => $task->id,
-        //             'image' => $imageName
-        //         ]);
-        //     }
-        // }
-
         if ($request->has('uploads')) {
             foreach ($request->file('uploads') as $upload) {
                 $uploadName = $formFields['title'] . 'upload-' . time() . rand(1, 1000) . '.' . $upload->extension();
@@ -286,7 +275,7 @@ class TaskController extends Controller
             'task' => $task,
             'users' => User::get(),
         ]);
-    }
+    }   
 
     public function updateStatus(Request $request, Task $task)
     {
