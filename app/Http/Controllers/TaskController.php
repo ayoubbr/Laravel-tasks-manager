@@ -8,7 +8,6 @@ use App\Models\Upload;
 use App\Models\Comment;
 use Illuminate\Support\Str;
 use App\Models\CommentImage;
-use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -58,19 +57,12 @@ class TaskController extends Controller
             ]
         );
 
-
-
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['duration'] = 0;
         $new_task = Task::create($formFields);
+        $commentFields = $request->validate(['description' => 'required',]);
 
-
-        $commentFields = $request->validate(
-            [
-                'description' => 'required',
-            ]
-        );
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
@@ -78,16 +70,9 @@ class TaskController extends Controller
                 'description' => $commentFields['description'],
                 'duration' => 0.2,
             ]);
+            $new_task['duration'] = 0.2;
+            $new_task->update();
         }
-
-        // if ($new_task->status == 'To Dispatch') {
-        //     Comment::create([
-        //         'task_id' => $new_task->id,
-        //         'title' => 'Automatic Comment',
-        //         'description' => 'This Comment generated automatically!',
-        //         'duration' => 0.2,
-        //     ]);
-        // }
 
         if ($request->has('uploads')) {
             foreach ($request->file('uploads') as $upload) {
@@ -126,16 +111,13 @@ class TaskController extends Controller
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['parent_id'] = $task->id;
-        $formFields['duration'] = 0.2;
-        $task->duration += $formFields['duration'];
-        $task->update();
+        $formFields['duration'] = 0;
+
+
         $new_task = Task::create($formFields);
 
-        $commentFields = $request->validate(
-            [
-                'description' => 'required',
-            ]
-        );
+        $commentFields = $request->validate(['description' => 'required',]);
+        
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
@@ -143,6 +125,10 @@ class TaskController extends Controller
                 'description' => $commentFields['description'],
                 'duration' => 0.2,
             ]);
+            $new_task['duration'] = 0.2;
+            $new_task->update();
+            $task->duration += $new_task['duration'];
+            $task->update();
         }
 
         if ($new_task->type == 'Master') {
@@ -159,8 +145,6 @@ class TaskController extends Controller
                 ]);
             }
         }
-
-
 
         return redirect('/tasks')->with('message', 'Child Task created succefully!');
     }
@@ -275,7 +259,7 @@ class TaskController extends Controller
             'task' => $task,
             'users' => User::get(),
         ]);
-    }   
+    }
 
     public function updateStatus(Request $request, Task $task)
     {
