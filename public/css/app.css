@@ -40,14 +40,12 @@ ul {
     min-height: 100vh;
 }
 
-
 /* Tree */
 
 ol {
     margin-left: 30px;
     counter-reset: item;
-    background-color: #aaa;
-    padding: 1px 1px  0 !important;
+    padding: 1px 1px 0 !important;
 }
 
 .wtree li {
@@ -55,39 +53,29 @@ ol {
     margin: 10px 0 10px 10px;
     position: relative;
 }
-.wtree li:before {
-    content: "";
-    counter-increment: item;
-    position: absolute;
-    top: -10px;
-    left: -30px;
-    border-left: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    width: 30px;
-    height: 15px;
-}
 
 .wtree li:before {
     content: "";
     counter-increment: item;
     position: absolute;
-    top: -14px;
+    /* top: -14px;
     left: -10px;
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    width: 30px;
-    height: 60px;
+    width: 10px;
+    height: 60px; */
 }
+
 .wtree .first::before {
     content: "";
     counter-increment: item;
     position: absolute;
-    top: -10px;
+    /* top: -10px;
     left: -30px;
     border-left: 0px solid #ddd;
     border-bottom: 0px solid #ddd;
     width: 0px;
-    height: 0px;
+    height: 0px; */
 }
 .wtree li:after {
     position: absolute;
@@ -99,9 +87,11 @@ ol {
     width: 30px;
     height: 100%;
 }
+
 .wtree li:last-child:after {
     display: none;
 }
+
 .wtree li span {
     display: block;
     border: 2px solid;
@@ -111,6 +101,7 @@ ol {
     background-color: white;
     border-radius: 6px;
 }
+
 .wtree li span:before {
     content: counters(item, ".") " ";
 }
@@ -138,7 +129,6 @@ li li li li span {
 li span div {
     border-color: #000000 !important;
 }
-
 
 .display {
     margin-right: 12px;
@@ -470,7 +460,6 @@ label {
     border-radius: 6px 6px 0 0;
 }
 .comment-row {
-    
     border: 1.5px solid black;
     border-radius: 6px;
 }
