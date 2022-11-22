@@ -29,7 +29,7 @@ Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->middleware('a
 
 Route::put('/tasks/{task}', [TaskController::class, 'update'])->middleware('auth');
 
-Route::put('/tasks/{task}/updateStatus', [TaskController::class, 'updateStatus']);
+Route::put('/tasks/{task}/updateStatus', [TaskController::class, 'updateStatus'])->middleware('auth');
 
 Route::get('/tasks/{task}/task-child/create', [TaskController::class, 'createChild'])->middleware('auth');;
 

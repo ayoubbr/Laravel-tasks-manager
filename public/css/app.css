@@ -39,43 +39,26 @@ ul {
     background-color: #f4f4f4;
     min-height: 100vh;
 }
-
 /* Tree */
-
 ol {
     margin-left: 30px;
     counter-reset: item;
     padding: 1px 1px 0 !important;
 }
-
 .wtree li {
     list-style-type: none;
     margin: 10px 0 10px 10px;
     position: relative;
 }
-
 .wtree li:before {
     content: "";
     counter-increment: item;
     position: absolute;
-    /* top: -14px;
-    left: -10px;
-    border-left: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    width: 10px;
-    height: 60px; */
 }
-
 .wtree .first::before {
     content: "";
     counter-increment: item;
     position: absolute;
-    /* top: -10px;
-    left: -30px;
-    border-left: 0px solid #ddd;
-    border-bottom: 0px solid #ddd;
-    width: 0px;
-    height: 0px; */
 }
 .wtree li:after {
     position: absolute;
@@ -87,11 +70,9 @@ ol {
     width: 30px;
     height: 100%;
 }
-
 .wtree li:last-child:after {
     display: none;
 }
-
 .wtree li span {
     display: block;
     border: 2px solid;
@@ -101,58 +82,45 @@ ol {
     background-color: white;
     border-radius: 6px;
 }
-
 .wtree li span:before {
     content: counters(item, ".") " ";
 }
-
 li span {
     border-color: #0ea5e9 !important;
 }
-
 li li span {
     border-color: #2dd4bf !important;
 }
-
 li li li span {
     border-color: #facc15 !important;
 }
-
 li li li li span {
     border-color: #f97316 !important;
 }
-
 li li li li span {
     border-color: #ef4444 !important;
 }
-
 li span div {
     border-color: #000000 !important;
 }
-
 .display {
     margin-right: 12px;
     font-weight: bold;
 }
-
 input,
 label {
     margin: 12px 0px 20px 0px;
 }
-
 label {
     padding-left: 6px;
     padding-right: 12px;
 }
-
 #radio-1:checked + label ~ ol li ol li {
     display: none;
 }
-
 #radio-2:checked + label ~ ol li ol li ol li {
     display: none;
 }
-
 #radio-3:checked + label ~ li ol li ol li {
     display: none;
 }
@@ -450,7 +418,6 @@ label {
 }
 /* End Latest News */
 /* Start Tasks */
-
 .comment-create {
     border: 1.5px solid black;
     padding: 15px;
@@ -1286,9 +1253,7 @@ label {
     margin-left: auto;
     cursor: pointer;
 }
-
 /* End Plans Page */
-
 /* start Card */
 .card {
     margin: 30px auto;
@@ -1296,7 +1261,6 @@ label {
     border-radius: 1px;
     max-width: 1050px;
 }
-
 .flex-center {
     display: flex;
     gap: 30px;
@@ -1535,7 +1499,6 @@ label {
 .border-eee {
     border: 1px solid #eee;
 }
-
 /* End Border */
 /* Start Width + Height */
 .w-full {
@@ -1570,7 +1533,6 @@ label {
     border-radius: 6px;
 }
 /* End Components */
-
 /* start box compo */
 .taskbox {
     padding: 20px;
@@ -1578,57 +1540,52 @@ label {
     flex-direction: row;
     align-items: center;
 }
-
 .taskbox .content,
 .taskbox .info {
     margin-left: 10px;
 }
-
 .hided {
     display: none;
 }
 /* end box compo */
-
 .sidebarspan {
     background-color: transparent !important;
 }
 /* ////////////////////////// */
-
 .create-form {
     gap: 30px;
     display: flex;
     flex-direction: column;
 }
-
 @media (max-width: 767px) {
     .fa-folder-plus {
         margin: auto;
     }
 }
-
 .w-36 {
     width: 10rem !important;
 }
-
-.list {
+.list,
+.list-user {
     right: -219px;
     top: 15px;
 }
-
 .list a:hover,
-.list form:hover {
+.list form:hover,
+.list-user form:hover {
     background-color: rgb(166, 247, 220);
 }
-
+.list-user {
+    right: 0px;
+    top: 0px;
+}
 .status-list {
     right: -28px;
     top: 32px;
 }
-
 .status-form {
     max-height: 24px !important;
 }
-
 .select {
     background-color: transparent;
     border: none;

@@ -74,10 +74,15 @@
                             src="{{ auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}"
                             alt="" />
                         {{ auth()->user()->name }}
-                        <form action="/" method="post" class="ml-2">
+                       
+                        <div class="list-user absolute z-10 mt-2 w-56 
+                        origin-top-right rounded-md bg-white shadow-lg 
+                        ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <form action="/" method="post" class="py-1">
                             @csrf
-                            <button type="submit">Logout</button>
-                        </form>
+                                <button type="submit">Logout</button>
+                            </form>
+                        </div>
                     @else
                         <a href="/register">
                             <span class=" p-relative mr-5">

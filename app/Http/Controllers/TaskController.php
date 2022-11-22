@@ -49,11 +49,10 @@ class TaskController extends Controller
     {
         $formFields = $request->validate(
             [
-                'title' => ['required',],
+                'title' => 'required',
                 'type' => 'required',
                 'status' => 'required',
                 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
-                'duration' => ''
             ]
         );
 
@@ -63,15 +62,19 @@ class TaskController extends Controller
         $new_task = Task::create($formFields);
         $commentFields = $request->validate(['description' => 'required',]);
 
+
+
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
-                'title' => 'task from normal task created',
+                'title' => 'Comment Created Automatically With a Normal Task',
                 'description' => $commentFields['description'],
                 'duration' => 0.2,
             ]);
             $new_task['duration'] = 0.2;
             $new_task->update();
+            auth()->user()->duration +=  $new_task['duration'];
+            auth()->user()->update();
         }
 
         if ($request->has('uploads')) {
@@ -117,7 +120,7 @@ class TaskController extends Controller
         $new_task = Task::create($formFields);
 
         $commentFields = $request->validate(['description' => 'required',]);
-        
+
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
@@ -128,6 +131,8 @@ class TaskController extends Controller
             $new_task['duration'] = 0.2;
             $new_task->update();
             $task->duration += $new_task['duration'];
+            auth()->user()->duration +=  $new_task['duration'];
+            auth()->user()->update();
             $task->update();
         }
 

@@ -9,7 +9,7 @@
             ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <div class="py-1" role="none">
-                    @if ($task->type == 'Master')
+                    @if ($task->type == 'Master' && auth()->user())
                         <a class="text-gray-700 block px-4 py-2 text-sm"
                             href="/tasks/{{ $task->id }}/task-child/create">
                             <i class="ml-1 mr-3 fa-solid fa-plus"></i> Add Child Task
@@ -20,12 +20,14 @@
                         View Details
                     </a>
 
-                    @if ($task->type !== 'Master')
+                    @if ($task->type !== 'Master' && auth()->user())
                         <a href="{{ route('task.details', $task->id) }}" class="text-gray-700 block px-4 py-2 text-sm">
                             <i class="fa-solid fa-plus ml-1 mr-3"></i>
                             Add Comment
                         </a>
                     @endif
+                    @if (auth()->user())
+                        
                     <a href="/tasks/{{ $task->id }}/edit" class="text-gray-700 block px-4 py-2 text-sm">
                         <i class="ml-1 fa-solid fa-pencil mr-3"></i>
                         Edit
@@ -41,6 +43,7 @@
                         </button>
 
                     </form>
+                    @endif
                 </div>
             </div>
         </div>

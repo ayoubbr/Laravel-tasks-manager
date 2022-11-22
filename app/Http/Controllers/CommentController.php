@@ -13,7 +13,7 @@ class CommentController extends Controller
 
     public function store(Request $request, $id)
     {
-        
+
         $task = Task::find($id);
         if ($task->type == 'Master') {
             abort(403, 'Unauthorized action');
@@ -40,7 +40,9 @@ class CommentController extends Controller
             }
         }
         $task->duration += $new_comment->duration;
+        auth()->user()->duration += $new_comment->duration;
         $task->update();
+        auth()->user()->update();
         return back()->with('message', 'Comment created succefully!');
     }
 

@@ -22,12 +22,13 @@
                                 <h2 class=" text-2xl">
                                     Comments
                                 </h2>
-                                <button
-                                    class="bg-sky-400 hover:bg-sky-600 btn-plus hover:text-white p-10 rounded-md d-flex align-center">
-                                    Add comment
-                                    <i class="fa-solid fa-circle-plus ml-2 cursor-pointer"></i>
-                                </button>
-
+                                @if (auth()->user())
+                                    <button
+                                        class="bg-sky-400 hover:bg-sky-600 btn-plus hover:text-white p-10 rounded-md d-flex align-center">
+                                        Add comment
+                                        <i class="fa-solid fa-circle-plus ml-2 cursor-pointer"></i>
+                                    </button>
+                                @endif
                             </div>
 
                             <div class="hided mb-10 comment-create">
@@ -104,12 +105,19 @@
                                             <div class="task-row between-flex">
                                                 <div class="info">
                                                     <div
-                                                        class="text-lg d-flex comment-head justify-between align-center bg-slate-200 p-10">
-                                                        <span>{{ $comment->task->user->name }}</span>
-                                                        <span>{{ $comment->task->userAffectedTo }}</span>
-                                                        <span>{{ $comment->created_at }}</span>
-                                                        <h3>{{ $comment->title }}</h3>
-                                                        <span>{{ $comment->duration }} (hours)</span>
+                                                        class="text-md d-flex comment-head justify-between align-center bg-slate-200 p-10">
+                                                        <span> <span class="text-sm">created by :
+                                                            </span>{{ $comment->task->user->name }}</span>
+                                                        <span><span class="text-sm">affected to :</span>
+                                                            @if ($comment->task->userAffectedTo !== null)
+                                                                {{ $comment->task->userAffectedTo }}
+                                                            @else
+                                                                NO USER
+                                                            @endif
+                                                        </span>
+                                                        <span><span class="text-sm">created at :</span>{{ $comment->created_at }}</span>
+                                                        <span><span class="text-sm">duration : </span>{{ $comment->duration }}
+                                                            (hours)</span>
                                                         <div class="d-flex gap-3 align-center">
                                                             <i class="cursor-pointer fa-regular  fa-images image"></i>
                                                             <form
@@ -125,7 +133,8 @@
                                                             </form>
                                                         </div>
                                                     </div>
-                                                    <p class=" p-10 c-grey"> {{ $comment->description }}</p>
+                                                    <h3 class="p-10">{{ $comment->title }}</h3>
+                                                    <p class="p-10 c-grey"> {{ $comment->description }}</p>
                                                 </div>
                                             </div>
 
