@@ -97,8 +97,17 @@ li li li span {
 li li li li span {
     border-color: #f97316 !important;
 }
-li li li li span {
+li li li li li span {
     border-color: #ef4444 !important;
+}
+li li li li li span {
+    border-color: #f43f5e !important;
+}
+li li li li li li span {
+    border-color: #ec4899 !important;
+}
+li li li li li li li span {
+    border-color: #d946ef !important;
 }
 li span div {
     border-color: #000000 !important;
@@ -1565,8 +1574,7 @@ label {
 .w-36 {
     width: 10rem !important;
 }
-.list,
-.list-user {
+.list {
     right: -219px;
     top: 15px;
 }
@@ -1576,8 +1584,14 @@ label {
     background-color: rgb(166, 247, 220);
 }
 .list-user {
-    right: 0px;
-    top: 0px;
+    top: 54px;
+    right: 25px;
+}
+.list-user span {
+    background-color: #0075ff;
+}
+.sign-in:hover{
+color: var(--red-color);
 }
 .status-list {
     right: -28px;

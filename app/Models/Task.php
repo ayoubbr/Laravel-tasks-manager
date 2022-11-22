@@ -42,7 +42,6 @@ class Task extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    ///////////////////////////////////////////
     public function children()
     {
         return $this->hasMany(Task::class, 'parent_id')->with('children');
@@ -52,7 +51,7 @@ class Task extends Model
     {
         $allTasks = Task::get();
 
-        $rootTasks= $allTasks->whereNull('parent_id');
+        $rootTasks = $allTasks->whereNull('parent_id');
 
         self::formatTree($rootTasks, $allTasks);
 
@@ -74,5 +73,4 @@ class Task extends Model
     {
         return $this->parent_id !== null;
     }
-    /////////////////////////////////////////////////
 }

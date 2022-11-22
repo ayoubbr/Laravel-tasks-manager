@@ -16,7 +16,6 @@ class TaskController extends Controller
 
     public function index()
     {
-
         $tasks = Task::tree();
         $users = User::get();
         return view('tasks.index', [
@@ -61,8 +60,6 @@ class TaskController extends Controller
         $formFields['duration'] = 0;
         $new_task = Task::create($formFields);
         $commentFields = $request->validate(['description' => 'required',]);
-
-
 
         if ($new_task->type == 'Normal') {
             Comment::create([
@@ -116,9 +113,7 @@ class TaskController extends Controller
         $formFields['parent_id'] = $task->id;
         $formFields['duration'] = 0;
 
-
         $new_task = Task::create($formFields);
-
         $commentFields = $request->validate(['description' => 'required',]);
 
         if ($new_task->type == 'Normal') {
@@ -130,15 +125,19 @@ class TaskController extends Controller
             ]);
             $new_task['duration'] = 0.2;
             $new_task->update();
-            $task->duration += $new_task['duration'];
             auth()->user()->duration +=  $new_task['duration'];
             auth()->user()->update();
-            $task->update();
+            $parents = self::getParents($new_task);
+            foreach ($parents as $parent) {
+                $parent->duration += $new_task->duration;
+                $parent->update();
+            }
         }
 
-        if ($new_task->type == 'Master') {
-            $new_task->parent_id = null;
-        }
+        // if ($new_task->type == 'Master') {
+        //     $new_task->parent_id = null;
+        //     $new_task->update();
+        // }
 
         if ($request->has('uploads')) {
             foreach ($request->file('uploads') as $upload) {
@@ -294,5 +293,15 @@ class TaskController extends Controller
             $ids = array_merge($ids, $this->getChildren($task));
         }
         return $ids;
+    }
+    private function getParents($task)
+    {
+        $tasks = [];
+        $parents = Task::with('children')->where('id', $task->parent_id)->get();
+        foreach ($parents as $task) {
+            $tasks[] = $task;
+            $tasks = array_merge($tasks, $this->getParents($task));
+        }
+        return $tasks;
     }
 }

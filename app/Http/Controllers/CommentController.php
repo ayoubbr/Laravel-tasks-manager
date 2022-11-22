@@ -39,10 +39,17 @@ class CommentController extends Controller
                 ]);
             }
         }
+
         $task->duration += $new_comment->duration;
         auth()->user()->duration += $new_comment->duration;
         $task->update();
         auth()->user()->update();
+        $parents = self::getParents($task);
+        foreach ($parents as $parent) {
+            $parent->duration += $new_comment->duration;
+            $parent->update();
+        }
+
         return back()->with('message', 'Comment created succefully!');
     }
 
@@ -50,5 +57,16 @@ class CommentController extends Controller
     {
         $comment->delete();
         return back()->with('message', 'Comment deleted succefully!');
+    }
+
+    private function getParents($task)
+    {
+        $tasks = [];
+        $parents = Task::with('children')->where('id', $task->parent_id)->get();
+        foreach ($parents as $task) {
+            $tasks[] = $task;
+            $tasks = array_merge($tasks, $this->getParents($task));
+        }
+        return $tasks;
     }
 }

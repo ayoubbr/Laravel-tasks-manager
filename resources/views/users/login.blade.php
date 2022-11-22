@@ -1,9 +1,8 @@
 @extends('home')
 @section('content')
 <div class="card">
-
     <div class="p-10 max-w-lg mx-auto">
-        <header class="text-center">
+        <header class="text-center py-3">
             <h2 class="text-2xl font-bold uppercase mb-1">Login</h2>
             <p class="mb-4">Log into your account</p>
         </header>
@@ -13,7 +12,7 @@
 
             <div class="mb-6">
                 <label for="email" class="inline-block text-lg mb-2">Email</label>
-                <input type="email" class="border border-gray-200 rounded p-2 w-full" name="email"
+                <input type="email" class="border border-gray-400 focus:border-gray-600 hover:border-gray-600 rounded p-2 w-full" name="email"
                     value="{{ old('email') }}" />
 
                 @error('email')
@@ -25,7 +24,7 @@
                 <label for="password" class="inline-block text-lg mb-2">
                     Password
                 </label>
-                <input type="password" class="border border-gray-200 rounded p-2 w-full" name="password"
+                <input type="password" class="border border-gray-400 focus:border-gray-600 hover:border-gray-600 rounded p-2 w-full" name="password"
                     value="{{ old('password') }}" />
 
                 @error('password')
@@ -43,7 +42,7 @@
             <div class="mt-8">
                 <p>
                     Don't have an account?
-                    <a href="/register" class="text-laravel">Register</a>
+                    <a href="/register" class="text-sky-500 hover:text-sky-600">Register</a>
                 </p>
             </div>
         </form>
