@@ -16,8 +16,8 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::tree();
         $users = User::get();
+        $tasks = Task::tree();
         return view('tasks.index', [
             'tasks' => $tasks,
             'users' => $users
@@ -165,7 +165,7 @@ class TaskController extends Controller
     {
         $formFields = $request->validate([
             'title' => 'required',
-            'type' => 'required',
+            // 'type' => 'required',
             'status' => 'required',
             'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
         ]);

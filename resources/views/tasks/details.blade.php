@@ -134,7 +134,12 @@
                                                         </div>
                                                     </div>
                                                     <h3 class="p-10">{{ $comment->title }}</h3>
-                                                    <p class="p-10 c-grey"> {{ $comment->description }}</p>
+                                                    <p class="p-10 c-grey"> {{Str::substr($comment->description, 0, 78)  }}
+                                                        @if (strlen($comment->description) >= 78)
+                                                        <span>...</span>
+                                                        @endif
+                                                    </p>
+                                                 
                                                 </div>
                                             </div>
 

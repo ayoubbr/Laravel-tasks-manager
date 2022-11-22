@@ -9,7 +9,7 @@
              <form method="POST" action="/tasks/{{ $task->id }}" enctype="multipart/form-data" class="p-7 create-form">
                  @csrf
                  @method('PUT')
-                 <div class="grid grid grid-cols-3 gap-4">
+                 <div class="grid grid grid-cols-2 gap-4">
                      <div>
                          <label for="title" class="inline-block text-lg mb-2">Title</label>
                          <input type="text" class="border border-gray-200 rounded p-2 w-full" placeholder="Title"
@@ -19,7 +19,7 @@
                              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                          @enderror
                      </div>
-                     <div>
+                     {{-- <div>
                          <label for="type" class="inline-block text-lg mb-2">Type</label>
                          <select id="type" name="type" value="{{ $task->type }}"
                              class="cursor-pointer border border-gray-200 rounded p-2 w-full">
@@ -31,7 +31,7 @@
                          @error('type')
                              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                          @enderror
-                     </div>
+                     </div> --}}
                      <div>
                          <label for="status" class="inline-block text-lg mb-2">Status</label>
                          <select name="status"
