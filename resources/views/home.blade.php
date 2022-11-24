@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="icon" href="{{ asset('images/t.png') }}">
+
+    <title>Task Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -77,8 +79,8 @@
                             class="list-user hidden absolute z-10 mt-2 py-1
                         origin-top-right rounded-md bg-white shadow-lg 
                         ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div class="px-5 py-1">{{ auth()->user()->name }}</div>
-                        <hr>
+                            <div class="px-5 py-1">{{ auth()->user()->name }}</div>
+                            <hr>
                             <form action="/" method="post" class="px-5 py-1 ">
                                 @csrf
                                 <button type="submit">Logout</button>
