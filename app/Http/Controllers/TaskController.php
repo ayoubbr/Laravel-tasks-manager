@@ -49,30 +49,39 @@ class TaskController extends Controller
         $formFields = $request->validate(
             [
                 'title' => 'required',
-                'type' => 'required',
                 'status' => 'required',
-                'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+                'description' => 'required',
+                // 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
             ]
         );
 
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['duration'] = 0;
+        $formFields['type'] = 'Master';
         $new_task = Task::create($formFields);
-        $commentFields = $request->validate(['description' => 'required',]);
 
-        if ($new_task->type == 'Normal') {
-            Comment::create([
-                'task_id' => $new_task->id,
-                'title' => 'Comment Created Automatically With a Normal Task',
-                'description' => $commentFields['description'],
-                'duration' => 0.2,
-            ]);
-            $new_task['duration'] = 0.2;
+        if ($request->status == 'Open' or $request->status == 'Completed' or $request->status == 'To Validate' or $request->status == 'Gestion') {
+            $new_task->userAffectedTo = Null;
+        } else {
+            $new_task->userAffectedTo = $request->status;
             $new_task->update();
-            auth()->user()->duration +=  $new_task['duration'];
-            auth()->user()->update();
         }
+
+        // $commentFields = $request->validate(['description' => 'required',]);
+
+        // if ($new_task->type == 'Normal') {
+        //     Comment::create([
+        //         'task_id' => $new_task->id,
+        //         'title' => 'Comment Created Automatically With a Normal Task',
+        //         'description' => $commentFields['description'],
+        //         'duration' => 0.2,
+        //     ]);
+        //     $new_task['duration'] = 0.2;
+        //     $new_task->update();
+        //     auth()->user()->duration +=  $new_task['duration'];
+        //     auth()->user()->update();
+        // }
 
         if ($request->has('uploads')) {
             foreach ($request->file('uploads') as $upload) {
@@ -85,9 +94,9 @@ class TaskController extends Controller
             }
         }
 
-        if ($new_task->status !== 'To Dispatch') {
-            $new_task->userAffectedTo = null;
-        }
+        // if ($new_task->status !== 'To Dispatch') {
+        //     $new_task->userAffectedTo = null;
+        // }
 
         $new_task->update();
 
@@ -104,23 +113,30 @@ class TaskController extends Controller
             'title' => 'required',
             'type' => 'required',
             'status' => 'required',
+            'description' => 'required',
             'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
-            'duration' => ''
         ]);
 
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['parent_id'] = $task->id;
         $formFields['duration'] = 0;
-
+        
         $new_task = Task::create($formFields);
-        $commentFields = $request->validate(['description' => 'required',]);
+
+        if ($request->status == 'Open' or $request->status == 'Completed' or $request->status == 'To Validate' or $request->status == 'Gestion') {
+            $new_task->userAffectedTo = Null;
+        } else {
+            $new_task->userAffectedTo = $request->status;
+            $new_task->update();
+        }
+        // $commentFields = $request->validate(['description' => 'required',]);
 
         if ($new_task->type == 'Normal') {
             Comment::create([
                 'task_id' => $new_task->id,
                 'title' => 'task from normal task created',
-                'description' => $commentFields['description'],
+                'description' => $formFields['description'],
                 'duration' => 0.2,
             ]);
             $new_task['duration'] = 0.2;
@@ -165,13 +181,21 @@ class TaskController extends Controller
     {
         $formFields = $request->validate([
             'title' => 'required',
-            // 'type' => 'required',
+            'description' => 'required',
             'status' => 'required',
-            'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
+            // 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
         ]);
-
+        
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
+        
+        $task->update($formFields);
+        
+        if ($request->status == 'Open' or $request->status == 'Completed' or $request->status == 'To Validate' or $request->status == 'Gestion') {
+            $task->userAffectedTo = Null;
+        } else {
+            $task->userAffectedTo = $request->status;
+        }
 
         // if ($task->type == 'Normal') {
         //     Comment::create([
@@ -212,9 +236,8 @@ class TaskController extends Controller
             }
         }
 
+        $task->update();
 
-
-        $task->update($formFields);
         return redirect('/tasks')->with('message', 'Task updated succefully!');
     }
 
@@ -267,19 +290,18 @@ class TaskController extends Controller
 
     public function updateStatus(Request $request, Task $task)
     {
-
         $formFields = $request->validate([
             'status' => 'required',
-            'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
         ]);
 
         $task->update($formFields);
-        if ($task->status != 'Open' && $task->status != 'Completed' && $task->status != 'To Validate') {
-            $task->userAffectedTo = $task->status;
-            $task->status = 'To Dispatch';
+        
+        if ($task->status == 'Open' or $task->status == 'Completed' or $task->status == 'To Validate' or $task->status == 'Gestion') {
+            $task->userAffectedTo = Null;
         } else {
-            $task->userAffectedTo = null;
+            $task->userAffectedTo = $request->status;
         }
+
         $task->update();
         return back();
     }

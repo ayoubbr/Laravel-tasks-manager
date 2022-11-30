@@ -4,7 +4,7 @@
     <div class="page">
         <div class="card d-flex">
 
-            <div class="content w-full">
+            <div class="content w-full p-20">
 
                 <div class="d-flex justify-around align-center my-10">
                     <h1 class="p-relative fs-25 " style="margin: 0">Task : {{ $task->title }}</h1>
@@ -17,9 +17,11 @@
 
                 <div class="grid gap-4 grid-cols-1">
                     @unless($task->type == 'Master')
-                        <div class="tasks m-5 p-20 bg-white rad-10">
-                            <div class="d-flex justify-between align-center mb-3">
-                                <h2 class=" text-2xl">
+                        <div class="tasks m-5 px-5 bg-white rad-10">
+                            <div class="d-flex  px-10 justify-between align-center mb-3" style="border-bottom: 1px solid #dad7d7;
+                            /* margin-bottom: 20px; */
+                            ">
+                                <h2 class="text-2xl py-5">
                                     Comments
                                 </h2>
                                 @if (auth()->user())
@@ -48,23 +50,29 @@
                                             @enderror
                                         </div>
                                         <div class="mb-6">
-                                            <label for="description" class="inline-block text-lg mb-2">Description</label>
-                                            <input type="text" class="border border-gray-400 rounded p-2 w-full"
-                                                name="description" value="{{ old('description') }}" />
-
-                                            @error('description')
-                                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="grid gap-4 grid-cols-2">
-                                        <div class="mb-6">
                                             <label for="duration" class="inline-block text-lg mb-2">Duration</label>
                                             <input type="number" step="any"
                                                 class="border border-gray-400 rounded p-2 w-full" name="duration"
                                                 value="{{ old('duration') }}" />
 
                                             @error('duration')
+                                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="grid gap-4 grid-cols-2">
+                                        <div class="mb-6">
+                                            <label for="description" class="inline-block text-lg mb-2">Description</label>
+
+                                            {{-- <input type="text" class="border border-gray-400 rounded p-2 w-full"
+                                                name="description" value="{{ old('description') }}" /> --}}
+
+
+                                            <textarea class="border border-gray-400 rounded p-2 w-full" value="{{ old('description') }}"
+                                                name="description" id="description" rows="4"></textarea>
+
+                                            @error('description')
                                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -115,9 +123,11 @@
                                                                 NO USER
                                                             @endif
                                                         </span>
-                                                        <span><span class="text-sm">created at :</span>{{ $comment->created_at }}</span>
+                                                        <span><span class="text-sm">created at
+                                                                :</span>{{ $comment->created_at }}</span>
                                                         <span><span class="text-sm">duration : </span>{{ $comment->duration }}
-                                                            (hours)</span>
+                                                            (hours)
+                                                        </span>
                                                         <div class="d-flex gap-3 align-center">
                                                             <i class="cursor-pointer fa-regular  fa-images image"></i>
                                                             <form
@@ -134,12 +144,12 @@
                                                         </div>
                                                     </div>
                                                     <h3 class="p-10">{{ $comment->title }}</h3>
-                                                    <p class="p-10 c-grey"> {{Str::substr($comment->description, 0, 78)  }}
+                                                    <p class="p-10 c-grey"> {{ Str::substr($comment->description, 0, 78) }}
                                                         @if (strlen($comment->description) >= 78)
-                                                        <span>...</span>
+                                                            <span>...</span>
                                                         @endif
                                                     </p>
-                                                 
+
                                                 </div>
                                             </div>
 
@@ -168,13 +178,20 @@
 
 
                     @endunless
-                    <div class="tasks m-5  p-20  bg-white rad-10">
-                        <div style="display:flex;justify-content:space-between;align-items:center">
-                            <h2 class="mb-5 text-2xl">
+                    <p class="px-10">Desc : {{ $task->description }}</p>
+                    <div class="tasks m-5 bg-white rad-10">
+                        <div style="display:flex;justify-content:space-between;align-items:center;
+                        border-bottom: 1px solid #dad7d7;
+   ">
+                            <h2 class="p-15 text-2xl">
                                 Uploads
                             </h2>
                         </div>
                         <div class="courses-page d-grid m-5 gap-10">
+
+                            @if (count($uploads) == 0)
+                                <p>No uploads found</p>
+                            @endif
                             @foreach ($uploads as $upload)
                                 <div class="course bg-eee rad-6 p-relative">
                                     <img class="cover" src="/task_imgs/{{ $upload->upload }}" alt="" />
@@ -199,9 +216,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
     <script>

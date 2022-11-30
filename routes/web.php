@@ -41,8 +41,12 @@ Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 Route::post('/users', [UserController::class, 'store'])->middleware('guest');
 
+Route::get('/users/manage', [UserController::class, 'manage'])->middleware('auth');
+
 Route::post('/', [UserController::class, 'logout'])->middleware('auth');
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
 Route::post('/users/authenticate', [UserController::class, 'authenticate'])->middleware('guest');
+
+Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show')->middleware('auth');

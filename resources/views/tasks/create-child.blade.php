@@ -9,7 +9,7 @@
             <form method="POST" action="/tasks/child-task/{{ $task->id }}" enctype="multipart/form-data"
                 class="p-7 create-form">
                 @csrf
-                <div class="grid grid grid-cols-3 gap-4">
+                <div class="grid grid grid-cols-2 gap-4">
                     <div>
                         <label for="title" class="inline-block text-lg mb-2">Title</label>
                         <input type="text" placeholder='Task title' class="border border-gray-500 rounded p-2 w-full"
@@ -26,15 +26,19 @@
                             class="select-status cursor-pointer border border-gray-500 rounded p-2 w-full">
                             <option value="">Select Status</option>
                             <option value="Open">Open</option>
-                            <option value="To Dispatch">To Dispatch</option>
+                            <option value="Gestion">Gestion</option>
                             <option value="To Validate">To Validate</option>
                             <option value="Completed">Completed</option>
+                            @foreach ($users as $user)
+                                <option class="useroption" value="{{ $user->name }}">{{ $user->name }} </option>
+                            @endforeach
+
                         </select>
                         @error('status')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="user">
+                    {{-- <div class="user">
                         <label for="userAffectedTo" class="inline-block text-lg mb-2">
                             User
                         </label>
@@ -51,14 +55,12 @@
                             <p class="text-red-500 text-xs mt-1">
                                 {{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                 </div>
                 <div class="grid grid grid-cols-1 gap-4">
                     <div>
-                        <label for="description" class="inline-block text-lg mb-2">Comment</label>
-
-
+                        <label for="description" class="inline-block text-lg mb-2">Description</label>
                         <textarea class="comment-text border border-gray-500 rounded p-2 w-full" name="description" id="description"
                             rows="4"></textarea>
 

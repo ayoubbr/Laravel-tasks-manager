@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -67,5 +68,23 @@ class UserController extends Controller
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials']);
+    }
+
+    public function manage()
+    {
+        $users = User::all();
+        $tasks = Task::all();
+        return view('users.manage',  [
+            'users' => $users,
+            'tasks' => $tasks,
+        ]);
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+        return view('users.show', [
+            'user' => $user
+        ]);
     }
 }

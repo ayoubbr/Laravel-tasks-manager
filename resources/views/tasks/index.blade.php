@@ -8,7 +8,7 @@
                 <p class="w-24 text-center">Duration</p>
                 <p class="w-24 text-center">Created By</p>
                 <p class="w-36 text-center">Status</p>
-                <p class="w-24 text-center">User affected</p>
+                {{-- <p class="w-24 text-center">User affected</p> --}}
                 <p class="w-36 text-center">Created at</p>
                 <p class="w-24 text-center  mr-5">Type</p>
             </div>

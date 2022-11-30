@@ -36,22 +36,40 @@
                          <label for="status" class="inline-block text-lg mb-2">Status</label>
                          <select name="status"
                              class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
-                             <option value="">Select Status</option>
+                             <option value="" disabled>Select Status</option>
                              <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
-                             <option value="To Dispatch" {{ $task->status == 'To Dispatch' ? 'selected' : '' }}>To Dispatch
+                             <option value="Gestion" {{ $task->status == 'Gestion' ? 'selected' : '' }}>Gestion
                              </option>
                              <option value="To Validate" {{ $task->status == 'To Validate' ? 'selected' : '' }}>To Validate
                              </option>
                              <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
                              </option>
+                             @foreach ($users as $user)
+                                 <option class="useroption" value="{{ $user->name }}">{{ $user->name }} </option>
+                             @endforeach
                          </select>
                          @error('status')
                              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                          @enderror
                      </div>
                  </div>
-                 <div class="grid grid grid-cols-3 gap-4">
-                     <div class="mb-6 user">
+
+
+                 <div class="grid grid-cols-1">
+                     <div>
+                         <label for="description" class="inline-block text-lg mb-2">Description</label>
+
+
+                         <textarea class="comment-text border border-gray-500 rounded p-2 w-full" value="" name="description" id="description"
+                             rows="4">{{ $task->description }}</textarea>
+
+                         @error('description')
+                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                         @enderror
+                     </div>
+                 </div>
+                 <div class="grid grid grid-cols-1 gap-4">
+                     {{-- <div class="mb-6 user">
                          <label for="userAffectedTo" class="inline-block text-lg mb-2">
                              User
                          </label>
@@ -69,9 +87,9 @@
                              <p class="text-red-500 text-xs mt-1">
                                  {{ $message }}</p>
                          @enderror
-                     </div>
+                     </div> --}}
 
-                     <div class="col-span-2">
+                     <div>
                          <label for="uploads" class="inline-block text-lg mb-2">
                              Uploads
                          </label>
@@ -95,7 +113,7 @@
                              Update Task
                          </button>
 
-                         <a href="/tasks/manage"class="text-black ml-4 py-2 px-4 rounded-md hover:bg-slate-500">
+                         <a href="/tasks"class="text-black ml-4 py-2 px-4 rounded-md hover:bg-slate-500">
                              Go Back
                              <i class="fa-regular fa-circle-right"></i>
                          </a>

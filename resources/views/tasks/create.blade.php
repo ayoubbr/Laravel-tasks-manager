@@ -4,11 +4,11 @@
     <div class="card">
         <div>
             <header class="text-center d-flex align-center justify-center p-7 bg-emerald-500">
-                <h2 class="text-2xl">Create a Task</h2>
+                <h2 class="text-2xl">Create a Master Task</h2>
             </header>
             <form method="POST" action="/tasks" enctype="multipart/form-data" class="p-7 create-form">
                 @csrf
-                <div class="grid grid grid-cols-3 gap-4">
+                <div class="grid grid grid-cols-2 gap-4">
                     <div>
                         <label for="title" class="inline-block text-lg mb-2">Title</label>
                         <input type="text" class="border border-gray-500 rounded p-2 w-full" placeholder="Title"
@@ -23,17 +23,20 @@
                         <label for="status" class="inline-block text-lg mb-2">Status</label>
                         <select name="status"
                             class="cursor-pointer select-status border border-gray-500 rounded p-2 w-full">
-                            <option value="">Select Status</option>
+                            <option value="" selected disabled>Select Status</option>
                             <option value="Open">Open</option>
-                            <option value="To Dispatch">To Dispatch</option>
+                            <option value="Gestion">Gestion</option>
                             <option value="To Validate">To Validate</option>
                             <option value="Completed">Completed</option>
+                            @foreach ($users as $user)
+                                <option class="useroption" value="{{ $user->name }}">{{ $user->name }} </option>
+                            @endforeach
                         </select>
                         @error('status')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="user">
+                    {{-- <div class="user">
                         <label for="userAffectedTo" class="inline-block text-lg mb-2">
                             User
                         </label>
@@ -50,15 +53,16 @@
                             <p class="text-red-500 text-xs mt-1">
                                 {{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="grid grid grid-cols-1 gap-4">
                     <div>
-                        <label for="description" class="inline-block text-lg mb-2">Comment</label>
+                        <label for="description" class="inline-block text-lg mb-2">Description</label>
 
 
-                        <textarea class="comment-text border border-gray-500 rounded p-2 w-full" name="description" id="description" rows="4"></textarea>
+                        <textarea class="comment-text border border-gray-500 rounded p-2 w-full" name="description" id="description"
+                            rows="4"></textarea>
 
                         @error('description')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -66,8 +70,8 @@
                     </div>
                 </div>
 
-                <div class="grid grid grid-cols-3 gap-4">
-                    <div>
+                <div class="grid grid grid-cols-1 gap-4">
+                    {{-- <div>
                         <label for="type" class="inline-block text-lg mb-2">Type</label>
                         <select id="type" name="type"
                             class="type-select cursor-pointer border border-gray-500 rounded p-2 w-full">
@@ -79,9 +83,9 @@
                         @error('type')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
-                    <div class="col-span-2">
+                    <div>
                         <label for="uploads" class="inline-block text-lg mb-2">
                             Uploads
                         </label>
@@ -102,7 +106,7 @@
                         <button
                             class="bg-stone-900 text-white rounded py-2 px-4 
                         hover:bg-slate-500  ">
-                            Create Task
+                            Create  Task
                         </button>
 
                         <a href="/tasks"

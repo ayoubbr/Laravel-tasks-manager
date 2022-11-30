@@ -59,18 +59,20 @@
                     @method('put')
                     <select class="select" name="status"
                         class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
-                        <option value="">Select Status</option>
+                        <option value="" disabled>Select Status</option>
                         <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
                         <option value="To Validate" {{ $task->status == 'To Validate' ? 'selected' : '' }}>To
                             Validate
                         </option>
                         <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
                         </option>
+                        <option value="Gestion" {{ $task->status == 'Gestion' ? 'selected' : '' }}>Gestion
+                        </option>
                         @foreach ($users as $user)
-                            @if ($task->status == 'To Dispatch')
+                            {{-- @if ($task->status == 'To Dispatch')
                                 <option class="hidden" {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
                                     {{ $user->name }}</option>
-                            @endif
+                            @endif --}}
                             <option value="{{ $user->name }}" {{ $task->status == $user->name ? 'selected' : '' }}>
                                 {{ $user->name }}</option>
                         @endforeach
@@ -82,14 +84,14 @@
                     </button>
                 </form>
             </div>
-            <p class="w-24 text-center">
+            {{-- <p class="w-24 text-center">
                 @if ($task->userAffectedTo)
                     {{ $task->userAffectedTo }}
                 @else
                     NO USER
                 @endif
 
-            </p>
+            </p> --}}
             <p class="w-36 text-center">{{ $task->created_at }}</p>
             <p class="w-24 text-center mr-5">{{ $task->type }}</p>
         </div>
