@@ -679,9 +679,7 @@ label {
 .settings-page .sec-box .button {
     transition: 0.3s;
 }
-.settings-page .sec-box .button:hover {
-    background-color: var(--blue-alt-color);
-}
+
 .settings-page .social-boxes i {
     width: 40px;
     height: 40px;
@@ -1632,6 +1630,6 @@ label {
     border-top: 2px solid #22c55e;
     border-radius: 8px;
 }
-
-
-/* input[aria-controls=] */
+.bx-shadow{
+    box-shadow: 0px 5px 10px 1px rgba(89, 89, 89, 0.2); 
+}

@@ -9,7 +9,6 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel panel-default">
-                        {{-- <div class="panel-heading">users</div> --}}
                         <div class="panel-body">
                             <table class="table table-striped users-table" id="datatable">
                                 <thead>
@@ -25,18 +24,15 @@
                                 <tbody>
                                     @foreach ($users as $user)
                                         <tr>
-
-
                                             <td>
                                                 <a href="{{ route('users.show', $user->id) }}">
                                                     <img src="{{ $user->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}"
                                                         alt="user photo">
                                                 </a>
-
                                             </td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ count($user['tasks']) }}</td>
+                                            <td>{{ $user->tasks->count() }}</td>
                                             <td>
                                                 {{-- {{  count($tasks)}} --}}
                                                 @foreach ($tasks as $task)
@@ -56,7 +52,6 @@
             </div>
         </div>
     </div>
-
 @section('javascript')
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
     <script>
@@ -65,5 +60,4 @@
         });
     </script>
 @endsection
-
 @endsection

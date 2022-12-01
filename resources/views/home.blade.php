@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('images/t.png') }}">
-
     <title>Task Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fonts -->
@@ -15,6 +14,10 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" />
     @yield('style')
     <script src="//unpkg.com/alpinejs" defer></script>
     <!-- Styles -->
@@ -49,6 +52,14 @@
                             href="/users/manage">
                             <i class=" fa-solid fa-gear fa-fw"></i>
                             <span class="sidebarspan">Manage Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
+                             {{ 'settings' == request()->path() ? 'active' : '' }}"
+                            href="/settings">
+                            <i class=" fa-solid fa-gear fa-fw"></i>
+                            <span class="sidebarspan">Settings</span>
                         </a>
                     </li>
                 @endauth
@@ -121,6 +132,34 @@
         });
     </script>
     @yield('javascript')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#delete', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete This Data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        });
+    </script>
 </body>
 
 </html>

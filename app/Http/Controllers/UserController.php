@@ -83,8 +83,14 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $tasks = Task::all();
         return view('users.show', [
-            'user' => $user
+            'user' => $user,
+            'tasks'=>$tasks
         ]);
+    }
+
+    public function view(){
+        return view('users.view');
     }
 }

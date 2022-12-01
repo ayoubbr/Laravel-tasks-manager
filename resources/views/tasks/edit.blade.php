@@ -19,19 +19,6 @@
                              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                          @enderror
                      </div>
-                     {{-- <div>
-                         <label for="type" class="inline-block text-lg mb-2">Type</label>
-                         <select id="type" name="type" value="{{ $task->type }}"
-                             class="cursor-pointer border border-gray-200 rounded p-2 w-full">
-                             <option value="">Select Type</option>
-                             <option value="Master" {{ $task->type == 'Master' ? 'selected' : '' }}>Master</option>
-                             <option value="Normal" {{ $task->type == 'Normal' ? 'selected' : '' }}>Normal</option>
-                         </select>
-
-                         @error('type')
-                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                         @enderror
-                     </div> --}}
                      <div>
                          <label for="status" class="inline-block text-lg mb-2">Status</label>
                          <select name="status"
@@ -53,42 +40,17 @@
                          @enderror
                      </div>
                  </div>
-
-
                  <div class="grid grid-cols-1">
                      <div>
                          <label for="description" class="inline-block text-lg mb-2">Description</label>
-
-
-                         <textarea class="comment-text border border-gray-500 rounded p-2 w-full" value="" name="description" id="description"
-                             rows="4">{{ $task->description }}</textarea>
-
+                         <textarea class="comment-text border border-gray-500 rounded p-2 w-full" value="" name="description"
+                             id="description" rows="4">{{ $task->description }}</textarea>
                          @error('description')
                              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                          @enderror
                      </div>
                  </div>
                  <div class="grid grid grid-cols-1 gap-4">
-                     {{-- <div class="mb-6 user">
-                         <label for="userAffectedTo" class="inline-block text-lg mb-2">
-                             User
-                         </label>
-                         <select id="userAffectedTo" name="userAffectedTo"
-                             class="cursor-pointer border border-gray-200 rounded p-2 w-full">
-                             <option value="">Select User</option>
-                             @foreach ($users as $user)
-                                 <option class="useroption" value="{{ $user->name }}"
-                                     {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
-                                     {{ $user->name }} </option>
-                             @endforeach
-
-                         </select>
-                         @error('userAffectedTo')
-                             <p class="text-red-500 text-xs mt-1">
-                                 {{ $message }}</p>
-                         @enderror
-                     </div> --}}
-
                      <div>
                          <label for="uploads" class="inline-block text-lg mb-2">
                              Uploads
@@ -121,7 +83,6 @@
              </form>
          </div>
      </div>
-
      <script>
          let user = document.querySelector(".user");
          let selectSts = document.querySelector(".select-status");
