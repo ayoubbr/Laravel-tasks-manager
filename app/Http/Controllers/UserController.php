@@ -86,11 +86,15 @@ class UserController extends Controller
         $user = User::find($id);
         $tasks = Task::where('userAffectedTo',  $user->name)->get();
         $day = '';
+        $month = '';
+        $year = '';
 
         return view('users.show', [
             'user' => $user,
             'tasks' => $tasks,
             'day' => $day,
+            'month' => $month,
+            'year' => $year,
         ]);
     }
 
@@ -99,13 +103,15 @@ class UserController extends Controller
         $user = User::find($id);
         $tasks = Task::where('userAffectedTo',  $user->name)->get();
         $day = $request->day;
+        $month = $request->month;
+        $year = $request->year;
         $array = [];
         foreach ($tasks as $task) {
-            if (str_contains($task->updated_at, $day)) {
+            if (str_contains($task->updated_at, $month) && str_contains($task->updated_at, $day) && str_contains($task->updated_at, $year)) {
                 array_push($array, $task);
             }
         }
         $tasks = $array;
-        return view('users.show', compact('tasks', 'user', 'day'));
+        return view('users.show', compact('tasks', 'user', 'day', 'month', 'year'));
     }
 }

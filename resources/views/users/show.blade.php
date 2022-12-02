@@ -124,15 +124,26 @@
                 <div class="row d-flex gap-10 align-center justify-center">
                     <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="day"
                         type="date" placeholder="day" value="{{ $day }}" />
-                    {{-- <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="month"
-                        type="text" placeholder="month" />
-                    <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="year"
-                        type="text" placeholder="year" /> --}}
-                    <input type="submit" style="float: right; height:40px"
-                        class="text-white cursor-pointer p-2 mt-1 rounded-md  bg-stone-500 hover:bg-sky-700" value="Search">
+                    <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="month"
+                        type="month" placeholder="month" value="{{ $month }}" />
+                    <select name="year" class="b-none border-ccc p-1 rad-6 d-block w-full" style="height: 40px;">
+                        |<option value="" selected disabled> Select a year</option>
+                        @for ($i = 2020; $i < 2031; $i++)
+                            <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}</option>
+                        @endfor
+                    </select>
+                    {{-- <input type="number" class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;"
+                        name="year" placeholder="year" min="1900" max="2099" step="1" value="2016" /> --}}
 
-                    <a href="{{ route('users.show', $user->id) }}"
-                        class="text-white cursor-pointer p-2 mt-1 rounded-md bg-stone-500 hover:bg-sky-700">All Tasks</a>
+                    <div class="d-flex gap-1">
+                        <input type="submit" style="float: right; height:40px"
+                            class="text-white cursor-pointer py-2 px-4 rounded-md  bg-sky-500 hover:bg-sky-700"
+                            value="Search">
+                        <a href="{{ route('users.show', $user->id) }}"
+                            class="d-flex justify-center align-center gap-2 text-white cursor-pointer p-2  rounded-md bg-red-500 hover:bg-red-700">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            Refresh</a>
+                    </div>
                 </div>
             </form>
         </div>
