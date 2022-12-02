@@ -35,3 +35,4 @@ Route::get('/settings', [SettingsController::class, 'index'])->name('settings.in
 Route::post('/settings/status/store', [StatusController::class, 'store'])->name('status.store');
 Route::get('/settings', [StatusController::class, 'index'])->name('status.index');
 Route::get('/settings/delete/{id}', [StatusController::class, 'delete'])->name('status.delete');
+Route::get('/users/tasks/filter/{id}', [UserController::class, 'filter'])->name('user.tasks.filter');

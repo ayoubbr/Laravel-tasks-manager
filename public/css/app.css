@@ -852,17 +852,13 @@ label {
         flex-direction: column;
     }
 }
-.profile-page .avatar-box {
-    width: 300px;
-}
 @media (min-width: 768px) {
     .profile-page .avatar-box {
         border-right: 1px solid #eee;
     }
 }
 .profile-page .avatar-box > img {
-    width: 120px;
-    height: 120px;
+    width: 150px;
 }
 .profile-page .avatar-box .level {
     height: 6px;
@@ -880,7 +876,7 @@ label {
 }
 .profile-page .info-box .box {
     flex-wrap: wrap;
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; */
     transition: 0.3s;
 }
 .profile-page .info-box .box:hover {

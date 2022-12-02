@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -83,14 +84,28 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $tasks = Task::all();
+        $tasks = Task::where('userAffectedTo',  $user->name)->get();
+        $day = '';
+
         return view('users.show', [
             'user' => $user,
-            'tasks'=>$tasks
+            'tasks' => $tasks,
+            'day' => $day,
         ]);
     }
 
-    public function view(){
-        return view('users.view');
+    public function filter(Request $request, $id)
+    {
+        $user = User::find($id);
+        $tasks = Task::where('userAffectedTo',  $user->name)->get();
+        $day = $request->day;
+        $array = [];
+        foreach ($tasks as $task) {
+            if (str_contains($task->updated_at, $day)) {
+                array_push($array, $task);
+            }
+        }
+        $tasks = $array;
+        return view('users.show', compact('tasks', 'user', 'day'));
     }
 }

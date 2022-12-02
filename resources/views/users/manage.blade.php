@@ -34,10 +34,9 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->tasks->count() }}</td>
                                             <td>
-                                                {{-- {{  count($tasks)}} --}}
                                                 @foreach ($tasks as $task)
                                                     @if ($user->name == $task->userAffectedTo)
-                                                        Task : {{ $task->id }} -
+                                                        Task : {{ $task->id }},
                                                     @endif
                                                 @endforeach
                                             </td>

@@ -24,6 +24,9 @@
 </head>
 
 <body>
+    @php
+        $prefix = Request::route()->getPrefix();
+    @endphp
     <div class="page d-flex">
         {{-- Start Sidebar  --}}
         <div class="sidebar bg-white p-10  p-relative">
@@ -48,7 +51,7 @@
                     </li>
                     <li>
                         <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
-                             {{ 'users/manage' == request()->path() ? 'active' : '' }}"
+                             {{ str_contains(request()->path(), 'users') ? 'active' : '' }}"
                             href="/users/manage">
                             <i class=" fa-solid fa-gear fa-fw"></i>
                             <span class="sidebarspan">Manage Users</span>
