@@ -1,85 +1,88 @@
  @extends('home')
 
  @section('content')
-     <div class="card">
+     <div class="card bx-shadow rounded-md">
          <div>
-             <header class="text-center d-flex align-center justify-center p-7 bg-orange-500">
+             <header class="text-center rounded-t-md d-flex align-center justify-center p-20 bg-orange-500">
                  <h2 class="text-2xl">Edit Task {{ $task->title }}</h2>
              </header>
-             <form method="POST" action="/tasks/{{ $task->id }}" enctype="multipart/form-data" class="p-7 create-form">
-                 @csrf
-                 @method('PUT')
-                 <div class="grid grid grid-cols-2 gap-4">
-                     <div>
-                         <label for="title" class="inline-block text-lg mb-2">Title</label>
-                         <input type="text" class="border border-gray-200 rounded p-2 w-full" placeholder="Title"
-                             name="title" value="{{ $task->title }}" />
+             <div class="px-12  py-8">
+                 <form method="POST" action="/tasks/{{ $task->id }}" enctype="multipart/form-data" class="create-form">
+                     @csrf
+                     @method('PUT')
+                     <div class="grid grid grid-cols-2 gap-4">
+                         <div>
+                             <label for="title" class="inline-block text-lg mb-1">Title</label>
+                             <input type="text" class="border border-gray-200 rounded p-2 w-full" placeholder="Title"
+                                 name="title" value="{{ $task->title }}" />
 
-                         @error('title')
-                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                         @enderror
+                             @error('title')
+                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                             @enderror
+                         </div>
+                         <div>
+                             <label for="status" class="inline-block text-lg mb-1">Status</label>
+                             <select name="status"
+                                 class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
+                                 <option value=""disabled selected>Select Status</option>
+                                 @foreach ($statuses as $status)
+                                     <option value="{{ $status->name }}"
+                                         {{ $task->status == $status->name ? 'selected' : '' }}>
+                                         {{ $status->name }}</option>
+                                 @endforeach
+                                 @foreach ($users as $user)
+                                     <option class="useroption" value="{{ $user->name }}"
+                                         {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>{{ $user->name }}
+                                     </option>
+                                 @endforeach
+                             </select>
+                             @error('status')
+                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                             @enderror
+                         </div>
                      </div>
-                     <div>
-                         <label for="status" class="inline-block text-lg mb-2">Status</label>
-                         <select name="status"
-                             class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
-                             <option value=""disabled selected>Select Status</option>
-                             @foreach ($statuses as $status)
-                                 <option value="{{ $status->name }}" {{ $task->status == $status->name ? 'selected' : '' }}>
-                                     {{ $status->name }}</option>
-                             @endforeach
-                             @foreach ($users as $user)
-                                 <option class="useroption" value="{{ $user->name }}"
-                                     {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>{{ $user->name }}
-                                 </option>
-                             @endforeach
-                         </select>
-                         @error('status')
-                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                         @enderror
+                     <div class="grid grid-cols-1">
+                         <div>
+                             <label for="description" class="inline-block text-lg mb-1">Description</label>
+                             <textarea class="comment-text border border-gray-500 rounded p-2 w-full" value="" name="description"
+                                 id="description" rows="4">{{ $task->description }}</textarea>
+                             @error('description')
+                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                             @enderror
+                         </div>
                      </div>
-                 </div>
-                 <div class="grid grid-cols-1">
-                     <div>
-                         <label for="description" class="inline-block text-lg mb-2">Description</label>
-                         <textarea class="comment-text border border-gray-500 rounded p-2 w-full" value="" name="description"
-                             id="description" rows="4">{{ $task->description }}</textarea>
-                         @error('description')
-                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                         @enderror
-                     </div>
-                 </div>
-                 <div class="grid grid grid-cols-1 gap-4">
-                     <div>
-                         <label for="uploads" class="inline-block text-lg mb-2">
-                             Uploads
-                         </label>
-                         <input type="file"
-                             class="cursor-pointer border border-gray-500 rounded p-1
+                     <div class="grid grid grid-cols-1 gap-4">
+                         <div>
+                             <label for="uploads" class="inline-block text-lg mb-1">
+                                 Uploads
+                             </label>
+                             <input type="file"
+                                 class="cursor-pointer border border-gray-500 rounded p-1
                          block w-full text-sm text-slate-500 
                          file:mr-7 file:cursor-pointer file:px-5 file:py-2 file:rounded-full 
                          file:border-0 file:text-sm file:font-semibold  
                          file:bg-orange-500 file:text-white-700 hover:file:bg-orange-600 w-full"
-                             name="uploads[]" multiple />
-                         @error('uploads')
-                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                         @enderror
+                                 name="uploads[]" multiple />
+                             @error('uploads')
+                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                             @enderror
+                         </div>
                      </div>
-                 </div>
-                 <div class="grid grid grid-cols-1">
-                     <div>
-                         <button
-                             class="bg-stone-900 text-white rounded py-2 px-4 
-                         hover:bg-slate-500">
-                             Update Task
-                         </button>
+                     <div class="grid grid grid-cols-1 mt-4">
+                         <div>
+                             <button
+                                 class="bg-orange-600 text-white rounded py-2 px-4 
+                         hover:bg-orange-700">
+                                 Update Task
+                             </button>
 
-                         <a href="/tasks"class="text-black ml-4 py-2 px-4 rounded-md hover:bg-slate-500">
-                             Go Back
-                             <i class="fa-regular fa-circle-right"></i>
-                         </a>
-                     </div>
-             </form>
+                             <a href="/tasks"class="border text-black ml-4 py-2 px-4 rounded-md hover:bg-orange-600 hover:text-white">
+                                 Go Back
+                                 <i class="fa-regular fa-circle-right"></i>
+                             </a>
+                         </div>
+                 </form>
+             </div>
          </div>
      </div>
      <script>

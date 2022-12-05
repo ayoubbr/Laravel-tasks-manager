@@ -33,7 +33,7 @@
             <h3 class="p-relative txt-c mt-0">Tasks Manager</h3>
             <ul>
                 <li>
-                    <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10 
+                    <a class="d-flex justify-start align-center  c-black rad-6 py-3 pr-10 pl-5
                     {{ 'tasks' == request()->path() ? 'active' : '' }}"
                         href="/tasks">
                         <i class="fa-regular fa-chart-bar fa-fw"></i>
@@ -42,7 +42,7 @@
                 </li>
                 @auth
                     <li>
-                        <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
+                        <a class="d-flex justify-start align-center  c-black rad-6 py-3 pr-10 pl-5
                             {{ 'tasks/create' == request()->path() ? 'active' : '' }}"
                             href="/tasks/create">
                             <i class=" fa-solid fa-folder-plus"></i>
@@ -50,15 +50,16 @@
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
+                        <a class="d-flex justify-start align-center py-3 pr-10 pl-5  c-black rad-6 
                              {{ str_contains(request()->path(), 'users') ? 'active' : '' }}"
                             href="/users/manage">
-                            <i class=" fa-solid fa-gear fa-fw"></i>
+                            <i class="fa-solid fa-users-gear fa-fw"></i>
+
                             <span class="sidebarspan">Manage Users</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex justify-start align-center fs-14 c-black rad-6 p-10
+                        <a class="d-flex justify-start align-center  c-black rad-6 py-3 pr-10 pl-5
                              {{ 'settings' == request()->path() ? 'active' : '' }}"
                             href="/settings">
                             <i class=" fa-solid fa-gear fa-fw"></i>

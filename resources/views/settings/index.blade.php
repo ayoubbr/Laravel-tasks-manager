@@ -1,26 +1,23 @@
 @extends('home')
 
 @section('content')
-    <div class="content w-full">
-        <h1 class="p-relative">Settings</h1>
-        <div class="settings-page m-20 d-grid gap-20">
-            <!-- Start Settings Box -->
+    <div class="content w-full p-10">
+        <h1 class="p-relative text-3xl">Settings</h1>
+        <div class="settings-page m-10 d-grid gap-10">
             <div class="p-20 bx-shadow bg-white rad-10" style="max-height: 250px;" >
-                <h2 class="mt-0 ">Manage Status</h2>
-                <div class="">
+                <h2>Manage Status</h2>
+                <div>
                     <form method="POST" action="{{ route('status.store') }}">
                         @csrf
-                        <label class="fs-14 c-grey d-block mb-10" for="name">Status Title</label>
+                        <label class="fs-14 c-grey d-block mb-2" for="name">Status Title</label>
                         <input class="b-none border-ccc p-10 rad-6 d-block w-full" name="name" type="text"
                             id="first" placeholder="Status" />
                         <input type="submit" style="float: right"
-                            class="text-white cursor-pointer p-2 mt-1 rounded-md  bg-sky-500 hover:bg-sky-700"
-                            value="Create">
+                            class="text-white cursor-pointer p-2 px-5 mt-3 rounded-md  bg-sky-600 hover:bg-sky-700"
+                            value="Create Status">
                     </form>
                 </div>
             </div>
-            <!-- End Settings Box -->
-            <!-- Start Settings Box -->
             <div class="p-20 bx-shadow bg-white rad-10" >
                 <h2 class="mt-0 mb-10">Status Created</h2>
                 @foreach ($statuses as $status)
@@ -34,7 +31,6 @@
                     </div>
                 @endforeach
             </div>
-            <!-- End Settings Box -->
         </div>
     </div>
 @endsection

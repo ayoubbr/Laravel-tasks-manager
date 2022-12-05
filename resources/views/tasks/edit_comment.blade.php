@@ -1,10 +1,15 @@
 @extends('home')
 @section('content')
-    <div class="card p-5">
-        <div class="bg-gray-200 p-4 rounded-md">
+    <div class="card p-5 bx-shadow rounded-md">
+        <div class="p-5 text-2xl">
+            <h2>
+                EDIT comment : {{ $comment->title }}
+            </h2>
+        </div>
+        <div class="bg-gray-200 p-4 rounded-t-md ">
             <div class="task-row between-flex">
                 <div class="info">
-                    <div class="text-md d-flex  gap-20 comment-head justify-between align-center bg-slate-200 p-10">
+                    <div class="text-md d-flex gap-20 comment-head justify-between align-center p-10">
                         <div>
                             <span class="text-sm">created by :
                             </span>
@@ -30,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="bx-shadow p-5">
+        <div class="p-5 border rounded-b-md">
             <div class="mt-2">
                 <form method="POST" action="{{ route('tasks.comments.update', $comment->id) }}"
                     enctype="multipart/form-data">
@@ -77,7 +82,7 @@
                     </div>
                     <div class="grid gap-4 grid-cols-2">
                         <div class="mb-6">
-                            <button type="submit" class="bg-cyan-500 text-white rounded py-2 px-4 hover:bg-cyan-600">
+                            <button type="submit" class="bg-sky-600 text-white rounded py-2 px-4 hover:bg-sky-700">
                                 Update Comment
                             </button>
                         </div>

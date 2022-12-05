@@ -1,18 +1,16 @@
 @extends('home')
 
 @section('content')
-    <div style="padding-bottom: 115px;" class="projects px-20 pt-20 bg-white rad-10 m-5 ">
-        <span class="d-flex justify-between p-2.5">
-            <p>Task</p>
+    <div class="projects bx-shadow px-5 py-10 bg-white rad-10 m-5 mx-10">
+        <span class="d-flex justify-between p-3 bg-sky-600 rounded-md text-white">
+            <p>Task Title</p>
             <div class="d-flex gap-1.5">
                 <p class="w-24 text-center">Duration</p>
                 <p class="w-24 text-center">Created By</p>
                 <p class="w-36 text-center">Status</p>
-                {{-- <p class="w-24 text-center">User affected</p> --}}
                 <p class="w-36 text-center">Created at</p>
-                <p class="w-24 text-center  mr-5">Type</p>
+                <p class="w-24 text-center mr-5">Type</p>
             </div>
-
         </span>
         <x-tasks :tasks="$tasks" :users="$users" :statuses="$statuses" />
     </div>

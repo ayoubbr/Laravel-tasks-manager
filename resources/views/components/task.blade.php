@@ -39,7 +39,6 @@
                 </div>
             </div>
         </div>
-
         {{ $task->title }}
         <div class="d-flex ml-auto gap-1.5 text-sm">
             <p class="w-24 text-center">{{ $task->duration }}</p>

@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="page">
-        <div class="card d-flex">
+        <div class="card d-flex bx-shadow rounded-md">
             <div class="content w-full p-20">
                 <div class="d-flex justify-start gap-5 ml-5 align-center my-10">
-                    <h1 class="p-relative fs-25 " style="margin: 0">Task : {{ $task->title }}</h1>
+                    <h1 class="p-relative fs-25" style="margin: 0">Task : {{ $task->title }}</h1>
                     <a href="/tasks/{{ $task->id }}/edit">
-                        <span class="label btn-shape py-2 bg-stone-900 c-white hover:bg-slate-500">
+                        <span class="label btn-shape py-2 bg-sky-600 c-white hover:bg-sky-700">
                             <i class="fa-solid fa-pencil mr-2"></i> Edit Task
                         </span>
                     </a>
@@ -15,20 +15,19 @@
                 <div class="grid gap-4 grid-cols-1">
                     @unless($task->type == 'Master')
                         <div class="tasks m-5 px-5 bg-white rad-10">
-                            <div class="d-flex  px-10 justify-between align-center mb-3"
+                            <div class="d-flex px-1 justify-between align-center mb-3"
                                 style="border-bottom: 1px solid #dad7d7;">
                                 <h2 class="text-2xl py-5">
                                     Comments
                                 </h2>
                                 @if (auth()->user())
                                     <button
-                                        class="bg-sky-400 hover:bg-sky-600 btn-plus hover:text-white p-10 rounded-md d-flex align-center">
-                                        Add comment
-                                        <i class="fa-solid fa-circle-plus ml-2 cursor-pointer"></i>
+                                        class="bg-sky-600 hover:bg-sky-700 btn-plus text-white hover:text-white p-10 rounded-md d-flex align-center">
+                                       Toggle form to add a comment
                                     </button>
                                 @endif
                             </div>
-                            <div class="hided mb-10 comment-create">
+                            <div class="comment_create mb-10 comment-create">
                                 <form method="POST" action="/tasks/task-details/{{ $task->id }}"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -58,14 +57,7 @@
                                     <div class="grid gap-4 grid-cols-2">
                                         <div class="mb-6">
                                             <label for="description" class="inline-block text-lg mb-2">Description</label>
-
-                                            {{-- <input type="text" class="border border-gray-400 rounded p-2 w-full"
-                                                name="description" value="{{ old('description') }}" /> --}}
-
-
-                                            <textarea class="border border-gray-400 rounded p-2 w-full" value="{{ old('description') }}" name="description"
-                                                id="description" rows="4"></textarea>
-
+                                            <textarea class="border border-gray-400 rounded p-2 w-full" name="description" id="description" rows="4">{{ old('description') }}</textarea>
                                             @error('description')
                                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                             @enderror
@@ -98,7 +90,6 @@
                                     </div>
                                 </form>
                             </div>
-
                             @unless($task->type == 'Master')
                                 @unless(count($comments) == 0)
                                     @foreach ($comments as $comment)
@@ -153,8 +144,8 @@
                                                     <div class="hidden grid gap-4 grid-cols-3 bg-white p-5 rad-6 p-relative">
                                                         @foreach ($comment_images as $commentImage)
                                                             @if ($comment->id == $commentImage->comment_id)
-                                                                <img class="cover rounded-md" src="/comment_imgs/{{ $commentImage->image }}"
-                                                                    alt="" />
+                                                                <img class="cover rounded-md"
+                                                                    src="/comment_imgs/{{ $commentImage->image }}" alt="" />
                                                             @endif
                                                         @endforeach
                                                     </div>
@@ -170,7 +161,16 @@
                             @endunless
                         </div>
                     @endunless
-                    <p class="px-10">Desc : {{ $task->description }}</p>
+                    <div class="tasks m-5 bg-white rad-10">
+                        <div class="d-flex justify-between align-center" style="border-bottom: 1px solid #dad7d7;">
+                            <h2 class="p-15 text-2xl">
+                                Description
+                            </h2>
+                        </div>
+                        <div class="courses-page d-grid m-5 gap-10">
+                            {{ $task->description }}
+                        </div>
+                    </div>
                     <div class="tasks m-5 bg-white rad-10">
                         <div class="d-flex justify-between align-center" style="border-bottom: 1px solid #dad7d7;">
                             <h2 class="p-15 text-2xl">
@@ -209,7 +209,7 @@
     </div>
     <script>
         let hidden = document.querySelectorAll('.hidden');
-        let hided = document.querySelector('.hided');
+        let comment_create = document.querySelector('.comment_create');
         let imageIcon = document.querySelectorAll('.fa-images');
         let plusIcon = document.querySelector('.btn-plus');
         if (imageIcon) {
@@ -224,7 +224,10 @@
         }
         if (plusIcon) {
             plusIcon.addEventListener('click', (event) => {
-                hided.classList.toggle('hided');
+                if (plusIcon.innerHTML == 'Add comment') {
+                    plusIcon.innerHTML = 'hide';
+                }
+                comment_create.classList.toggle('hided');
             });
         }
     </script>
