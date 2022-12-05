@@ -2,9 +2,7 @@
     <span style="display: flex; gap:10px" class="treespan d-flex">
         <div class="relative d-flex cursor-pointer align-center text-left">
             <i class="btn fa-solid fa-bars-staggered"></i>
-            <div class="list hidden absolute z-10 mt-2 w-56 
-            origin-top-right rounded-md bg-white shadow-lg 
-            ring-1 ring-black ring-opacity-5 focus:outline-none"
+            <div class="list hidden absolute z-10 mt-2 w-56  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <div class="py-1" role="none">
                     @if ($task->type == 'Master' && auth()->user())
@@ -59,7 +57,8 @@
                                 {{ $task->status == $status->name ? 'selected' : '' }}>{{ $status->name }}</option>
                         @endforeach
                         @foreach ($users as $user)
-                            <option value="{{ $user->name }}" {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
+                            <option value="{{ $user->name }}"
+                                {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
                                 {{ $user->name }}</option>
                         @endforeach
                     </select>

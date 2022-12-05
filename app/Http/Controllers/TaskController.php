@@ -193,11 +193,25 @@ class TaskController extends Controller
             'title' => 'required',
             'description' => 'required',
             'status' => 'required',
-            // 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
         ]);
 
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
+
+
+        if ($task->type != 'Master') {
+            if ($task->status != $request->status) {
+                $comment = Comment::create([
+                    'task_id' => $task->id,
+                    'title' => 'title desc',
+                    'description' => 'test desc',
+                    'duration' => 0.2
+                ]);
+
+                auth()->user()->duration += 0.2;
+                auth()->user()->update();
+            }
+        }
 
         $task->update($formFields);
 
@@ -206,34 +220,6 @@ class TaskController extends Controller
         } else {
             $task->userAffectedTo = $request->status;
         }
-
-        // if ($task->type == 'Normal') {
-        //     Comment::create([
-        //         'task_id' => $task->id,
-        //         'title' => 'Updated task!',
-        //         'description' => 'This is an Updated task! ',
-        //         'duration' => 0.2,
-        //     ]);
-        // if ($task->status == 'To Dispatch') {
-        //     Comment::create([
-        //         'task_id' => $task->id,
-        //         'title' => 'This is an Automatic Comment!',
-        //         'description' => 'A user created a task',
-        //         'duration' => 0.2,
-        //     ]);
-        // }
-        // }
-
-        // if ($request->has('images')) {
-        //     foreach ($request->file('images') as $image) {
-        //         $imageName = $formFields['title'] . 'image-' . time() . rand(1, 1000) . '.' . $image->extension();
-        //         $image->move(public_path('task_imgs'), $imageName);
-        //         Image::create([
-        //             'task_id' => $task->id,
-        //             'image' => $imageName
-        //         ]);
-        //     }
-        // }
 
         if ($request->has('uploads')) {
             foreach ($request->file('uploads') as $upload) {
@@ -317,6 +303,16 @@ class TaskController extends Controller
         } else {
             $task->userAffectedTo = $request->status;
         }
+        if ($task->type != 'Master') {
+            $comment = Comment::create([
+                'task_id' => $task->id,
+                'title' => 'title desc',
+                'description' => 'test desc',
+                'duration' => 0.2
+            ]);
+            auth()->user()->duration += 0.2;
+            auth()->user()->update();
+        }
 
         $task->update();
         return back();
@@ -332,6 +328,7 @@ class TaskController extends Controller
         }
         return $ids;
     }
+
     private function getParents($task)
     {
         $tasks = [];
