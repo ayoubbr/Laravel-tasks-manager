@@ -37,7 +37,7 @@ Route::get('/users/delete/{id}', [UserController::class, 'destroy'])->name('user
 Route::put('/users/edit/update/{id}', [UserController::class, 'update'])->name('users.edit.update')->middleware('auth');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index')->middleware('auth');
-Route::post('/settings/status/store', [StatusController::class, 'store'])->name('status.store');
-Route::get('/settings', [StatusController::class, 'index'])->name('status.index');
-Route::get('/settings/delete/{id}', [StatusController::class, 'delete'])->name('status.delete');
-Route::get('/users/tasks/filter/{id}', [UserController::class, 'filter'])->name('user.tasks.filter');
+Route::post('/settings/status/store', [StatusController::class, 'store'])->name('status.store')->middleware('auth');
+Route::get('/settings', [StatusController::class, 'index'])->name('status.index')->middleware('auth');
+Route::get('/settings/delete/{id}', [StatusController::class, 'delete'])->name('status.delete')->middleware('auth');
+Route::get('/users/tasks/filter/{id}', [UserController::class, 'filter'])->name('user.tasks.filter')->middleware('auth');

@@ -20,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" />
     @yield('style')
     <script src="//unpkg.com/alpinejs" defer></script>
-    <!-- Styles -->
 </head>
 
 <body>
@@ -76,37 +75,32 @@
             <!-- Start Head -->
             <div class="head bg-white p-15 between-flex">
                 <div class="search p-relative">
-                    <form action="">
-                        {{-- <input class="p-10" type="text" name="search" placeholder="Type A Keyword" /> --}}
+                    {{-- <form action="">
+                         <input class="p-10" type="text" name="search" placeholder="Type A Keyword" /> 
 
-
-                        {{-- <button class="search-icon" type="submit">
+                         <button class="search-icon" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                        </button> --}}
-                    </form>
-
+                        </button> 
+                    </form>  --}}
                 </div>
                 <div class="icons d-flex align-center">
                     @auth
                         @if (str_contains(auth()->user()->logo, '2022'))
-                            <img width="200px" id="target" class="target mr-2 cursor-pointer"
+                            <img id="target" class="target mr-2 cursor-pointer"
                                 src="{{ auth()->user()->logo ? asset('storage/logos/' . auth()->user()->logo) : asset('/images/no-image.png') }}" />
                         @endif
                         @if (!str_contains(auth()->user()->logo, '2022'))
-                            <img width="200px" id="target" class="target mr-2 cursor-pointer"
+                            <img id="target" class="target mr-2 cursor-pointer"
                                 src="{{ auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}" />
                         @endif
                         <div
-                            class="list-user hidden absolute z-10 mt-2 py-1
-                        origin-top-right rounded-md bg-white shadow-lg 
-                        ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div class="text-zinc-500 px-10 py-3 ">{{ auth()->user()->name }}</div>
+                            class="list-user hidden absolute z-10 mt-2 py-1 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div class="text-zinc-500 px-10 py-2 ">{{ auth()->user()->name }}</div>
                             <hr>
                             <form action="/" method="post" class="px-10 py-3 ">
                                 @csrf
                                 <button type="submit">Logout</button>
                             </form>
-
                         </div>
                     @else
                         <a class="sign-in" href="/register">

@@ -56,7 +56,6 @@ class TaskController extends Controller
                 'title' => 'required',
                 'status' => 'required',
                 'description' => 'required',
-                // 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
             ]
         );
 
@@ -76,21 +75,6 @@ class TaskController extends Controller
             $new_task->update();
         }
 
-        // $commentFields = $request->validate(['description' => 'required',]);
-
-        // if ($new_task->type == 'Normal') {
-        //     Comment::create([
-        //         'task_id' => $new_task->id,
-        //         'title' => 'Comment Created Automatically With a Normal Task',
-        //         'description' => $commentFields['description'],
-        //         'duration' => 0.2,
-        //     ]);
-        //     $new_task['duration'] = 0.2;
-        //     $new_task->update();
-        //     auth()->user()->duration +=  $new_task['duration'];
-        //     auth()->user()->update();
-        // }
-
         if ($request->has('uploads')) {
             foreach ($request->file('uploads') as $upload) {
                 $uploadName = $formFields['title'] . 'upload-' . time() . rand(1, 1000) . '.' . $upload->extension();
@@ -101,10 +85,6 @@ class TaskController extends Controller
                 ]);
             }
         }
-
-        // if ($new_task->status !== 'To Dispatch') {
-        //     $new_task->userAffectedTo = null;
-        // }
 
         $new_task->update();
 
@@ -138,7 +118,6 @@ class TaskController extends Controller
             $new_task->userAffectedTo = $request->status;
             $new_task->update();
         }
-        // $commentFields = $request->validate(['description' => 'required',]);
 
         if ($new_task->type == 'Normal') {
             Comment::create([
@@ -157,11 +136,6 @@ class TaskController extends Controller
                 $parent->update();
             }
         }
-
-        // if ($new_task->type == 'Master') {
-        //     $new_task->parent_id = null;
-        //     $new_task->update();
-        // }
 
         if ($request->has('uploads')) {
             foreach ($request->file('uploads') as $upload) {

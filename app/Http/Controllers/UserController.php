@@ -28,14 +28,11 @@ class UserController extends Controller
         if ($request->hasFile('logo')) {
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
-
-        // Hash Password
+        
         $formFields['password'] = bcrypt($formFields['password']);
 
-        // Create User
         $user = User::create($formFields);
 
-        // Login
         auth()->login($user);
 
         return redirect('/')->with('message', 'User created and logged in');
@@ -129,8 +126,6 @@ class UserController extends Controller
             $user['logo'] = $filename;
         }
 
-
-        // dd($tasks->toArray());
         foreach ($tasks as $task) {
             $task->userAffectedTo = $request->name;
             $task->update();
