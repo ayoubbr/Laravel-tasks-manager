@@ -3,10 +3,8 @@
 @section('content')
     <div class="page">
         <div class="card d-flex">
-
             <div class="content w-full p-20">
-
-                <div class="d-flex justify-around align-center my-10">
+                <div class="d-flex justify-start gap-5 ml-5 align-center my-10">
                     <h1 class="p-relative fs-25 " style="margin: 0">Task : {{ $task->title }}</h1>
                     <a href="/tasks/{{ $task->id }}/edit">
                         <span class="label btn-shape py-2 bg-stone-900 c-white hover:bg-slate-500">
@@ -14,13 +12,11 @@
                         </span>
                     </a>
                 </div>
-
                 <div class="grid gap-4 grid-cols-1">
                     @unless($task->type == 'Master')
                         <div class="tasks m-5 px-5 bg-white rad-10">
-                            <div class="d-flex  px-10 justify-between align-center mb-3" style="border-bottom: 1px solid #dad7d7;
-                            /* margin-bottom: 20px; */
-                            ">
+                            <div class="d-flex  px-10 justify-between align-center mb-3"
+                                style="border-bottom: 1px solid #dad7d7;">
                                 <h2 class="text-2xl py-5">
                                     Comments
                                 </h2>
@@ -32,13 +28,11 @@
                                     </button>
                                 @endif
                             </div>
-
                             <div class="hided mb-10 comment-create">
                                 <form method="POST" action="/tasks/task-details/{{ $task->id }}"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-
                                     <div class="grid gap-4 grid-cols-2">
                                         <div class="mb-6">
                                             <label for="title" class="inline-block text-lg mb-2">Title</label>
@@ -59,7 +53,7 @@
                                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                             @enderror
                                         </div>
-                                       
+
                                     </div>
                                     <div class="grid gap-4 grid-cols-2">
                                         <div class="mb-6">
@@ -69,8 +63,8 @@
                                                 name="description" value="{{ old('description') }}" /> --}}
 
 
-                                            <textarea class="border border-gray-400 rounded p-2 w-full" value="{{ old('description') }}"
-                                                name="description" id="description" rows="4"></textarea>
+                                            <textarea class="border border-gray-400 rounded p-2 w-full" value="{{ old('description') }}" name="description"
+                                                id="description" rows="4"></textarea>
 
                                             @error('description')
                                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -105,7 +99,6 @@
                                 </form>
                             </div>
 
-
                             @unless($task->type == 'Master')
                                 @unless(count($comments) == 0)
                                     @foreach ($comments as $comment)
@@ -129,7 +122,10 @@
                                                             (hours)
                                                         </span>
                                                         <div class="d-flex gap-3 align-center">
-                                                            <i class="cursor-pointer fa-regular  fa-images image"></i>
+                                                            <a href="{{ route('tasks.comments.edit', $comment->id) }}">
+                                                                <i class="cursor-pointer fa-solid  fa-pencil edit"></i>
+                                                            </a>
+                                                            <i class="cursor-pointer fa-regular fa-images image"></i>
                                                             <form
                                                                 action="/tasks/task-details/{{ $task->id }}/comments/{{ $comment->id }}/"
                                                                 method="POST">
@@ -149,23 +145,21 @@
                                                             <span>...</span>
                                                         @endif
                                                     </p>
-
                                                 </div>
                                             </div>
-
                                             <div class="targetClass">
-                                                @if (count($comment_images) != 0)
-                                                    <div class="hidden grid gap-4 grid-cols-3 bg-white rad-6 p-relative">
-
+                                                @if (count($comment->images) != 0)
+                                                    <p class="p-10 text-green-500">Images Found!</p>
+                                                    <div class="hidden grid gap-4 grid-cols-3 bg-white p-5 rad-6 p-relative">
                                                         @foreach ($comment_images as $commentImage)
                                                             @if ($comment->id == $commentImage->comment_id)
-                                                                <img class="cover" src="/comment_imgs/{{ $commentImage->image }}"
+                                                                <img class="cover rounded-md" src="/comment_imgs/{{ $commentImage->image }}"
                                                                     alt="" />
                                                             @endif
                                                         @endforeach
                                                     </div>
                                                 @else
-                                                    <p class="p-10">No Images Found!</p>
+                                                    <p class="p-10 text-yellow-500">No Images Found!</p>
                                                 @endif
                                             </div>
                                         </div>
@@ -175,20 +169,15 @@
                                 @endunless
                             @endunless
                         </div>
-
-
                     @endunless
                     <p class="px-10">Desc : {{ $task->description }}</p>
                     <div class="tasks m-5 bg-white rad-10">
-                        <div style="display:flex;justify-content:space-between;align-items:center;
-                        border-bottom: 1px solid #dad7d7;
-   ">
+                        <div class="d-flex justify-between align-center" style="border-bottom: 1px solid #dad7d7;">
                             <h2 class="p-15 text-2xl">
                                 Uploads
                             </h2>
                         </div>
                         <div class="courses-page d-grid m-5 gap-10">
-
                             @if (count($uploads) == 0)
                                 <p>No uploads found</p>
                             @endif
@@ -210,7 +199,6 @@
                                             </span>
                                         </form>
                                     </div>
-
                                 </div>
                             @endforeach
                         </div>
@@ -228,8 +216,9 @@
             imageIcon.forEach(element => {
                 element.addEventListener('click', (event) => {
                     let target = event.target.parentElement.parentElement.parentElement.parentElement
-                        .nextElementSibling.firstElementChild.classList;
+                        .nextElementSibling.firstElementChild.nextElementSibling.classList;
                     target.toggle('hidden');
+                    console.log(target);
                 });
             });
         }

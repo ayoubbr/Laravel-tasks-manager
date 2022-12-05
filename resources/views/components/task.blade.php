@@ -1,9 +1,7 @@
 <li class="{{ !$task->isChild() ? 'first' : null }}">
     <span style="display: flex; gap:10px" class="treespan d-flex">
         <div class="relative d-flex cursor-pointer align-center text-left">
-
             <i class="btn fa-solid fa-bars-staggered"></i>
-
             <div class="list hidden absolute z-10 mt-2 w-56 
             origin-top-right rounded-md bg-white shadow-lg 
             ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -34,12 +32,10 @@
                             method="POST">
                             @csrf
                             @method('delete')
-
                             <button type="submit">
                                 <i class="ml-1 fa-solid fa-trash mr-3"></i>
                                 Delete
                             </button>
-
                         </form>
                     @endif
                 </div>
@@ -57,27 +53,15 @@
                     @method('put')
                     <select class="select" name="status"
                         class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
-                        <option value="" disabled>Select Status</option>
+                        <option value="" disabled selected>Select Status</option>
                         @foreach ($statuses as $status)
-                            <option value="{{ $status->name }}" {{ $task->status == $status->name ? 'selected' : '' }}>{{ $status->name }}</option>
+                            <option value="{{ $status->name }}"
+                                {{ $task->status == $status->name ? 'selected' : '' }}>{{ $status->name }}</option>
                         @endforeach
-                        {{-- <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
-                        <option value="To Validate" {{ $task->status == 'To Validate' ? 'selected' : '' }}>To
-                            Validate
-                        </option>
-                        <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
-                        </option>
-                        <option value="Gestion" {{ $task->status == 'Gestion' ? 'selected' : '' }}>Gestion
-                        </option> --}}
                         @foreach ($users as $user)
-                            {{-- @if ($task->status == 'To Dispatch')
-                                <option class="hidden" {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
-                                    {{ $user->name }}</option>
-                            @endif --}}
-                            <option value="{{ $user->name }}" {{ $task->status == $user->name ? 'selected' : '' }}>
+                            <option value="{{ $user->name }}" {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
                                 {{ $user->name }}</option>
                         @endforeach
-
                     </select>
                     <button type="submit" class="hidden apply bg-gray-200 rounded-sm p-1"
                         style="position: relative;left: 370px;top: -23px;">
@@ -85,14 +69,6 @@
                     </button>
                 </form>
             </div>
-            {{-- <p class="w-24 text-center">
-                @if ($task->userAffectedTo)
-                    {{ $task->userAffectedTo }}
-                @else
-                    NO USER
-                @endif
-
-            </p> --}}
             <p class="w-36 text-center">{{ $task->created_at }}</p>
             <p class="w-24 text-center mr-5">{{ $task->type }}</p>
         </div>

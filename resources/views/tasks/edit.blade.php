@@ -23,16 +23,15 @@
                          <label for="status" class="inline-block text-lg mb-2">Status</label>
                          <select name="status"
                              class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
-                             <option value="" disabled>Select Status</option>
-                             <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
-                             <option value="Gestion" {{ $task->status == 'Gestion' ? 'selected' : '' }}>Gestion
-                             </option>
-                             <option value="To Validate" {{ $task->status == 'To Validate' ? 'selected' : '' }}>To Validate
-                             </option>
-                             <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
-                             </option>
+                             <option value=""disabled selected>Select Status</option>
+                             @foreach ($statuses as $status)
+                                 <option value="{{ $status->name }}" {{ $task->status == $status->name ? 'selected' : '' }}>
+                                     {{ $status->name }}</option>
+                             @endforeach
                              @foreach ($users as $user)
-                                 <option class="useroption" value="{{ $user->name }}">{{ $user->name }} </option>
+                                 <option class="useroption" value="{{ $user->name }}"
+                                     {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>{{ $user->name }}
+                                 </option>
                              @endforeach
                          </select>
                          @error('status')
@@ -87,7 +86,6 @@
          let user = document.querySelector(".user");
          let selectSts = document.querySelector(".select-status");
          let options = document.querySelectorAll(".useroption");
-
 
          if (selectSts.parentElement) {
              selectSts.parentElement.addEventListener('change', (event) => {

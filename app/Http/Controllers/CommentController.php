@@ -13,7 +13,6 @@ class CommentController extends Controller
 
     public function store(Request $request, $id)
     {
-
         $task = Task::find($id);
         if ($task->type == 'Master') {
             abort(403, 'Unauthorized action');
@@ -68,5 +67,62 @@ class CommentController extends Controller
             $tasks = array_merge($tasks, $this->getParents($task));
         }
         return $tasks;
+    }
+
+    public function edit($id)
+    {
+        $comment = Comment::find($id);
+        return view('tasks.edit_comment', compact('comment'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $comment = Comment::find($id);
+        $task = $comment->task;
+        $task->duration -= $comment->duration;
+        auth()->user()->duration -= $comment->duration;
+        $task->update();
+        auth()->user()->update();
+        $parents = self::getParents($task);
+        foreach ($parents as $parent) {
+            $parent->duration -= $comment->duration;
+            $parent->update();
+        }
+
+        $formFields = $request->validate(
+            [
+                'title' => 'required',
+                'description' => 'required',
+                'duration' => 'required',
+            ]
+        );
+
+        foreach ($comment->images as $image) {
+            $image->delete();
+        }
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = time() . rand(1, 1000) . '.' . $image->extension();
+                $image->move(public_path('comment_imgs'), $imageName);
+                CommentImage::create([
+                    'comment_id' => $comment->id,
+                    'image' => $imageName
+                ]);
+            }
+        }
+
+        $comment->update($formFields);
+
+        $task->duration += $comment->duration;
+        auth()->user()->duration += $comment->duration;
+        $task->update();
+        auth()->user()->update();
+        $parents = self::getParents($task);
+        foreach ($parents as $parent) {
+            $parent->duration += $comment->duration;
+            $parent->update();
+        }
+
+        return redirect('/tasks')->with('message', 'Comment updated succefully!');
     }
 }

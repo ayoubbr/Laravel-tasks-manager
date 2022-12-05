@@ -480,6 +480,9 @@ label {
 .tasks .image:hover {
     color: var(--orange-color);
 }
+.tasks .edit:hover {
+    color: var(--blue-color);
+}
 /* End Tasks */
 /* Start Latest Uploads */
 .latest-uploads ul li:not(:last-child) {

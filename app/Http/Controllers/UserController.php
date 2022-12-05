@@ -117,9 +117,10 @@ class UserController extends Controller
     public function update($id, Request $request)
     {
         $user = User::find($id);
+        $tasks = Task::where('userAffectedTo', $user->name)->get();
         $user->name = $request->name;
         $user->email = $request->email;
-        
+
         if ($request->file('logo')) {
             $file = $request->file('logo');
             @unlink(public_path('storage/logos/' . $user->logo));
@@ -127,7 +128,15 @@ class UserController extends Controller
             $file->move(public_path('storage/logos/'), $filename);
             $user['logo'] = $filename;
         }
+
+
+        // dd($tasks->toArray());
+        foreach ($tasks as $task) {
+            $task->userAffectedTo = $request->name;
+            $task->update();
+        }
         $user->save();
+
         return redirect('/users')->with('message', 'User Updated Succesfully');
     }
 

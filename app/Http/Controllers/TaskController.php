@@ -179,9 +179,11 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
+        $statuses = Status::all();
         return view('tasks.edit', [
             'task' => $task,
             'users' => User::get(),
+            'statuses' => $statuses
         ]);
     }
 
