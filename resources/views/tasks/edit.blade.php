@@ -6,7 +6,7 @@
              <header class="text-center rounded-t-md d-flex align-center justify-center p-20 bg-orange-500">
                  <h2 class="text-2xl">Edit Task {{ $task->title }}</h2>
              </header>
-             <div class="px-12  py-8">
+             <div class="px-12 py-8">
                  <form method="POST" action="/tasks/{{ $task->id }}" enctype="multipart/form-data" class="create-form">
                      @csrf
                      @method('PUT')

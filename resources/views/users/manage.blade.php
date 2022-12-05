@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-default bg-white p-8">
+                    <div class="panel panel-default p-5">
                         <div class="panel-body">
                             <table class="table table-striped users-table" id="datatable">
                                 <thead>
@@ -39,11 +39,11 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->tasks->count() }}</td>
                                             <td>{{ $user->duration }}</td>
-                                            <td>
-                                                <a href="{{ route('users.edit', $user->id) }}" style="height: 40px"
-                                                    class="text-white bg-sky-500 hover:bg-sky-700 px-4 d-flex align-center rounded-md">Edit</a>
-                                                <a href="{{ route('users.delete', $user->id) }}" style="height: 40px"
-                                                    class="text-white bg-red-500 hover:bg-red-700 px-4 d-flex align-center rounded-md" id="delete">Delete</a>
+                                            <td class="align-center">
+                                                <a href="{{ route('users.edit', $user->id) }}"
+                                                    class="text-white bg-sky-600 hover:bg-sky-700 px-4 py-2 d-flex align-center rounded-md">Edit</a>
+                                                <a href="{{ route('users.delete', $user->id) }}"
+                                                    class="text-white bg-red-500 hover:bg-red-700 px-4 py-2 d-flex align-center rounded-md" id="delete">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

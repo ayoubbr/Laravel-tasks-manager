@@ -1,6 +1,6 @@
 @extends('home')
 @section('content')
-    <div class="card">
+    <div class="card bx-shadow rounded-md pb-20">
         <div class="p-10 max-w-lg mx-auto ">
             <header class="text-center py-3">
                 <h2 class="text-2xl font-bold uppercase mb-1 ">Register</h2>
@@ -69,10 +69,10 @@
                     @enderror
                 </div>
 
-                <div class="mt-3 d-flex align-center gap-10">
+                <div class="mt-5 d-flex align-center gap-10 ">
                     <button type="submit"
                         class="bg-stone-900
-                         text-white rounded py-2 px-4 hover:bg-slate-500">
+                         text-white rounded py-2 px-4 hover:bg-sky-600">
                         Sign Up
                     </button>
                     <div class="">

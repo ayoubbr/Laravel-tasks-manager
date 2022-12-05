@@ -1,12 +1,11 @@
 @extends('home')
 @section('content')
-<div class="card">
+<div class="card bx-shadow rounded-md mt-20">
     <div class="p-10 max-w-lg mx-auto">
         <header class="text-center py-3">
             <h2 class="text-2xl font-bold uppercase mb-1">Login</h2>
             <p class="mb-4">Log into your account</p>
         </header>
-
         <form method="POST" action="/users/authenticate">
             @csrf
 
@@ -34,12 +33,12 @@
 
             <div class="mb-6">
                 <button type="submit" class="bg-stone-900 
-                text-white rounded py-2 px-4 hover:bg-slate-500">
+                text-white rounded py-2 px-4 hover:bg-sky-600">
                     Sign In
                 </button>
             </div>
 
-            <div class="mt-8">
+            <div class="mt-8 mb-5">
                 <p>
                     Don't have an account?
                     <a href="/register" class="text-sky-500 hover:text-sky-600">Register</a>

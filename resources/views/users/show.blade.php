@@ -1,8 +1,7 @@
 @extends('home')
 @section('content')
-    <h1 class="p-relative text-xl">Profile</h1>
+    <h1 class="p-relative text-3xl">Profile</h1>
     <div class="profile-page m-5">
-        <!-- Start Overview -->
         <div class="overview bg-white rad-10 d-flex align-center bx-shadow">
             <div class="avatar-box txt-c p-20 ">
                 <img class="rad-half mb-10"
@@ -11,11 +10,10 @@
                 <h3 class="m-0 font-bold">{{ $user->name }}</h3>
             </div>
             <div class="info-box w-full txt-c-mobile">
-                <!-- Start Information Row -->
                 <div class="box p-20 d-flex align-center">
-                    <h4 class="c-grey fs-15 m-0 w-full">General Information</h4>
+                    <h4 class="c-grey fs-15 m-0 w-full mb-5">General Information</h4>
                     <div class="fs-14">
-                        <span class="c-grey">Full Name</span>
+                        <span class="c-grey">Full Name : </span>
                         <span class="font-bold">{{ $user->name }}</span>
                     </div>
                     <div class="fs-14">
@@ -27,38 +25,46 @@
                         <span>{{ $user->duration }}</span>
                     </div>
                 </div>
-                <!-- End Information Row -->
             </div>
         </div>
-        <!-- End Overview -->
         <div class="activities p-20 bg-white rad-10 mt-5 bx-shadow">
             <form method="GET" action="{{ route('user.tasks.filter', $user->id) }}">
                 @csrf
-                <div class="row d-flex gap-10 align-center justify-center">
-                    <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="day"
-                        type="date" placeholder="day" value="{{ $day }}" />
-                    <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="month"
-                        type="month" placeholder="month" value="{{ $month }}" />
-                    <select name="year" class="b-none border-ccc p-1 rad-6 d-block w-full" style="height: 40px;">
-                        |<option value="" selected disabled> Select a year</option>
-                        @for ($i = 2020; $i < 2031; $i++)
-                            <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}
-                            </option>
-                        @endfor
-                    </select>
-                    <div class="d-flex gap-1">
-                        <input type="submit" style="float: right; height:40px"
-                            class="text-white cursor-pointer py-2 px-4 rounded-md  bg-sky-500 hover:bg-sky-700"
-                            value="Search">
-                        <a href="{{ route('users.show', $user->id) }}"
-                            class="d-flex justify-center align-center gap-2 text-white cursor-pointer p-2  rounded-md bg-red-500 hover:bg-red-700">
-                            <i class="fa-solid fa-rotate-right"></i>
-                            Refresh</a>
+                <div class="row grid grid-cols-4 d-flex gap-10 align-center justify-center">
+                    <div>
+                        <label for="day">Search by day</label>
+                        <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="day"
+                            type="date" placeholder="day" value="{{ $day }}" />
+                    </div>
+                    <div>
+                        <label for="day">Search by month</label>
+                        <input class="b-none border-ccc p-10 rad-6 d-block w-full" style="height: 40px;" name="month"
+                            type="month" placeholder="month" value="{{ $month }}" />
+                    </div>
+                    <div>
+                        <label for="day">Search by year</label>
+                        <select name="year" class="b-none border-ccc p-1 rad-6 d-block w-full" style="height: 40px;">
+                            |<option value="" selected disabled> Select a year</option>
+                            @for ($i = 2020; $i < 2031; $i++)
+                                <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="d-flex items-end mt-5">
+                        <div class="d-flex gap-1">
+                            <input type="submit" style="float: right; height:40px"
+                                class="text-white cursor-pointer py-2 px-4 rounded-md  bg-sky-500 hover:bg-sky-700"
+                                value="Search">
+                            <a href="{{ route('users.show', $user->id) }}"
+                                class="d-flex justify-center align-center gap-2 text-white cursor-pointer p-2  rounded-md bg-red-500 hover:bg-red-700">
+                                <i class="fa-solid fa-rotate-right"></i>
+                                Refresh</a>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
-        <!-- Start Other Data -->
         <div class="other-data d-flex gap-20 ">
             <div class="activities p-20 bg-white rad-10 mt-2 bx-shadow">
                 <h2 class="mt-0 mb-2">Latest Activities</h2>
@@ -82,6 +88,5 @@
                 @endforeach
             </div>
         </div>
-        <!-- End Other Data -->
     </div>
 @endsection
