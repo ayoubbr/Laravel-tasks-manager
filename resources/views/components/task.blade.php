@@ -19,7 +19,6 @@
                         <i class="fa-solid fa-eye ml-1 mr-3"></i>
                         View Details
                     </a>
-
                     @if ($task->type !== 'Master' && auth()->user())
                         <a href="{{ route('task.details', $task->id) }}" class="text-gray-700 block px-4 py-2 text-sm">
                             <i class="fa-solid fa-plus ml-1 mr-3"></i>
@@ -27,22 +26,21 @@
                         </a>
                     @endif
                     @if (auth()->user())
-                        
-                    <a href="/tasks/{{ $task->id }}/edit" class="text-gray-700 block px-4 py-2 text-sm">
-                        <i class="ml-1 fa-solid fa-pencil mr-3"></i>
-                        Edit
-                    </a>
-                    <form class="text-gray-700 block px-4 py-2 text-sm" action="/tasks/{{ $task->id }}"
-                        method="POST">
-                        @csrf
-                        @method('delete')
+                        <a href="/tasks/{{ $task->id }}/edit" class="text-gray-700 block px-4 py-2 text-sm">
+                            <i class="ml-1 fa-solid fa-pencil mr-3"></i>
+                            Edit
+                        </a>
+                        <form class="text-gray-700 block px-4 py-2 text-sm" action="/tasks/{{ $task->id }}"
+                            method="POST">
+                            @csrf
+                            @method('delete')
 
-                        <button type="submit">
-                            <i class="ml-1 fa-solid fa-trash mr-3"></i>
-                            Delete
-                        </button>
+                            <button type="submit">
+                                <i class="ml-1 fa-solid fa-trash mr-3"></i>
+                                Delete
+                            </button>
 
-                    </form>
+                        </form>
                     @endif
                 </div>
             </div>
@@ -60,14 +58,17 @@
                     <select class="select" name="status"
                         class="cursor-pointer select-status border border-gray-200 rounded p-2 w-full">
                         <option value="" disabled>Select Status</option>
-                        <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
+                        @foreach ($statuses as $status)
+                            <option value="{{ $status->name }}" {{ $task->status == $status->name ? 'selected' : '' }}>{{ $status->name }}</option>
+                        @endforeach
+                        {{-- <option value="Open" {{ $task->status == 'Open' ? 'selected' : '' }}>Open</option>
                         <option value="To Validate" {{ $task->status == 'To Validate' ? 'selected' : '' }}>To
                             Validate
                         </option>
                         <option value="Completed" {{ $task->status == 'Completed' ? 'selected' : '' }}>Completed
                         </option>
                         <option value="Gestion" {{ $task->status == 'Gestion' ? 'selected' : '' }}>Gestion
-                        </option>
+                        </option> --}}
                         @foreach ($users as $user)
                             {{-- @if ($task->status == 'To Dispatch')
                                 <option class="hidden" {{ $task->userAffectedTo == $user->name ? 'selected' : '' }}>
@@ -96,5 +97,5 @@
             <p class="w-24 text-center mr-5">{{ $task->type }}</p>
         </div>
     </span>
-    <x-tasks :tasks="$task->children" :users="$users" />
+    <x-tasks :tasks="$task->children" :users="$users" :statuses="$statuses" />
 </li>

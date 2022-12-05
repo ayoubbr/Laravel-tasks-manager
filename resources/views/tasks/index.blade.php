@@ -14,12 +14,8 @@
             </div>
 
         </span>
-        <x-tasks :tasks="$tasks" :users="$users" />
-
+        <x-tasks :tasks="$tasks" :users="$users" :statuses="$statuses" />
     </div>
-    {{-- <div class="mt-4 p4">
-        {{ $tasks2->links() }}
-    </div> --}}
     <script>
         let btns = document.querySelectorAll('.btn');
         let lists = document.querySelectorAll('.list');

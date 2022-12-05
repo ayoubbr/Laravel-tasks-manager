@@ -87,9 +87,14 @@
                 </div>
                 <div class="icons d-flex align-center">
                     @auth
-                        <img width="200px" id="target" class="target mr-2 cursor-pointer"
-                            src="{{ auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}" />
-                        {{-- <i class="text-sm fa-solid fa-chevron-down"></i> --}}
+                        @if (str_contains(auth()->user()->logo, '2022'))
+                            <img width="200px" id="target" class="target mr-2 cursor-pointer"
+                                src="{{ auth()->user()->logo ? asset('storage/logos/' . auth()->user()->logo) : asset('/images/no-image.png') }}" />
+                        @endif
+                        @if (!str_contains(auth()->user()->logo, '2022'))
+                            <img width="200px" id="target" class="target mr-2 cursor-pointer"
+                                src="{{ auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/images/no-image.png') }}" />
+                        @endif
                         <div
                             class="list-user hidden absolute z-10 mt-2 py-1
                         origin-top-right rounded-md bg-white shadow-lg 

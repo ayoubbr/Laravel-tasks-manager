@@ -25,12 +25,15 @@
                         <select name="status"
                             class="select-status cursor-pointer border border-gray-500 rounded p-2 w-full">
                             <option value="">Select Status</option>
-                            <option value="Open">Open</option>
+                            {{-- <option value="Open">Open</option>
                             <option value="Gestion">Gestion</option>
                             <option value="To Validate">To Validate</option>
-                            <option value="Completed">Completed</option>
+                            <option value="Completed">Completed</option> --}}
                             @foreach ($users as $user)
                                 <option class="useroption" value="{{ $user->name }}">{{ $user->name }} </option>
+                            @endforeach
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->name }}">{{ $status->name }}</option>
                             @endforeach
 
                         </select>

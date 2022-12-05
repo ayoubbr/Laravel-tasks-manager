@@ -29,7 +29,10 @@ Route::get('/users/manage', [UserController::class, 'manage'])->middleware('auth
 Route::post('/', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/users/authenticate', [UserController::class, 'authenticate'])->middleware('guest');
-Route::get('/users', [UserController::class, 'view'])->name('users.view')->middleware('auth');
+Route::get('/users', [UserController::class, 'manage'])->name('users.view')->middleware('auth');
+Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit')->middleware('auth');
+Route::get('/users/delete/{id}', [UserController::class, 'destroy'])->name('users.delete')->middleware('auth');
+Route::put('/users/edit/update/{id}', [UserController::class, 'update'])->name('users.edit.update')->middleware('auth');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index')->middleware('auth');
 Route::post('/settings/status/store', [StatusController::class, 'store'])->name('status.store');

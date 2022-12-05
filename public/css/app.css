@@ -1622,10 +1622,32 @@ label {
 /* users-table */
 .users-table {
     box-shadow: 0px 5px 10px 1px rgba(89, 89, 89, 0.2);
-    margin: 10px 0  !important;
-    border-top: 2px solid #22c55e;
+    margin: 10px 0 !important;
+    border-top: 3px solid #020202;
+    border-bottom: none !important;
     border-radius: 8px;
 }
-.bx-shadow{
-    box-shadow: 0px 5px 10px 1px rgba(89, 89, 89, 0.2); 
+.panel-body .dataTables_filter {
+    margin-bottom: 12px;
+}
+.panel-body .dataTables_filter input {
+    border: 1px solid;
+    border-color: #cdc1c1;
+    border-radius: 6px;
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+}
+.panel-body .dataTables_length select {
+    border: 1px solid;
+    border-color: #cdc1c1;
+    border-radius: 6px;
+    width: 60px;
+    height: 30px;
+}
+.users-table .bx-shadow {
+    box-shadow: 0px 5px 10px 1px rgba(89, 89, 89, 0.2);
+}
+.bx-shadow {
+    box-shadow: 0px 5px 10px 1px rgba(89, 89, 89, 0.2);
 }

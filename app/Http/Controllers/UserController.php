@@ -98,6 +98,39 @@ class UserController extends Controller
         ]);
     }
 
+    public function edit($id)
+    {
+        $user = User::find($id);
+
+        return view('users.edit', [
+            'user' => $user,
+        ]);
+    }
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect('/users')->with('message', 'User deleted successfully!');
+    }
+
+    public function update($id, Request $request)
+    {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        
+        if ($request->file('logo')) {
+            $file = $request->file('logo');
+            @unlink(public_path('storage/logos/' . $user->logo));
+            $filename = '2022' . date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('storage/logos/'), $filename);
+            $user['logo'] = $filename;
+        }
+        $user->save();
+        return redirect('/users')->with('message', 'User Updated Succesfully');
+    }
+
     public function filter(Request $request, $id)
     {
         $user = User::find($id);

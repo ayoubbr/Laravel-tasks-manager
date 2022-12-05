@@ -8,6 +8,7 @@ use App\Models\Upload;
 use App\Models\Comment;
 use Illuminate\Support\Str;
 use App\Models\CommentImage;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -18,9 +19,11 @@ class TaskController extends Controller
     {
         $users = User::get();
         $tasks = Task::tree();
+        $statuses = Status::all();
         return view('tasks.index', [
             'tasks' => $tasks,
-            'users' => $users
+            'users' => $users,
+            'statuses' => $statuses
         ]);
     }
 
@@ -36,10 +39,12 @@ class TaskController extends Controller
 
     public function create()
     {
+        $statuses = Status::all();
         return view(
             'tasks.create',
             [
                 'users' => User::get(),
+                'statuses' => $statuses,
             ]
         );
     }
@@ -61,7 +66,10 @@ class TaskController extends Controller
         $formFields['type'] = 'Master';
         $new_task = Task::create($formFields);
 
-        if ($request->status == 'Open' or $request->status == 'Completed' or $request->status == 'To Validate' or $request->status == 'Gestion') {
+        if (
+            $request->status == 'open' or $request->status == 'completed'
+            or $request->status == 'to validate' or $request->status == 'gestion'
+        ) {
             $new_task->userAffectedTo = Null;
         } else {
             $new_task->userAffectedTo = $request->status;
@@ -121,10 +129,10 @@ class TaskController extends Controller
         $formFields['title'] = Str::title($formFields['title']);
         $formFields['parent_id'] = $task->id;
         $formFields['duration'] = 0;
-        
+
         $new_task = Task::create($formFields);
 
-        if ($request->status == 'Open' or $request->status == 'Completed' or $request->status == 'To Validate' or $request->status == 'Gestion') {
+        if ($request->status == 'open' or $request->status == 'completed' or $request->status == 'to validate' or $request->status == 'gestion') {
             $new_task->userAffectedTo = Null;
         } else {
             $new_task->userAffectedTo = $request->status;
@@ -185,12 +193,12 @@ class TaskController extends Controller
             'status' => 'required',
             // 'userAffectedTo' => Rule::requiredIf($request->status == 'To Dispatch'),
         ]);
-        
+
         $formFields['user_id'] = auth()->id();
         $formFields['title'] = Str::title($formFields['title']);
-        
+
         $task->update($formFields);
-        
+
         if ($request->status == 'Open' or $request->status == 'Completed' or $request->status == 'To Validate' or $request->status == 'Gestion') {
             $task->userAffectedTo = Null;
         } else {
@@ -282,9 +290,12 @@ class TaskController extends Controller
 
     public function createChild(Task $task)
     {
+        $statuses = Status::all();
+
         return view('tasks.create-child', [
             'task' => $task,
             'users' => User::get(),
+            'statuses' => $statuses,
         ]);
     }
 
@@ -295,8 +306,11 @@ class TaskController extends Controller
         ]);
 
         $task->update($formFields);
-        
-        if ($task->status == 'Open' or $task->status == 'Completed' or $task->status == 'To Validate' or $task->status == 'Gestion') {
+
+        if (
+            $task->status == 'open' or $task->status == 'completed'
+            or $task->status == 'to validate' or $task->status == 'gestion'
+        ) {
             $task->userAffectedTo = Null;
         } else {
             $task->userAffectedTo = $request->status;
