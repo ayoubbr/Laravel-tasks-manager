@@ -26,15 +26,8 @@
                             <i class="ml-1 fa-solid fa-pencil mr-3"></i>
                             Edit
                         </a>
-                        <form class="text-gray-700 block px-4 py-2 text-sm" action="/tasks/{{ $task->id }}"
-                            method="POST">
-                            @csrf
-                            @method('delete')
-                            <button type="submit">
-                                <i class="ml-1 fa-solid fa-trash mr-3"></i>
-                                Delete
-                            </button>
-                        </form>
+                        <a href="/tasks/{{ $task->id }}" class="text-gray-700 block px-4 py-2 text-sm"
+                            id="delete"><i class="ml-1 fa-solid fa-trash mr-3"></i> Delete</a>
                     @endif
                 </div>
             </div>

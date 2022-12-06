@@ -23,7 +23,7 @@
                                 @if (auth()->user())
                                     <button
                                         class="bg-sky-600 hover:bg-sky-700 btn-plus text-white hover:text-white p-10 rounded-md d-flex align-center">
-                                       Toggle form to add a comment
+                                        Toggle form to add a comment
                                     </button>
                                 @endif
                             </div>
@@ -117,17 +117,10 @@
                                                                 <i class="cursor-pointer fa-solid  fa-pencil edit"></i>
                                                             </a>
                                                             <i class="cursor-pointer fa-regular fa-images image"></i>
-                                                            <form
-                                                                action="/tasks/task-details/{{ $task->id }}/comments/{{ $comment->id }}/"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <span class="label">
-                                                                    <button type="submit">
-                                                                        <i class="fa-regular fa-trash-can delete"></i>
-                                                                    </button>
-                                                                </span>
-                                                            </form>
+                                                            <a id="delete"
+                                                                href="/tasks/task-details/{{ $task->id }}/comments/{{ $comment->id }}/">
+                                                                <i class="fa-regular fa-trash-can delete"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                     <h3 class="p-10">{{ $comment->title }}</h3>
@@ -184,20 +177,13 @@
                             @foreach ($uploads as $upload)
                                 <div class="course bg-eee rad-6 p-relative">
                                     <img class="cover" src="/task_imgs/{{ $upload->upload }}" alt="" />
-                                    {{-- <embed src="/task_imgs/{{ $upload->upload }}"> --}}
                                     <p class="p-4">{{ $upload->upload }}</p>
                                     <div class="p-20 d-flex justify-between">
                                         <h4 class="m-0">Id: {{ $upload->id }}</h4>
-                                        <form action="/tasks/task-details/{{ $task->id }}/{{ $upload->id }}/"
-                                            method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <span class="label  py-2 ">
-                                                <button type="submit">
-                                                    <i class="fa-regular fa-trash-can delete"></i>
-                                                </button>
-                                            </span>
-                                        </form>
+                                        <a id="delete" class="label  py-2 "
+                                            href="/tasks/task-details/upload/{{ $upload->id }}/">
+                                            <i class="fa-regular fa-trash-can delete"></i>
+                                        </a>
                                     </div>
                                 </div>
                             @endforeach

@@ -10,10 +10,10 @@ use App\Http\Controllers\StatusController;
 
 Route::get('/', [TaskController::class, 'index']);
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.view');
+Route::get('/tasks/task-details/upload/{id}', [UploadController::class, 'destroy'])->middleware('auth');
 Route::get('/tasks/task-details/{id}', [TaskController::class, 'show'])->name('task.details');
 Route::put('/tasks/task-details/{id}', [CommentController::class, 'store'])->middleware('auth');
-Route::delete('/tasks/task-details/{id}/{image}', [UploadController::class, 'destroy'])->middleware('auth');
-Route::delete('/tasks/task-details/{id}/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth');
+Route::get('/tasks/task-details/{id}/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth');
 Route::get('/tasks/comments/edit/{id}', [CommentController::class, 'edit'])->name('tasks.comments.edit')->middleware('auth');
 Route::put('/tasks/comments/update/{id}', [CommentController::class, 'update'])->name('tasks.comments.update')->middleware('auth');
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
@@ -24,7 +24,7 @@ Route::put('/tasks/{task}', [TaskController::class, 'update'])->middleware('auth
 Route::put('/tasks/{task}/updateStatus', [TaskController::class, 'updateStatus'])->middleware('auth');
 Route::get('/tasks/{task}/task-child/create', [TaskController::class, 'createChild'])->middleware('auth');
 Route::post('/tasks/child-task/{task}', [TaskController::class, 'storeChild'])->middleware('auth');
-Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->middleware('auth');
+Route::get('/tasks/{task}', [TaskController::class, 'destroy'])->middleware('auth');
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 Route::post('/users', [UserController::class, 'store'])->middleware('guest');
 Route::get('/users/manage', [UserController::class, 'manage'])->middleware('auth');
