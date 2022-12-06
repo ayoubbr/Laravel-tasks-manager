@@ -97,6 +97,10 @@
                             class="list-user hidden absolute z-10 mt-2 py-1 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div class="text-zinc-500 px-10 py-2 ">{{ auth()->user()->name }}</div>
                             <hr>
+                            {{-- <form action="{{ route('users.show', auth()->user()->id) }}" method="GET" class="px-10 py-3 ">
+                                @csrf
+                                <button type="submit">Profile</button>
+                            </form> --}}
                             <form action="/" method="post" class="px-10 py-3 ">
                                 @csrf
                                 <button type="submit">Logout</button>

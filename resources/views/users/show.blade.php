@@ -4,9 +4,16 @@
     <div class="profile-page m-5">
         <div class="overview bg-white rad-10 d-flex align-center bx-shadow">
             <div class="avatar-box txt-c p-20 ">
-                <img class="rad-half mb-10"
-                    src="{{ $user->logo ? asset('storage/logos/' . $user->logo) : asset('/images/no-image.png') }}"
-                    alt="user photo" />
+                @if (str_contains($user->logo, '2022'))
+                    <img class="rad-half mb-10"
+                        src="{{ $user->logo ? asset('storage/logos/' . $user->logo) : asset('/images/no-image.png') }}"
+                        alt="user photo" />
+                @endif
+                @if (!str_contains($user->logo, '2022'))
+                    <img class="rad-half mb-10"
+                        src="{{ $user->logo ? asset('storage/' . $user->logo) : asset('/images/no-image.png') }}"
+                        alt="user photo" />
+                @endif
                 <h3 class="m-0 font-bold">{{ $user->name }}</h3>
             </div>
             <div class="info-box w-full txt-c-mobile">
@@ -46,7 +53,8 @@
                         <select name="year" class="b-none border-ccc p-1 rad-6 d-block w-full" style="height: 40px;">
                             |<option value="" selected disabled> Select a year</option>
                             @for ($i = 2020; $i < 2031; $i++)
-                                <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}
+                                <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>
+                                    {{ $i }}
                                 </option>
                             @endfor
                         </select>

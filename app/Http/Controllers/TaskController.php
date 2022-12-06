@@ -153,6 +153,10 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
+        if ($task->user_id != auth()->id()) {
+            // abort(403, 'Unauthorized action');
+            return redirect('/tasks')->with('message', 'Unauthorized action');
+        }
         $statuses = Status::all();
         return view('tasks.edit', [
             'task' => $task,
@@ -225,6 +229,7 @@ class TaskController extends Controller
                 $task1->delete();
             }
         }
+        
         $task->delete();
         return redirect('/tasks')->with('message', 'Task deleted succefully!');
     }

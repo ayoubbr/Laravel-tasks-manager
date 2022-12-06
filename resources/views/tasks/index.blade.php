@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('content')
-    <div class="projects bx-shadow px-5 py-10 bg-white rad-10 m-5 mx-10">
+    <div class="projects bx-shadow px-5 py-10 bg-white rad-10 m-5 mx-10 mb-24">
         <span class="d-flex justify-between p-3 bg-sky-600 rounded-md text-white">
             <p>Task Title</p>
             <div class="d-flex gap-1.5">

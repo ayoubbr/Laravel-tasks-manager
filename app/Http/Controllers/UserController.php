@@ -28,7 +28,7 @@ class UserController extends Controller
         if ($request->hasFile('logo')) {
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
-        
+
         $formFields['password'] = bcrypt($formFields['password']);
 
         $user = User::create($formFields);
@@ -98,7 +98,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-
+        if ($user->id != auth()->id()) {
+            return redirect('/users')->with('message', 'Unauthorized action');
+        }
         return view('users.edit', [
             'user' => $user,
         ]);
@@ -106,6 +108,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+
+        if ($user->id != auth()->id()) {
+            return redirect('/users')->with('message', 'Unauthorized action');
+        }
+
         $user->delete();
 
         return redirect('/users')->with('message', 'User deleted successfully!');

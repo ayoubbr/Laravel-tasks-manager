@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-
     public function store(Request $request, $id)
     {
         $task = Task::find($id);
